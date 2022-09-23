@@ -1,0 +1,113 @@
+<!-- File: readme.html
+  Copyright (c) 2022 Splunk Inc.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software distributed under
+the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+either express or implied. See the License for the specific language governing permissions
+and limitations under the License.
+-->
+<h3>
+  Expressions in DynamoDB
+</h3>
+<p>
+  AWS DynamoDBuse uses expressions to denote the attributes that you want to read from an item. It also uses expressions
+  when writing an item to indicate any conditions that must be met, and to indicate how the attributes are
+  to be updated. Expressions are an integral part of using DynamoDB, and they are used in a few different ways:
+</p>
+<ul>
+  <li>Condition Expressions</li>
+  <li>Update Expressions</li>
+  <li>Key Condiotion Expressions</li>
+  <li>Filter Expressions</li>
+  <li>Projection Expressions</li>
+</ul>
+<br>
+
+<div>
+  <h4>
+    Condition Expressions
+  </h4>
+  <p>
+    To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item operatios.
+    For these data manipulation operations, we can specify a condition expression to determine which items should be
+    modified. If the condition expression evaluates to true, the operation succeeds; otherwise, the operation fails.
+  </p>
+  <h4>
+    Update Expressions
+  </h4>
+  <p>
+    To update an existing item in an AWS DynamoDB table, we use the Update Item operation. We must provide the key of
+    the item that we want to update. We must also provide an update expression, indicating the attributes that you want
+    to modify and the values that you want to assign to them. There are 4 operations update expression suppports :
+  <ul>
+    <li>
+      <a
+        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET">SET</a>—modifying
+      or adding item attributes
+    </li>
+    <li>
+      <a
+        href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.REMOVE">REMOVE</a>—deleting
+      attributes from an item
+    </li>
+    <li>
+      ADD—updating numbers and sets
+    </li>
+    <li>
+      DELETE—removing elements from a set
+    </li>
+  </ul>
+  </p>
+  <h4>
+    Key Condition Expressions
+  </h4>
+  <p>
+    They are used when querying a table with a composite primary key to limit the items selected.
+  </p>
+  <h4>
+    Filter Expressions
+  </h4>
+  <p>
+    They allow you to filter the results of queries and scans to allow for more efficient responses.
+  </p>
+  <h4>
+    Projection Expressions
+  </h4>
+  <p>
+    They are used to specify a subset of attributes you want to receive when reading Items. We used these in our GetItem
+    calls in the previous lesson.
+  </p>
+</div>
+
+<h4>Expression attribute names and values</h4>
+<p>
+  While using this app certain actions will ask for <strong>expression attribute names</strong> and <strong>expression
+    attributevalues</strong> which would be neccessay while using expressions. This values are neccessay to pass for the
+  following conditions:
+</p>
+<ul>
+  <li>To access an attribute whose name conflicts with a DynamoDB
+    <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html">reserved words</a>.
+  </li>
+  <li>To create a placeholder for repeating occurrences of an attribute name in an expression.</li>
+  <li>To prevent special characters in an attribute name from being misinterpreted in an expression.</li>
+</ul>
+<br>
+<div>
+  <h4>To write the expression attribute data reffer the code snippets given below</h4>
+  <p><strong>Expression Attribite Names</strong></p>
+  <a href="/app_resource/awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9/images/expression_attribute_names.svg">
+    <img src="/app_resource/awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9/images/expression_attribute_names.svg">
+  </a>
+  <br>
+  <p></p><strong>Expression Attribite Values</strong></p>
+  <a href="/app_resource/awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9/images/expression_attribute_values.svg">
+    <img src="/app_resource/awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9/images/expression_attribute_values.svg">
+  </a>
+</div>

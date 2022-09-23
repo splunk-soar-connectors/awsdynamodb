@@ -1,0 +1,3729 @@
+{
+    "appid": "6f58c338-7829-4dfa-ae3e-0d44cf2427f9",
+    "name": "AWS DynamoDB",
+    "description": "This app supports CRUD operations in a AWS DynamoDB database",
+    "type": "information",
+    "product_vendor": "AWS",
+    "logo": "logo_awsdynamodb.svg",
+    "logo_dark": "logo_awsdynamodb_dark.svg",
+    "product_name": "AWS DynamoDB",
+    "python_version": "3",
+    "product_version_regex": ".*",
+    "publisher": "Splunk",
+    "license": "Copyright (c) Splunk, 2022",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-08-22T10:16:54.377941Z",
+    "package_name": "phantom_awsdynamodb",
+    "main_module": "awsdynamodb_connector.py",
+    "min_phantom_version": "5.3.0",
+    "app_wizard_version": "1.0.0",
+    "configuration": {
+        "access_key": {
+            "description": "Access Key",
+            "data_type": "password",
+            "order": 0
+        },
+        "secret_key": {
+            "description": "Secret Key",
+            "data_type": "password",
+            "order": 1
+        },
+        "region": {
+            "description": "Default Region",
+            "data_type": "string",
+            "required": true,
+            "value_list": [
+                "US East (Ohio)",
+                "US East (N. Virginia)",
+                "US West (N. California)",
+                "US West (Oregon)",
+                "Asia Pacific (Mumbai)",
+                "Asia Pacific (Seoul)",
+                "Asia Pacific (Singapore)",
+                "Asia Pacific (Sydney)",
+                "Asia Pacific (Tokyo)",
+                "Canada (Central)",
+                "China (Beijing)",
+                "China (Ningxia)",
+                "EU (Frankfurt)",
+                "EU (Ireland)",
+                "EU (London)",
+                "EU (Paris)",
+                "EU (Stockholm)",
+                "South America (Sao Paulo)",
+                "AWS GovCloud (US-East)",
+                "AWS GovCloud (US)"
+            ],
+            "order": 2
+        },
+        "use_role": {
+            "description": "Use attached role when running Phantom in EC2",
+            "data_type": "boolean",
+            "default": false,
+            "visibility": [
+                "onprem"
+            ],
+            "order": 3
+        }
+    },
+    "pip_dependencies": {
+        "wheel": [
+            {
+                "module": "boto3",
+                "input_file": "wheels/shared/boto3-1.24.56-py3-none-any.whl"
+            },
+            {
+                "module": "botocore",
+                "input_file": "wheels/shared/botocore-1.27.57-py3-none-any.whl"
+            },
+            {
+                "module": "jmespath",
+                "input_file": "wheels/shared/jmespath-1.0.1-py3-none-any.whl"
+            }
+        ]
+    },
+    "actions": [
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using the supplied configuration",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create table",
+            "identifier": "create_table",
+            "description": "Create a table in the database",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "billing_mode": {
+                    "description": "Billing mode to be used",
+                    "data_type": "string",
+                    "order": 1,
+                    "value_list": [
+                        "PROVISIONED",
+                        "PAY_PER_REQUEST"
+                    ]
+                },
+                "partition_key": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 3,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 5,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "read_capacity_units": {
+                    "data_type": "numeric",
+                    "description": ":Read Capacity Units",
+                    "order": 6
+                },
+                "write_capacity_units": {
+                    "data_type": "numeric",
+                    "description": "Write Capacity Units",
+                    "order": 7
+                },
+                "local_secondary_index": {
+                    "data_type": "string",
+                    "description": "JSON input for creating local secondary index",
+                    "order": 8
+                },
+                "global_secondary_index": {
+                    "data_type": "string",
+                    "description": "JSON input for creating global secondary index",
+                    "order": 8
+                },
+                "enable_stream": {
+                    "data_type": "string",
+                    "description": "DynamoDB Stream",
+                    "order": 9,
+                    "value_list": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "stream_view_type": {
+                    "data_type": "string",
+                    "description": "View type of dybamodb stream",
+                    "order": 10,
+                    "value_list": [
+                        "NEW_IMAGE",
+                        "OLD_IMAGE",
+                        "NEW_AND_OLD_IMAGES",
+                        "KEYS_ONLY"
+                    ]
+                },
+                "sse": {
+                    "description": "SSE",
+                    "data_type": "string",
+                    "order": 11,
+                    "value_list": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "kms_master_key_id": {
+                    "description": "Local secondary indexes",
+                    "data_type": "string",
+                    "order": 12
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.billing_mode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "Number"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.read_capacity_units",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.write_capacity_units",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.local_secondary_index",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"attribute_projection\": \"ALL\",\n    \"sort_key_name\": \"hardikst\",\n    \"sort_key_datatype\":  \"string\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.global_secondary_index",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\n    \"attribute_projection\": \"INCLUDE\",\n    \"partition_key_name\": \"newid\",\n    \"partition_key_datatype\": \"string\",\n    \"sort_key_name\":  \"newname\",\n    \"sort_key_datatype\":  \"string\",\n    \"NonKeyAttributes\":  [\"num1\",\"num2\"]\n}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.enable_stream",
+                    "data_type": "string",
+                    "example_values": [
+                        "True"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.stream_view_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "NEW_IMAGE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sse",
+                    "data_type": "string",
+                    "example_values": [
+                        "False"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.kms_master_key_id",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created Table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 06:07:34 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2160627733"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1680"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "f250b7a4-20e6-49cd-afed-20de7a883fef"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.Status",
+                    "data_type": "string",
+                    "example_values": [
+                        "ENABLED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.SSEType",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMS"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.KMSMasterKeyArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 06:07:34.858000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeType",
+                    "data_type": "string",
+                    "example_values": [
+                        "N"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "INCLUDE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.NonKeyAttributes",
+                    "data_type": "string",
+                    "example_values": [
+                        "num1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "put item",
+            "identifier": "put_item",
+            "description": "Add an item in the table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Table name to add item to",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "item_json": {
+                    "description": "Item to addded in the record",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                },
+                "condition_expression": {
+                    "description": "Conditon to be check before delete an item",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "attribute names josn",
+                    "order": 3
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "attribute values json",
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.item_json",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"testing1\":{\"S\":\"32\"},\"age\":{\"N\":\"12\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.condition_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "#age <> :age"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"#age\":\"age\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":age\":{\"N\":\"12\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item inserted successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 10:24:42 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get item",
+            "identifier": "get_item",
+            "description": "Get an item from the table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Get an item from the table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "partition_key": {
+                    "description": "Partition key name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "sort_key": {
+                    "description": "Sort key name",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 3
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 5,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "attributes_to_get": {
+                    "data_type": "string",
+                    "description": "expression to inculde sepecfic attributes from the item",
+                    "order": 7,
+                    "value_list": []
+                },
+                "reserved_keyword_attributes": {
+                    "data_type": "string",
+                    "description": "expression to inculde sepecfic attributes from the item",
+                    "order": 8,
+                    "value_list": []
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "testing1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.attributes_to_get",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.reserved_keyword_attributes",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched Item Data Successfuly"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Item",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 05:59:54 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4263225874"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "106"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "update item",
+            "identifier": "update_item",
+            "description": "Update an item in the table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of table in which item is to be updated",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "update_expression": {
+                    "description": "Expression to update the atrribute",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "partition_key": {
+                    "description": "Partition key name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2
+                },
+                "sort_key": {
+                    "description": "Sort key name",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 4
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 7,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "attribute names josn",
+                    "order": 8
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "attribute values json",
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "testing1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.update_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "set #age = :age"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"#age\" :  \"age\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":age\":{\"N\":\"24\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Updated item successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 10:01:09 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete item",
+            "identifier": "delete_item",
+            "description": "Delete an item in the table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Table name to delete item from",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "condition_expression": {
+                    "description": "Conditon to be check before delete an item",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "partition_key": {
+                    "description": "Partition key name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2
+                },
+                "sort_key": {
+                    "description": "Sort key name",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 4
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 7,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "attribute names josn",
+                    "order": 8
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "attribute values json",
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_query"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.condition_expression",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "firstname"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "Hardik"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key",
+                    "data_type": "string",
+                    "example_values": [
+                        "lastname"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "Kamani"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item deleted successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 21 Sep 2022 18:17:41 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete table",
+            "identifier": "delete_table",
+            "description": "Delete a table from database",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table to delete",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "yash"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Deleted Table Successfuly"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 21 Sep 2022 18:29:19 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "3710880937"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "310"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "78197d82-7d17-49ad-b622-fb5a619832dd"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/yash"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "yash"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "DELETING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "query data",
+            "identifier": "query_data",
+            "description": "query data from database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "data_type": "string",
+                    "description": "Name of Table to perfrom query on",
+                    "required": true,
+                    "order": 0
+                },
+                "index_name": {
+                    "data_type": "string",
+                    "description": "Name of Table to perfrom query on",
+                    "order": 1
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "attribute names josn",
+                    "required": true,
+                    "order": 2
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "attribute values json",
+                    "required": true,
+                    "order": 3
+                },
+                "key_condittion_expression": {
+                    "data_type": "string",
+                    "description": "attribute values json",
+                    "required": true,
+                    "order": 4
+                },
+                "filter_expression": {
+                    "data_type": "string",
+                    "description": "expression to filter data from table",
+                    "order": 5
+                },
+                "projection_expression": {
+                    "data_type": "string",
+                    "description": "attributes to be included in the result",
+                    "order": 6
+                },
+                "exclusive_start_key": {
+                    "data_type": "string",
+                    "description": "ExclusiveStartKey",
+                    "value_list": [],
+                    "order": 7
+                },
+                "select": {
+                    "data_type": "string",
+                    "description": "attributes to be included in the result",
+                    "value_list": [
+                        "COUNT",
+                        "ALL_ATTRIBUTES",
+                        "ALL_PROJECTED_ATTRIBUTES",
+                        "SPECIFIC_ATTRIBUTES"
+                    ],
+                    "order": 8
+                },
+                "return_consumned_capacity": {
+                    "data_type": "string",
+                    "description": "attributes to be included in the result",
+                    "value_list": [
+                        "INDEXES",
+                        "TOTAL",
+                        "NONE"
+                    ],
+                    "order": 9
+                },
+                "max_items": {
+                    "data_type": "numeric",
+                    "description": "number of items to process",
+                    "value_list": [],
+                    "order": 10
+                },
+                "sort_desending": {
+                    "data_type": "boolean",
+                    "description": "attributes to be included in the result",
+                    "value_list": [],
+                    "order": 11
+                },
+                "consistent_read": {
+                    "data_type": "boolean",
+                    "description": "attributes to be included in the result",
+                    "value_list": [],
+                    "order": 12
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_query"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.index_name",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{ \"#fn\" :  \"firstname\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":fn\" : { \"S\" : \"Hardik\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.key_condittion_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "#fn  =  :fn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.filter_expression",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.projection_expression",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.select",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL_ATTRIBUTES"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.consistent_read",
+                    "data_type": "string",
+                    "example_values": [
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_desending",
+                    "data_type": "string",
+                    "example_values": [
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.return_consumned_capacity",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.exclusive_start_key",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched data successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Items",
+                    "data_type": "string",
+                    "example_values": []
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list tables",
+            "identifier": "list_tables",
+            "description": "List all the tables present in the database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "max_items": {
+                    "data_type": "numeric",
+                    "description": "",
+                    "value_list": [],
+                    "order": 0
+                },
+                "starting_token": {
+                    "data_type": "string",
+                    "description": "",
+                    "value_list": [],
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "string",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.starting_token",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched list of table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "example_values": [
+                        "room_test_1"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "List Tables",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create backup",
+            "identifier": "create_backup",
+            "description": "Create backup of an existing table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table to backup",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "backup_name": {
+                    "description": "Name of backup",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123-backup"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de",
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars_backup",
+                        "newtable123-backup"
+                    ],
+                    "column_name": "Backup name",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-14 12:29:03.903000+00:00",
+                        "2022-09-22 11:30:03.118000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:29:03 GMT",
+                        "Thu, 22 Sep 2022 11:30:03 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "1789868498",
+                        "1895002589"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "252",
+                        "264"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created backup successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "Create Backup"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete backup",
+            "identifier": "delete_backup",
+            "description": "Delete backup of a table",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "backup_arn": {
+                    "description": "Backup ARN",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:29:44 GMT",
+                        "Thu, 22 Sep 2022 10:45:17 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "408729803",
+                        "2968903155"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "769",
+                        "810"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de",
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars_backup",
+                        "newDevTableBackup"
+                    ],
+                    "column_name": "Backup name",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "DELETED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        352
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-14 12:29:03.903000+00:00",
+                        "2022-09-22 05:29:10.617000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "0fa008bb-5e6d-4287-949e-9872a952927f",
+                        "c08213e2-7a1b-4c44-abaa-bf3a52092232"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars",
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "VID",
+                        "testing1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars",
+                        "test_dev_table"
+                    ],
+                    "column_name": "Table name",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.BillingMode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        352
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-08-05 10:14:20.426000+00:00",
+                        "2022-07-29 12:44:24.597000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableFeatureDetails.StreamDescription.StreamEnabled",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableFeatureDetails.StreamDescription.StreamViewType",
+                    "data_type": "string",
+                    "example_values": [
+                        "NEW_AND_OLD_IMAGES"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Deleted backup successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "Delete Backup"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list backups",
+            "identifier": "list_backups",
+            "description": "List backups",
+            "type": "generic",
+            "read_only": true,
+            "parameters": {
+                "backup_type": {
+                    "description": "Backup type",
+                    "data_type": "string",
+                    "order": 0
+                },
+                "exclusive_start_backup_arn": {
+                    "description": "",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "max_items": {
+                    "description": "max backups to get in a call",
+                    "data_type": "numeric",
+                    "order": 2
+                },
+                "table_name": {
+                    "description": "Table name",
+                    "data_type": "string",
+                    "order": 3
+                },
+                "time_range_lower_bound": {
+                    "description": "Time range lower binding (Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "time_range_upper_bound": {
+                    "description": "Time range upper bound (Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
+                    "data_type": "string",
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.backup_type",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.exclusive_start_backup_arn",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "numeric",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.time_range_lower_bound",
+                    "data_type": "numeric",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.time_range_upper_bound",
+                    "data_type": "numeric",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "c08213e2-7a1b-4c44-abaa-bf3a52092232"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01659614741851-9435638e"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ],
+                    "column_name": "Table name",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newDevTableBackup"
+                    ],
+                    "column_name": "Backup name",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "AVAILABLE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        182
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-08-04 12:05:41.851000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:24:04 GMT",
+                        "Wed, 21 Sep 2022 17:15:59 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4139981727",
+                        "949983841"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1570",
+                        "1935"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched backup data successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "List Backups"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list global tables",
+            "identifier": "list_global_tables",
+            "description": "List global tables",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Table",
+                    "data_type": "string",
+                    "order": 0
+                },
+                "region_name": {
+                    "description": "Name of region",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "limit": {
+                    "description": "No of tables to fetch",
+                    "data_type": "numeric",
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.global_table_name",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.region_name",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.limit",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Feteched global table list successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTables.*.GlobalTableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTables.*.ReplicationGroup.*.RegionName",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 05:53:30 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2321728776"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "224"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create global table",
+            "identifier": "create_global_table",
+            "description": "Create a global table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "replication_group": {
+                    "description": "Name of region",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.global_table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.replication_group",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 11:50:25 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "1081780290"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "236"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb::157568067690:global-table/room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:50:25.594000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.ReplicationGroup.*.RegionName",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "restore backup table",
+            "identifier": "restore_table_from_backup",
+            "description": "Restore table from backup",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0
+                },
+                "backup_arn": {
+                    "description": "Backup ARN",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1
+                },
+                "billing_mode_override": {
+                    "description": "Billing mode override",
+                    "data_type": "string",
+                    "order": 2,
+                    "value_list": [
+                        "PROVISIONED",
+                        "PAY_PER_REQUEST"
+                    ]
+                },
+                "read_capacity_override": {
+                    "description": "Read capacity override",
+                    "data_type": "numeric",
+                    "order": 3
+                },
+                "write_capacity_override": {
+                    "description": "Write capacity override",
+                    "data_type": "numeric",
+                    "order": 4
+                },
+                "restore_secondary_indexes": {
+                    "description": "Restore secondary indexes",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 5,
+                    "default": "Restore the table without secondary indexes",
+                    "value_list": [
+                        "Restore the entire table",
+                        "Restore the table without secondary indexes"
+                    ]
+                },
+                "sse_enable_override": {
+                    "description": "SSE",
+                    "data_type": "string",
+                    "order": 8,
+                    "value_list": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "kms_master_key_id": {
+                    "description": "Local secondary indexes",
+                    "data_type": "string",
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "retorenewtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.billing_mode_override",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.read_capacity_override",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.write_capacity_override",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.restore_secondary_indexes",
+                    "data_type": "string",
+                    "example_values": [
+                        "Restore the entire table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sse_enable_override",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.parameter.kms_master_key_id",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0,
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        ""
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 11:43:36 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4165026467"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1995"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "67ede490-028f-40ca-b286-2e320f2295c4"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "retorenewtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.SourceTableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.RestoreDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:30:03.118000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.SourceBackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.RestoreInProgress",
+                    "data_type": "numeric",
+                    "example_values": [
+                        true
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.Status",
+                    "data_type": "string",
+                    "example_values": [
+                        "ENABLED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.SSEType",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMS"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.KMSMasterKeyArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:43:36.491000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.BillingModeSummary.BillingMode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newname"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeType",
+                    "data_type": "string",
+                    "example_values": [
+                        "S"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "INCLUDE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.NonKeyAttributes",
+                    "data_type": "string",
+                    "example_values": [
+                        "num1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        }
+    ],
+    "directory": "awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9",
+    "version": 1,
+    "appname": "-",
+    "executable": "spawn3",
+    "disabled": false
+}
