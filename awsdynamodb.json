@@ -99,15 +99,16 @@
             "description": "Create a table in the database",
             "type": "generic",
             "read_only": true,
+            "verbose": "<p><strong>NOTE</strong></p> <ul> <li> <p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p> </li> <li> <div> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p> <ul> <li>PROVISIONED: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p> </div> </li> <li> <div> <p>If stream are enabled you need to select stream view type. There are four options you could select from: </p> <ul> <li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li> <li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li> </ul> </div> </li> <li> <p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li> </ul>",
             "parameters": {
                 "table_name": {
-                    "description": "Name of Table",
+                    "description": "Name of table to be created",
                     "required": true,
                     "data_type": "string",
                     "order": 0
                 },
                 "billing_mode": {
-                    "description": "Billing mode to be used",
+                    "description": "Billing mode to be used for table",
                     "data_type": "string",
                     "order": 1,
                     "value_list": [
@@ -115,14 +116,14 @@
                         "PAY_PER_REQUEST"
                     ]
                 },
-                "partition_key": {
-                    "description": "Partition key value",
+                "partition_key_name": {
+                    "description": "Partition key name for table items",
                     "data_type": "string",
                     "required": true,
                     "order": 2
                 },
                 "partition_key_datatype": {
-                    "description": "Partition key datatype",
+                    "description": "Datatype of partition key",
                     "required": true,
                     "data_type": "string",
                     "order": 3,
@@ -132,14 +133,14 @@
                         "Number"
                     ]
                 },
-                "sort_key": {
-                    "description": "Sort key value",
+                "sort_key_name": {
+                    "description": "Sort key name for table items",
                     "data_type": "string",
                     "order": 4
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
-                    "description": "Sort key datatype",
+                    "description": "Datatype for sort key",
                     "order": 5,
                     "value_list": [
                         "String",
@@ -149,12 +150,12 @@
                 },
                 "read_capacity_units": {
                     "data_type": "numeric",
-                    "description": ":Read Capacity Units",
+                    "description": "Read capacity units for provisioned mode",
                     "order": 6
                 },
                 "write_capacity_units": {
                     "data_type": "numeric",
-                    "description": "Write Capacity Units",
+                    "description": "Write capacity units for provisioned mode",
                     "order": 7
                 },
                 "local_secondary_index": {
@@ -168,17 +169,13 @@
                     "order": 8
                 },
                 "enable_stream": {
-                    "data_type": "string",
-                    "description": "DynamoDB Stream",
-                    "order": 9,
-                    "value_list": [
-                        "True",
-                        "False"
-                    ]
+                    "data_type": "boolean",
+                    "description": "Enable streams for the table",
+                    "order": 9
                 },
                 "stream_view_type": {
                     "data_type": "string",
-                    "description": "View type of dybamodb stream",
+                    "description": "View type of dynamodb stream",
                     "order": 10,
                     "value_list": [
                         "NEW_IMAGE",
@@ -188,7 +185,7 @@
                     ]
                 },
                 "sse": {
-                    "description": "SSE",
+                    "description": "Settings used to enable server-side encryption",
                     "data_type": "string",
                     "order": 11,
                     "value_list": [
@@ -197,7 +194,7 @@
                     ]
                 },
                 "kms_master_key_id": {
-                    "description": "Local secondary indexes",
+                    "description": "The KMS key that should be used for the KMS encryption",
                     "data_type": "string",
                     "order": 12
                 }
@@ -218,14 +215,14 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.partition_key",
+                    "data_path": "action_result.parameter.partition_key_name",
                     "data_type": "string",
                     "example_values": [
                         "ID"
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.sort_key",
+                    "data_path": "action_result.parameter.sort_key_name",
                     "data_type": "string",
                     "example_values": [
                         "name"
@@ -675,30 +672,30 @@
             "read_only": true,
             "parameters": {
                 "table_name": {
-                    "description": "Table name to add item to",
+                    "description": "Name of table in which you want to add the item",
                     "required": true,
                     "data_type": "string",
                     "order": 0
                 },
                 "item_json": {
-                    "description": "Item to addded in the record",
+                    "description": "Item that is to be addded in the table",
                     "required": true,
                     "data_type": "string",
                     "order": 1
                 },
                 "condition_expression": {
-                    "description": "Conditon to be check before delete an item",
+                    "description": "Conditon to be checked before inserting an item",
                     "data_type": "string",
                     "order": 2
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "attribute names josn",
+                    "description": "Attribute names json",
                     "order": 3
                 },
                 "expression_attribute_values": {
                     "data_type": "string",
-                    "description": "attribute values json",
+                    "description": "Attribute values json",
                     "order": 4
                 }
             },
@@ -862,19 +859,19 @@
             "read_only": true,
             "parameters": {
                 "table_name": {
-                    "description": "Get an item from the table",
+                    "description": "Name of table from which you want to fetch item",
                     "required": true,
                     "data_type": "string",
                     "order": 0
                 },
-                "partition_key": {
-                    "description": "Partition key name",
+                "partition_key_name": {
+                    "description": "Name of partition key",
                     "data_type": "string",
                     "required": true,
                     "order": 1
                 },
-                "sort_key": {
-                    "description": "Sort key name",
+                "sort_key_name": {
+                    "description": "Name of sort key",
                     "data_type": "string",
                     "order": 2
                 },
@@ -912,13 +909,13 @@
                 },
                 "attributes_to_get": {
                     "data_type": "string",
-                    "description": "expression to inculde sepecfic attributes from the item",
+                    "description": "To fetch sepecfic attributes from the item",
                     "order": 7,
                     "value_list": []
                 },
                 "reserved_keyword_attributes": {
                     "data_type": "string",
-                    "description": "expression to inculde sepecfic attributes from the item",
+                    "description": "To fetch attributes from items whose names are same as reserved keywords",
                     "order": 8,
                     "value_list": []
                 }
@@ -932,7 +929,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.partition_key",
+                    "data_path": "action_result.parameter.partition_key_name",
                     "data_type": "string",
                     "example_values": [
                         "testing1"
@@ -946,7 +943,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.sort_key",
+                    "data_path": "action_result.parameter.sort_key_name",
                     "data_type": "string",
                     "example_values": []
                 },
@@ -1161,12 +1158,12 @@
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "attribute names josn",
+                    "description": "Attribute names josn",
                     "order": 8
                 },
                 "expression_attribute_values": {
                     "data_type": "string",
-                    "description": "attribute values json",
+                    "description": "Attribute values json",
                     "order": 9
                 }
             },
@@ -1414,12 +1411,12 @@
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "attribute names josn",
+                    "description": "Attribute names josn",
                     "order": 8
                 },
                 "expression_attribute_values": {
                     "data_type": "string",
-                    "description": "attribute values json",
+                    "description": "Attribute values json",
                     "order": 9
                 }
             },
@@ -1825,41 +1822,41 @@
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "attribute names josn",
+                    "description": "Attribute names josn",
                     "required": true,
                     "order": 2
                 },
                 "expression_attribute_values": {
                     "data_type": "string",
-                    "description": "attribute values json",
+                    "description": "Attribute values json",
                     "required": true,
                     "order": 3
                 },
                 "key_condittion_expression": {
                     "data_type": "string",
-                    "description": "attribute values json",
+                    "description": "Attribute values json",
                     "required": true,
                     "order": 4
                 },
                 "filter_expression": {
                     "data_type": "string",
-                    "description": "expression to filter data from table",
+                    "description": "Expression to filter data from table",
                     "order": 5
                 },
                 "projection_expression": {
                     "data_type": "string",
-                    "description": "attributes to be included in the result",
+                    "description": "Attributes to be included in the result",
                     "order": 6
                 },
                 "exclusive_start_key": {
                     "data_type": "string",
-                    "description": "ExclusiveStartKey",
+                    "description": "Exclusive Start Key",
                     "value_list": [],
                     "order": 7
                 },
                 "select": {
                     "data_type": "string",
-                    "description": "attributes to be included in the result",
+                    "description": "Attributes to be included in the result",
                     "value_list": [
                         "COUNT",
                         "ALL_ATTRIBUTES",
@@ -1870,7 +1867,7 @@
                 },
                 "return_consumned_capacity": {
                     "data_type": "string",
-                    "description": "attributes to be included in the result",
+                    "description": "Attributes to be included in the result",
                     "value_list": [
                         "INDEXES",
                         "TOTAL",
@@ -1880,19 +1877,19 @@
                 },
                 "max_items": {
                     "data_type": "numeric",
-                    "description": "number of items to process",
+                    "description": "Maximum number of items to process",
                     "value_list": [],
                     "order": 10
                 },
                 "sort_desending": {
                     "data_type": "boolean",
-                    "description": "attributes to be included in the result",
+                    "description": "Attributes to be included in the result",
                     "value_list": [],
                     "order": 11
                 },
                 "consistent_read": {
                     "data_type": "boolean",
-                    "description": "attributes to be included in the result",
+                    "description": "Attributes to be included in the result",
                     "value_list": [],
                     "order": 12
                 }
@@ -2037,13 +2034,13 @@
             "parameters": {
                 "max_items": {
                     "data_type": "numeric",
-                    "description": "",
+                    "description": "Maximum number of items to list",
                     "value_list": [],
                     "order": 0
                 },
                 "starting_token": {
                     "data_type": "string",
-                    "description": "",
+                    "description": "Start from a specific table",
                     "value_list": [],
                     "order": 0
                 }
@@ -2632,13 +2629,13 @@
                     "data_type": "string",
                     "order": 3
                 },
-                "time_range_lower_bound": {
-                    "description": "Time range lower binding (Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
+                "start_date": {
+                    "description": "List tables created after provided date.(Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
                     "data_type": "string",
                     "order": 4
                 },
-                "time_range_upper_bound": {
-                    "description": "Time range upper bound (Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
+                "end_date": {
+                    "description": "List tables created before provided data.(Valid date format allowed: MM/DD/YYYY hh:mm:ss and YYYY/MM/DD hh:mm:ss)",
                     "data_type": "string",
                     "order": 5
                 }
@@ -2665,12 +2662,12 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.parameter.time_range_lower_bound",
+                    "data_path": "action_result.parameter.start_date",
                     "data_type": "numeric",
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.parameter.time_range_upper_bound",
+                    "data_path": "action_result.parameter.end_date",
                     "data_type": "numeric",
                     "example_values": []
                 },
