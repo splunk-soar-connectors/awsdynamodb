@@ -14,17 +14,19 @@
 # and limitations under the License.
 
 
-from awsdynamodb_consts import *
-from phantom.action_result import ActionResult
-from phantom.base_connector import BaseConnector
-import phantom.app as phantom
-from botocore.config import Config
-from boto3 import client, Session
+import ast
 import json
 from datetime import datetime
-from dateutil.parser import parse
+
+import phantom.app as phantom
 import requests
-import ast
+from boto3 import Session, client
+from botocore.config import Config
+from dateutil.parser import parse
+from phantom.action_result import ActionResult
+from phantom.base_connector import BaseConnector
+
+from awsdynamodb_consts import *
 
 # Phantom App imports
 
@@ -140,7 +142,12 @@ class AwsDynamodbConnector(BaseConnector):
         attribute_definations = []
         for data in key_data:
             if not isinstance(data, dict):
-                return action_result.set_status(phantom.APP_ERROR, "DICT CHECK Invalid input passed for creating {} secondary index".format(index_type))
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "DICT CHECK Invalid input passed for creating {} secondary index".format(
+                        index_type
+                    )
+                )
 
                 # basic structure for index objects
             index_key_object = {
@@ -414,10 +421,16 @@ class AwsDynamodbConnector(BaseConnector):
             if isinstance(local_sec_index, dict):
                 local_sec_index = [local_sec_index]
             elif not isinstance(local_sec_index, list):
-                return action_result.set_status(phantom.APP_ERROR, "Invalid data format for LSI, please enter data in valid format as mentioned in documentation")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid data format for LSI, please enter data in valid format as mentioned in documentation"
+                )
 
             if len(local_sec_index) > 5:
-                return action_result.set_status(phantom.APP_ERROR, "Index limit exceeded, can create only 5 local seconday at max. Please enter 5 or less keys data")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Index limit exceeded, can create only 5 local seconday at max. Please enter 5 or less keys data"
+                )
 
             ret_val = self._parse_json_for_indexes(
                 action_result,
@@ -440,12 +453,18 @@ class AwsDynamodbConnector(BaseConnector):
                     phantom.APP_ERROR, "Invalid Json data for Global Secondary Index : {}".format(e))
 
             if len(global_sec_index) > 20:
-                return action_result.set_status(phantom.APP_ERROR, "Index limit exceeded, can create only 20 local seconday at max. Please enter 20 or less keys data")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Index limit exceeded, can create only 20 local seconday at max. Please enter 20 or less keys data"
+                )
 
             if isinstance(global_sec_index, dict):
                 global_sec_index = [global_sec_index]
             elif not isinstance(global_sec_index, list):
-                return action_result.set_status(phantom.APP_ERROR, "Invalid data format for GSI, please enter data in valid format as mentioned in documentation")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid data format for GSI, please enter data in valid format as mentioned in documentation"
+                )
 
             ret_val = self._parse_json_for_indexes(
                 action_result,
@@ -589,19 +608,28 @@ class AwsDynamodbConnector(BaseConnector):
                     if isinstance(attribute_names, dict):
                         payload['ExpressionAttributeNames'] = attribute_names
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute names, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute names, please enter data in correct fromat"
+                        )
 
                     if isinstance(attribute_values, dict):
                         payload['ExpressionAttributeValues'] = attribute_values
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute values, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute values, please enter data in correct fromat"
+                        )
 
                     payload['ConditionExpression'] = condition_expression
                 except Exception as e:
                     return action_result.set_status(phantom.APP_ERROR, e)
 
             else:
-                return action_result.set_status(phantom.APP_ERROR, "Missing attribute expression names/values")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Missing attribute expression names/values"
+                )
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
@@ -704,12 +732,18 @@ class AwsDynamodbConnector(BaseConnector):
                     if isinstance(attribute_names, dict):
                         payload['ExpressionAttributeNames'] = attribute_names
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute names, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute names, please enter data in correct fromat"
+                        )
 
                     if isinstance(attribute_values, dict):
                         payload['ExpressionAttributeValues'] = attribute_values
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute values, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute values, please enter data in correct fromat"
+                        )
 
                     payload['ConditionExpression'] = condition_expression
                 except Exception as e:
@@ -776,18 +810,27 @@ class AwsDynamodbConnector(BaseConnector):
                     if isinstance(attribute_names, dict):
                         payload['ExpressionAttributeNames'] = attribute_names
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute names, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute names, please enter data in correct fromat"
+                        )
 
                     if isinstance(attribute_values, dict):
                         payload['ExpressionAttributeValues'] = attribute_values
                     else:
-                        return action_result.set_status(phantom.APP_ERROR, "Invalid format for expression attribute values, please enter data in correct fromat")
+                        return action_result.set_status(
+                            phantom.APP_ERROR,
+                            "Invalid format for expression attribute values, please enter data in correct fromat"
+                        )
 
                     payload['UpdateExpression'] = update_expression
                 except Exception as e:
                     return action_result.set_status(phantom.APP_ERROR, e)
             else:
-                return action_result.set_status(phantom.APP_ERROR, "Missing attribute expression names/values")
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Missing attribute expression names/values"
+                )
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
@@ -825,7 +868,10 @@ class AwsDynamodbConnector(BaseConnector):
             attribiute_values = json.loads(
                 param['expression_attribute_values'])
         except Exception:
-            return action_result.set_status(phantom.APP_ERROR, "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues")
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues"
+            )
 
         payload = {
             "TableName": table_name,
@@ -836,7 +882,10 @@ class AwsDynamodbConnector(BaseConnector):
             payload["ExpressionAttributeNames"] = attribute_names
             payload["ExpressionAttributeValues"] = attribiute_values
         else:
-            return action_result.set_status(phantom.APP_ERROR, "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues")
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues"
+            )
 
         # adding data for optional data
         self.debug_print("cehcking optional parameters")
