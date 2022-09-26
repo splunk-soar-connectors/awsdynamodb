@@ -70,11 +70,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/shared/boto3-1.24.56-py3-none-any.whl"
+                "input_file": "wheels/shared/boto3-1.24.80-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/shared/botocore-1.27.57-py3-none-any.whl"
+                "input_file": "wheels/shared/botocore-1.27.80-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
@@ -99,7 +99,7 @@
             "description": "Create a table in the database",
             "type": "generic",
             "read_only": true,
-            "verbose": "<p><strong>NOTE</strong></p> <ul> <li> <p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p> </li> <li> <div> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p> <ul> <li>PROVISIONED: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p> </div> </li> <li> <div> <p>If stream are enabled you need to select stream view type. There are four options you could select from: </p> <ul> <li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li> <li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li> </ul> </div> </li> <li> <p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li> </ul>",
+            "verbose": "<p><strong>NOTE</strong></p> <ul> <li> <p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p> </li> <li> <div> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p> <ul> <li>PROVISIONED: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p> </div> </li> <li> <div> <p>If stream are enabled you need to select stream view type. There are four options you could select from: </p> <ul> <li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li> <li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li> </ul> </div> </li> <li> <p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li> </ul>.",
             "parameters": {
                 "table_name": {
                     "description": "Name of table to be created",
@@ -166,17 +166,17 @@
                 "global_secondary_index": {
                     "data_type": "string",
                     "description": "JSON input for creating global secondary index",
-                    "order": 8
+                    "order": 9
                 },
                 "enable_stream": {
                     "data_type": "boolean",
                     "description": "Enable streams for the table",
-                    "order": 9
+                    "order": 10
                 },
                 "stream_view_type": {
                     "data_type": "string",
                     "description": "View type of dynamodb stream",
-                    "order": 10,
+                    "order": 11,
                     "value_list": [
                         "NEW_IMAGE",
                         "OLD_IMAGE",
@@ -187,7 +187,7 @@
                 "sse": {
                     "description": "Settings used to enable server-side encryption",
                     "data_type": "string",
-                    "order": 11,
+                    "order": 12,
                     "value_list": [
                         "True",
                         "False"
@@ -196,7 +196,7 @@
                 "kms_master_key_id": {
                     "description": "The KMS key that should be used for the KMS encryption",
                     "data_type": "string",
-                    "order": 12
+                    "order": 13
                 }
             },
             "output": [
@@ -1805,7 +1805,7 @@
         {
             "action": "query data",
             "identifier": "query_data",
-            "description": "query data from database",
+            "description": "Query data from database",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -2042,7 +2042,7 @@
                     "data_type": "string",
                     "description": "Start from a specific table",
                     "value_list": [],
-                    "order": 0
+                    "order": 1
                 }
             },
             "output": [
@@ -2620,7 +2620,7 @@
                     "order": 1
                 },
                 "max_items": {
-                    "description": "max backups to get in a call",
+                    "description": "Maximum backups to get in a call",
                     "data_type": "numeric",
                     "order": 2
                 },
@@ -3262,7 +3262,7 @@
                 "sse_enable_override": {
                     "description": "SSE",
                     "data_type": "string",
-                    "order": 8,
+                    "order": 6,
                     "value_list": [
                         "True",
                         "False"
@@ -3271,7 +3271,7 @@
                 "kms_master_key_id": {
                     "description": "Local secondary indexes",
                     "data_type": "string",
-                    "order": 9
+                    "order": 7
                 }
             },
             "output": [
