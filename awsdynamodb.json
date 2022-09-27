@@ -17,6 +17,7 @@
     "main_module": "awsdynamodb_connector.py",
     "min_phantom_version": "5.3.0",
     "app_wizard_version": "1.0.0",
+    "fips_compliant": true,
     "configuration": {
         "access_key": {
             "description": "Access Key",
@@ -187,6 +188,7 @@
                 "sse": {
                     "description": "Settings used to enable server-side encryption",
                     "data_type": "string",
+                    "required": true,
                     "order": 12,
                     "value_list": [
                         "True",

@@ -1,4 +1,4 @@
-# File: awsdynamodb_connector.py
+# File: __init__.py
 #
 # Copyright (c) 2022 Splunk Inc.
 #
