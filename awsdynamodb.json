@@ -10,7 +10,7 @@
     "python_version": "3",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) Splunk, 2022",
+    "license": "Copyright (c) 2022 Splunk Inc.",
     "app_version": "1.0.0",
     "utctime_updated": "2022-08-22T10:16:54.377941Z",
     "package_name": "phantom_awsdynamodb",
