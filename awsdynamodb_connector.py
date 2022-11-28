@@ -70,7 +70,7 @@ class AwsDynamodbConnector(BaseConnector):
         if config.get('use_role'):
             credentials = self._handle_get_ec2_role()
             if not credentials:
-                return self.set_status(phantom.APP_ERROR, EC2_ROLE_CREDENTIALS_FAILURE_MSG)
+                return self.set_status(phantom.APP_ERROR, EC2_ROLE_CREDENTIALS_FAILURE_MESSAGE)
             self._access_key = credentials.access_key
             self._secret_key = credentials.secret_key
             self._session_token = credentials.token
@@ -81,7 +81,7 @@ class AwsDynamodbConnector(BaseConnector):
         self._secret_key = config.get(AWS_DYNAMODB_JSON_SECRET_KEY)
 
         if not (self._access_key and self._secret_key):
-            return self.set_status(phantom.APP_ERROR, AWS_DYNAMODB_BAD_ASSET_CONFIG_MSG)
+            return self.set_status(phantom.APP_ERROR, AWS_DYNAMODB_BAD_ASSET_CONFIG_MESSAGE)
 
         return phantom.APP_SUCCESS
 

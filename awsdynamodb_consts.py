@@ -16,7 +16,7 @@
 AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE = "Please provide a valid integer value in the {key} parameter"
 AWS_DYNAMODB_JSON_REGION = "region"
 AWS_DYNAMODB_JSON_ACCESS_KEY = "access_key"
-AWS_DYNAMODB_JSON_SECRET_KEY = "secret_key"
+AWS_DYNAMODB_JSON_SECRET_KEY = "secret_key"  # pragma: allowlist secret`
 AWS_DYNAMODB_REGIONS = {
     "US East (Ohio)": "us-east-2",
     "US East (N. Virginia)": "us-east-1",
@@ -51,5 +51,5 @@ AWS_DYNAMODB_KEYTYPE = {
     "sort": "RANGE",
     "partition": 'HASH'
 }
-EC2_ROLE_CREDENTIALS_FAILURE_MSG = "Failed to get EC2 role credentials"
-AWS_DYNAMODB_BAD_ASSET_CONFIG_MSG = "Please provide access keys or select assume role check box in asset configuration"
+EC2_ROLE_CREDENTIALS_FAILURE_MESSAGE = "Failed to get EC2 role credentials"
+AWS_DYNAMODB_BAD_ASSET_CONFIG_MESSAGE = "Please provide access keys or select assume role check box in asset configuration"

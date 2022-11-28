@@ -3257,7 +3257,7 @@
             "action": "get item",
             "identifier": "get_item",
             "description": "Get an item from the table",
-            "verbose": "We don't need to pass value in encoded format for the parameters",
+            "verbose": "We don't need to pass value in encoded format for the parameters.",
             "type": "generic",
             "read_only": true,
             "parameters": {
