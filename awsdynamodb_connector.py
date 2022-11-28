@@ -90,7 +90,7 @@ class AwsDynamodbConnector(BaseConnector):
         self.save_state(self._state)
         return phantom.APP_SUCCESS
 
-    def _validate_integers(self, action_result, parameter, key, allow_zero=False):
+    def _validate_integer(self, action_result, parameter, key, allow_zero=False):
         """ This method is to check if the provided input parameter value
         is a non-zero positive integer and returns the integer value of the parameter itself.
         :param action_result: Action result or BaseConnector object
@@ -392,12 +392,12 @@ class AwsDynamodbConnector(BaseConnector):
 
         if billing_mode == "PROVISIONED":
             # read capacity
-            read_units = self._validate_integers(
+            read_units = self._validate_integer(
                 action_result,
                 param.get('read_capacity_units', 5),
                 'read capacity units'
             )
-            write_units = self._validate_integers(
+            write_units = self._validate_integer(
                 action_result,
                 param.get('write_capacity_units', 5),
                 'write capacity units'
@@ -542,7 +542,7 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         payload = {'PaginationConfig': {}}
-        max_items = self._validate_integers(
+        max_items = self._validate_integer(
             action_result,
             param.get('max_items'),
             "max items"
@@ -855,7 +855,7 @@ class AwsDynamodbConnector(BaseConnector):
         sort_desending = param.get('sort_desending')
         select = param.get('select')
         consistent_read = param.get('consistent_read')
-        max_items = self._validate_integers(
+        max_items = self._validate_integer(
             action_result,
             param.get('max_items'),
             'max items'
@@ -1008,13 +1008,23 @@ class AwsDynamodbConnector(BaseConnector):
         :return : status and datetime object
         """
         try:
+            datetime.strptime(dt_str, "%Y/%m/%d")
+        except Exception:
+            return (
+                action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid date fromat please enter date in (YYYY/MM/DD) format"
+                ),
+                None,
+            )
+        try:
             date_time = parse(dt_str)
             time_stamp = date_time.timestamp()
             if self.check_for_future_datetime(date_time):
                 return (
                     action_result.set_status(
                         phantom.APP_ERROR,
-                        "The provided time is a future datetime. Please provide a valid value for parameter '{}'".format(
+                        "The provided date is a future datetime. Please provide a valid value for parameter '{}'".format(
                             key
                         ),
                     ),
@@ -1038,7 +1048,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         backup_type = param.get("backup_type")
         exclusive_start_backup_arn = param.get("exclusive_start_backup_arn")
-        max_items = self._validate_integers(
+        max_items = self._validate_integer(
             action_result,
             param.get("max_items"),
             'max items'
@@ -1047,9 +1057,9 @@ class AwsDynamodbConnector(BaseConnector):
         time_range_lower_bound = param.get("start_date")
         time_range_upper_bound = param.get("end_date")
 
-        payload = dict()
+        payload = {'PaginationConfig': {}}
 
-        self.debug_print("checking optional paramaters")
+        self.debug_print("checking optional parameters")
         if backup_type:
             payload['BackupType'] = backup_type
         if exclusive_start_backup_arn:
@@ -1060,7 +1070,7 @@ class AwsDynamodbConnector(BaseConnector):
             payload['TableName'] = table_name
         if time_range_lower_bound:
             retval, time_range_lower_bound = self._parse_and_validate_date(
-                time_range_lower_bound, action_result, "time range lower bound")
+                time_range_lower_bound, action_result, "start date")
 
             if phantom.is_fail(retval):
                 return action_result.get_status()
@@ -1070,7 +1080,7 @@ class AwsDynamodbConnector(BaseConnector):
             payload['TimeRangeLowerBound'] = time_range_lower_bound
         if time_range_upper_bound:
             retval, time_range_upper_bound = self._parse_and_validate_date(
-                time_range_upper_bound, action_result, "time range upper bound")
+                time_range_upper_bound, action_result, "end date")
             if phantom.is_fail(retval):
                 return action_result.get_status()
 
@@ -1156,7 +1166,7 @@ class AwsDynamodbConnector(BaseConnector):
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS)
+        return action_result.set_status(phantom.APP_SUCCESS, "Restored backup from table successfully")
 
     def _create_global_table(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -1200,7 +1210,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         global_table_name = param.get("global_table_name")
         region_name = param.get("region_name")
-        limit = self._validate_integers(
+        limit = self._validate_integer(
             action_result,
             param.get("limit"),
             'limit'
@@ -1230,7 +1240,7 @@ class AwsDynamodbConnector(BaseConnector):
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Feteched global table list successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Fetched global table list successfully")
 
     def _handle_test_connectivity(self, param):
         # Add an action result object to self (BaseConnector) to represent the action for this param

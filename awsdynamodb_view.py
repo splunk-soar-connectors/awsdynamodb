@@ -52,3 +52,6 @@ def display_view(provides, all_app_runs, context):
 
     if provides == "list tables":
         return "awsdynamodb_list_tables.html"
+
+    if provides == "list global tables":
+        return "awsdynamodb_list_global_tables.html"

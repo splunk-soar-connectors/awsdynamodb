@@ -123,16 +123,12 @@ and limitations under the License.
                     <table class="wf-table-horizontal datatable">
                         <thead>
                             <tr>
-                                <th>Number</th>
                                 <th>Table Name</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in result.data.0.TableNames %}
                             <tr>
-                                <td>
-                                    <div id="tb2"></div>
-                                </td>
                                 <td>
                                     <a href="javascript:;"
                                         onclick="context_menu(this, [{'contains': [], 'value': '{{ item }}' }], 0, {{ container.id }}, null, false);">
