@@ -314,7 +314,7 @@ class AwsDynamodbConnector(BaseConnector):
         try:
             resp_json = boto_func(**kwargs)
         except Exception as e:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', e), None)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', str(e)), None)
 
         return phantom.APP_SUCCESS, resp_json
 
@@ -591,7 +591,7 @@ class AwsDynamodbConnector(BaseConnector):
         try:
             item_json = json.loads(param["item_json"])
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, e)
+            return action_result.set_status(phantom.APP_ERROR, str(e))
 
         payload = {
             "TableName": table_name,
@@ -623,7 +623,7 @@ class AwsDynamodbConnector(BaseConnector):
 
                     payload['ConditionExpression'] = condition_expression
                 except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
+                    return action_result.set_status(phantom.APP_ERROR, str(e))
 
             else:
                 return action_result.set_status(
@@ -747,7 +747,7 @@ class AwsDynamodbConnector(BaseConnector):
 
                     payload['ConditionExpression'] = condition_expression
                 except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
+                    return action_result.set_status(phantom.APP_ERROR, str(e))
 
             else:
                 return action_result.set_status(phantom.APP_ERROR, "Missing attribute expression names/values")
@@ -825,7 +825,7 @@ class AwsDynamodbConnector(BaseConnector):
 
                     payload['UpdateExpression'] = update_expression
                 except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
+                    return action_result.set_status(phantom.APP_ERROR, str(e))
             else:
                 return action_result.set_status(
                     phantom.APP_ERROR,
