@@ -85,9 +85,229 @@
     },
     "actions": [
         {
+            "action": "describe global table",
+            "identifier": "describe_global_table",
+            "description": "Fetch metadata of a table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Global Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Global Table",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "describe backup",
+            "identifier": "describe_backup",
+            "description": "Fetch metadata of a table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "backup_arn": {
+                    "description": "Backup ARN string",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Backup",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "describe table",
+            "identifier": "describe_table",
+            "description": "Fetch metadata of a table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string",
+                    "example_values": []
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Table",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
             "action": "create global table",
             "identifier": "create_global_table",
             "description": "Create a global table",
+            "verbose": "<ul> <li> This action is used to create a table on DynamoDB </li> <li> Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key </li> <li>The date types that can be used for keys are:</li> <ul> <li>String</li> <li>Number</li> <li>Binary</li> </ul> <li> The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity. This setting can be changed later. By default the value for Billing Mode is PROVISIONED. <ul> <li> PROVISIONED We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to Provisioned Mode. </li> <li> PAY_PER_REQUEST We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST set the billing mode to On-Demand Mode. </li> </ul> </li> <li> The Read/Write Capacity values by default are 5 units and auto scaling is disable. </li> <li> Secondary Indexes <ul> <li> For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation above. </li> <li> Once created local secondary index cannot be added/updated, but Global Secondary can be created. </li> </ul> </li> <li> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table. To enable streams for table, check the enable stream checkbox and select the stream view type from Dropdown. <ul> <li> KEYS_ONLY - Only the key attributes of the modified item are written to the stream. </li> <li> NEW_IMAGE - The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD_IMAGE - The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW_AND_OLD_IMAGES - Both the new and the old item images of the item are written to the stream. </li> </ul> </li> <li> SSE <ul> <li> Set it to true to use server-side encryption. </li> <li> For the KMS master key id provide the KMS key value that should be used for encryption. </li> </ul> </li> </ul>",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -1832,7 +2052,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Deleted Table Successfuly"
+                        "Deleted Table Successfully"
                     ]
                 },
                 {
@@ -2574,7 +2794,7 @@
                     "order": 0
                 },
                 "condition_expression": {
-                    "description": "Conditon to be check before delete an item",
+                    "description": "Condition to be check before delete an item",
                     "data_type": "string",
                     "order": 1
                 },
@@ -2623,7 +2843,7 @@
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "Attribute names josn",
+                    "description": "Attribute names json",
                     "order": 8
                 },
                 "expression_attribute_values": {
@@ -2827,13 +3047,13 @@
                     "order": 0
                 },
                 "item_json": {
-                    "description": "Item that is to be addded in the table",
+                    "description": "Item that is to be added in the table",
                     "required": true,
                     "data_type": "string",
                     "order": 1
                 },
                 "condition_expression": {
-                    "description": "Conditon to be checked before inserting an item",
+                    "description": "Condition to be checked before inserting an item",
                     "data_type": "string",
                     "order": 2
                 },
@@ -3014,7 +3234,7 @@
                     "order": 0
                 },
                 "update_expression": {
-                    "description": "Expression to update the atrribute",
+                    "description": "Expression to update the attribute",
                     "data_type": "string",
                     "order": 1
                 },
@@ -3063,7 +3283,7 @@
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "Attribute names josn",
+                    "description": "Attribute names json",
                     "order": 8
                 },
                 "expression_attribute_values": {
@@ -3312,7 +3532,7 @@
                 },
                 "attributes_to_get": {
                     "data_type": "string",
-                    "description": "To fetch sepecfic attributes from the item",
+                    "description": "To fetch specific attributes from the item",
                     "order": 7,
                     "value_list": []
                 },
@@ -3400,7 +3620,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Fetched Item Data Successfuly"
+                        "Fetched Item Data Successfully"
                     ]
                 },
                 {
@@ -3507,28 +3727,26 @@
             "parameters": {
                 "table_name": {
                     "data_type": "string",
-                    "description": "Name of Table to perfrom query on",
+                    "description": "Name of Table to perform query on",
                     "required": true,
                     "order": 0
                 },
                 "index_name": {
                     "data_type": "string",
-                    "description": "Name of Table to perfrom query on",
+                    "description": "Name of Table to perform query on",
                     "order": 1
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
-                    "description": "Attribute names josn",
-                    "required": true,
+                    "description": "Attribute names json",
                     "order": 2
                 },
                 "expression_attribute_values": {
                     "data_type": "string",
                     "description": "Attribute values json",
-                    "required": true,
                     "order": 3
                 },
-                "key_condittion_expression": {
+                "key_condition_expression": {
                     "data_type": "string",
                     "description": "Attribute values json",
                     "required": true,
@@ -3561,7 +3779,7 @@
                     ],
                     "order": 8
                 },
-                "return_consumned_capacity": {
+                "return_consumed_capacity": {
                     "data_type": "string",
                     "description": "Attributes to be included in the result",
                     "value_list": [
@@ -3577,7 +3795,7 @@
                     "value_list": [],
                     "order": 10
                 },
-                "sort_desending": {
+                "sort_descending": {
                     "data_type": "boolean",
                     "description": "Attributes to be included in the result",
                     "value_list": [],
@@ -3618,7 +3836,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.key_condittion_expression",
+                    "data_path": "action_result.parameter.key_condition_expression",
                     "data_type": "string",
                     "example_values": [
                         "#fn  =  :fn"
@@ -3649,14 +3867,14 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.sort_desending",
+                    "data_path": "action_result.parameter.sort_descending",
                     "data_type": "string",
                     "example_values": [
                         false
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.return_consumned_capacity",
+                    "data_path": "action_result.parameter.return_consumed_capacity",
                     "data_type": "string",
                     "example_values": []
                 },

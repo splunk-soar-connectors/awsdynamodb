@@ -55,3 +55,12 @@ def display_view(provides, all_app_runs, context):
 
     if provides == "list global tables":
         return "awsdynamodb_list_global_tables.html"
+
+    if provides == "describe table":
+        return "awsdynamodb_describe_table.html"
+
+    if provides == "describe global table":
+        return "awsdynamodb_describe_global_table.html"
+
+    if provides == "describe backup":
+        return "awsdynamodb_describe_backup.html"

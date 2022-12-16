@@ -23,7 +23,7 @@ and limitations under the License.
 <ul>
   <li>Condition Expressions</li>
   <li>Update Expressions</li>
-  <li>Key Condiotion Expressions</li>
+  <li>Key Condition Expressions</li>
   <li>Filter Expressions</li>
   <li>Projection Expressions</li>
 </ul>
@@ -88,6 +88,57 @@ and limitations under the License.
     calls in the previous lesson.
   </p>
 </div>
+<br>
+<div>The following actions uses expressions</div>
+
+
+<table>
+  <tr>
+    <th>Expression Name</th>
+    <th>Action Name</th>
+  </tr>
+  <tr>
+    <td>Condition Expression</td>
+    <td>
+      <ul>
+        <li>Delete Item</li>
+        <li>Put Item</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Update Expression</td>
+    <td>
+      <ul>
+        <li>Update Item</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Key Condition Expression</td>
+    <td>
+      <ul>
+        <li>Query Data</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Filter Expression</td>
+    <td>
+      <ul>
+        <li>Query Data</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Projection Expression</td>
+    <td>
+      <ul>
+        <li>Query Data</li>
+      </ul>
+    </td>
+  </tr>
+</table>
 
 <h4>Expression attribute names and values</h4>
 <p>
@@ -336,3 +387,85 @@ and limitations under the License.
     </ul>
   </div>
 </div>
+
+
+
+
+<!-- <ul>
+  <li>
+    This action is used to create a table on DynamoDB
+  </li>
+  <li>
+    Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key
+    and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key
+  </li>
+  <li>The date types that can be used for keys are:</li>
+  <ul>
+    <li>String</li>
+    <li>Number</li>
+    <li>Binary</li>
+  </ul>
+  <li>
+    The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity.
+    This setting can be changed later. By default the value for Billing Mode is PROVISIONED.
+    <ul>
+      <li>
+        PROVISIONED
+        We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to
+        Provisioned Mode.
+      </li>
+      <li>
+        PAY_PER_REQUEST
+        We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST set the
+        billing mode to On-Demand Mode.
+      </li>
+    </ul>
+  </li>
+  <li>
+    The Read/Write Capacity values by default are 5 units and auto scaling is disable.
+  </li>
+  <li>
+    Secondary Indexes
+    <ul>
+      <li>
+        For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation
+        above.
+      </li>
+      <li>
+        Once created local secondary index cannot be added/updated, but Global Secondary can be created.
+      </li>
+    </ul>
+
+  </li>
+
+  <li>
+    A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable
+    a stream on a table, DynamoDB captures information about every modification to data items in the table. To
+    enable streams for table, check the enable stream checkbox and select the stream view type from Dropdown.
+    <ul>
+      <li>
+        KEYS_ONLY - Only the key attributes of the modified item are written to the stream.
+      </li>
+      <li>
+        NEW_IMAGE - The entire item, as it appears after it was modified, is written to the stream.
+      </li>
+      <li>
+        OLD_IMAGE - The entire item, as it appeared before it was modified, is written to the stream.
+      </li>
+      <li>
+        NEW_AND_OLD_IMAGES - Both the new and the old item images of the item are written to the stream.
+      </li>
+    </ul>
+  </li>
+  <li>
+    SSE
+    <ul>
+      <li>
+        Set it to true to use server-side encryption.
+      </li>
+      <li>
+        For the KMS master key id provide the KMS key value that should be used for encryption.
+      </li>
+    </ul>
+  </li>
+</ul> -->

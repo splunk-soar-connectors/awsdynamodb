@@ -577,6 +577,36 @@ class AwsDynamodbConnector(BaseConnector):
         action_result.add_data(result)
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of table successfully")
 
+    def _describe_table(self, param):
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        if not self._create_client(action_result, param):
+            return action_result.get_status()
+
+        table_name = param["table_name"]
+
+        payload = {
+            "TableName": table_name
+        }
+
+        self.debug_print("Making Boto call")
+        ret_val, resp = self._make_boto_call(
+            action_result,
+            "describe_table",
+            kwargs=payload
+        )
+
+        if (phantom.is_fail(ret_val)):
+            return ret_val
+
+        self.debug_print("converting datatime object to string")
+        resp = json.dumps(resp, default=str)
+        resp = json.loads(resp)
+
+        action_result.add_data(resp)
+        return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
+
     def _put_item(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -588,10 +618,15 @@ class AwsDynamodbConnector(BaseConnector):
         attribute_names = param.get('expression_attribute_names')
         attribute_values = param.get('expression_attribute_values')
 
+        self.error_print("table value : {}".format(table_name))
+        self.error_print("condition value : {}".format(condition_expression))
+        self.error_print("attribute name value : {}".format(attribute_names))
+        self.error_print("attribute value : {}".format(attribute_values))
+
         try:
             item_json = json.loads(param["item_json"])
-        except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, e)
+        except Exception:
+            return action_result.set_status(phantom.APP_ERROR, "Invalid JSON provided, please enter data in proper format for item json")
 
         payload = {
             "TableName": table_name,
@@ -599,37 +634,30 @@ class AwsDynamodbConnector(BaseConnector):
         }
 
         self.debug_print('checking for optional parameters')
+        if attribute_names and attribute_values:
+            try:
+                attribute_names = json.loads(attribute_names)
+                attribute_values = json.loads(attribute_values)
+
+                if isinstance(attribute_names, dict):
+                    payload['ExpressionAttributeNames'] = attribute_names
+                else:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid format for expression attribute names, please enter data in correct format"
+                    )
+
+                if isinstance(attribute_values, dict):
+                    payload['ExpressionAttributeValues'] = attribute_values
+                else:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid format for expression attribute values, please enter data in correct format"
+                    )
+            except Exception as e:
+                return action_result.set_status(phantom.APP_ERROR, e)
         if condition_expression:
-            if attribute_names and attribute_values:
-                try:
-                    attribute_names = json.loads(attribute_names)
-                    attribute_values = json.loads(attribute_values)
-
-                    if isinstance(attribute_names, dict):
-                        payload['ExpressionAttributeNames'] = attribute_names
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute names, please enter data in correct fromat"
-                        )
-
-                    if isinstance(attribute_values, dict):
-                        payload['ExpressionAttributeValues'] = attribute_values
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute values, please enter data in correct fromat"
-                        )
-
-                    payload['ConditionExpression'] = condition_expression
-                except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
-
-            else:
-                return action_result.set_status(
-                    phantom.APP_ERROR,
-                    "Missing attribute expression names/values"
-                )
+            payload['ConditionExpression'] = condition_expression
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
@@ -724,33 +752,29 @@ class AwsDynamodbConnector(BaseConnector):
                 AWS_DYNAMODB_DATATYPES.get(param.get('sort_key_datatype').lower()): param.get('sort_key_value')
             }
         if condition_expression:
-            if attribute_names and attribute_values:
-                try:
-                    attribute_names = json.loads(attribute_names)
-                    attribute_values = json.loads(attribute_values)
+            payload['ConditionExpression'] = condition_expression
+        if attribute_names and attribute_values:
+            try:
+                attribute_names = json.loads(attribute_names)
+                attribute_values = json.loads(attribute_values)
 
-                    if isinstance(attribute_names, dict):
-                        payload['ExpressionAttributeNames'] = attribute_names
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute names, please enter data in correct fromat"
-                        )
+                if isinstance(attribute_names, dict):
+                    payload['ExpressionAttributeNames'] = attribute_names
+                else:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid format for expression attribute names, please enter data in correct format"
+                    )
 
-                    if isinstance(attribute_values, dict):
-                        payload['ExpressionAttributeValues'] = attribute_values
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute values, please enter data in correct fromat"
-                        )
-
-                    payload['ConditionExpression'] = condition_expression
-                except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
-
-            else:
-                return action_result.set_status(phantom.APP_ERROR, "Missing attribute expression names/values")
+                if isinstance(attribute_values, dict):
+                    payload['ExpressionAttributeValues'] = attribute_values
+                else:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid format for expression attribute values, please enter data in correct format"
+                    )
+            except Exception as e:
+                return action_result.set_status(phantom.APP_ERROR, e)
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
@@ -802,34 +826,31 @@ class AwsDynamodbConnector(BaseConnector):
                 return action_result.set_status(phantom.APP_ERROR, "Missing sort key value, please enter a value for it")
 
         if update_expression:
-            if attribute_names and attribute_values:
-                try:
-                    attribute_names = json.loads(attribute_names)
-                    attribute_values = json.loads(attribute_values)
+            payload['UpdateExpression'] = update_expression
 
-                    if isinstance(attribute_names, dict):
-                        payload['ExpressionAttributeNames'] = attribute_names
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute names, please enter data in correct fromat"
-                        )
-
-                    if isinstance(attribute_values, dict):
-                        payload['ExpressionAttributeValues'] = attribute_values
-                    else:
-                        return action_result.set_status(
-                            phantom.APP_ERROR,
-                            "Invalid format for expression attribute values, please enter data in correct fromat"
-                        )
-
-                    payload['UpdateExpression'] = update_expression
-                except Exception as e:
-                    return action_result.set_status(phantom.APP_ERROR, e)
-            else:
+        if attribute_names and attribute_values:
+            try:
+                attribute_names = json.loads(attribute_names)
+                if isinstance(attribute_names, dict):
+                    payload['ExpressionAttributeNames'] = attribute_names
+                else:
+                    raise Exception
+            except Exception:
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "Missing attribute expression names/values"
+                    "Invalid format for expression attribute names, please enter data in correct format"
+                )
+
+            try:
+                attribute_values = json.loads(attribute_values)
+                if isinstance(attribute_values, dict):
+                    payload['ExpressionAttributeValues'] = attribute_values
+                else:
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute values, please enter data in correct format"
                 )
 
         self.debug_print("Making Boto call")
@@ -849,12 +870,16 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         table_name = param['table_name']
-        key_condition_expression = param['key_condittion_expression']
+        key_condition_expression = param['key_condition_expression']
         filter_expression = param.get('filter_expression')
         projection_expression = param.get('projection_expression')
-        sort_desending = param.get('sort_desending')
+        sort_descending = param.get('sort_descending')
         select = param.get('select')
+        return_consumed_capacity = param.get('return_consumed_capacity')
         consistent_read = param.get('consistent_read')
+        attribute_names = param.get('expression_attribute_names')
+        attribute_values = param.get('expression_attribute_values')
+
         max_items = self._validate_integer(
             action_result,
             param.get('max_items'),
@@ -862,41 +887,40 @@ class AwsDynamodbConnector(BaseConnector):
         )
         exclusive_start_key = param.get('exclusive_start_key')
 
-        try:
-            attribute_names = json.loads(
-                param['expression_attribute_names'])
-            attribiute_values = json.loads(
-                param['expression_attribute_values'])
-        except Exception:
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues"
-            )
+        if attribute_names and attribute_values:
+            try:
+                attribute_names = json.loads(attribute_names)
+                attribute_values = json.loads(attribute_values)
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid input format for data, please enter data in valid json format for attribute expression names/values"
+                )
+
+            if isinstance(attribute_values, dict) and isinstance(attribute_names, dict):
+                payload["ExpressionAttributeNames"] = attribute_names
+                payload["ExpressionAttributeValues"] = attribute_values
+            else:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid input format for data, please enter data in valid json format for attribute expression names/values"
+                )
 
         payload = {
             "TableName": table_name,
             "KeyConditionExpression": key_condition_expression,
         }
 
-        if isinstance(attribiute_values, dict) and isinstance(attribute_names, dict):
-            payload["ExpressionAttributeNames"] = attribute_names
-            payload["ExpressionAttributeValues"] = attribiute_values
-        else:
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                "Invalid input format for data, please enter data in valid json format for attribute expression names/vlaues"
-            )
-
         # adding data for optional data
-        self.debug_print("cehcking optional parameters")
+        self.debug_print("checking optional parameters")
         if select:
             payload["Select"] = select
         if max_items:
             payload['PaginationConfig']['MaxItems'] = max_items
         if filter_expression:
             payload["FilterExpression"] = filter_expression
-        if sort_desending:
-            payload["ScanIndexForward"] = not sort_desending
+        if sort_descending:
+            payload["ScanIndexForward"] = not sort_descending
         if projection_expression:
             payload["ProjectionExpression"] = projection_expression
             payload["Select"] = "SPECIFIC_ATTRIBUTES"
@@ -904,6 +928,8 @@ class AwsDynamodbConnector(BaseConnector):
             payload['ConsistentRead'] = consistent_read
         if exclusive_start_key:
             payload['ExclusiveStartKey'] = exclusive_start_key
+        if return_consumed_capacity:
+            payload['ReturnConsumedCapacity'] = return_consumed_capacity
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._paginator(action_result, "query", payload)
@@ -979,6 +1005,36 @@ class AwsDynamodbConnector(BaseConnector):
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Deleted backup successfully")
 
+    def _describe_backup(self, param):
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        if not self._create_client(action_result, param):
+            return action_result.get_status()
+
+        backup_arn = param["backup_arn"]
+
+        payload = {
+            "BackupArn": backup_arn
+        }
+
+        self.debug_print("Making Boto call")
+        ret_val, resp = self._make_boto_call(
+            action_result,
+            "describe_backup",
+            kwargs=payload
+        )
+
+        if (phantom.is_fail(ret_val)):
+            return ret_val
+
+        self.debug_print("converting datatime object to string")
+        resp = json.dumps(resp, default=str)
+        resp = json.loads(resp)
+
+        action_result.add_data(resp)
+        return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
+
     def check_for_future_datetime(self, datetime_obj):
         """
         Check the given datetime str is a future date or not.
@@ -1013,7 +1069,7 @@ class AwsDynamodbConnector(BaseConnector):
             return (
                 action_result.set_status(
                     phantom.APP_ERROR,
-                    "Invalid date fromat please enter date in (YYYY/MM/DD) format"
+                    "Invalid date format please enter date in (YYYY/MM/DD) format"
                 ),
                 None,
             )
@@ -1242,6 +1298,36 @@ class AwsDynamodbConnector(BaseConnector):
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched global table list successfully")
 
+    def _describe_global_table(self, param):
+
+        action_result = self.add_action_result(ActionResult(dict(param)))
+
+        if not self._create_client(action_result, param):
+            return action_result.get_status()
+
+        global_table_name = param["global_table_name"]
+
+        payload = {
+            "GlobalTableName": global_table_name
+        }
+
+        self.debug_print("Making Boto call")
+        ret_val, resp = self._make_boto_call(
+            action_result,
+            "describe_global_table",
+            kwargs=payload
+        )
+
+        if (phantom.is_fail(ret_val)):
+            return ret_val
+
+        self.debug_print("converting datatime object to string")
+        resp = json.dumps(resp, default=str)
+        resp = json.loads(resp)
+
+        action_result.add_data(resp)
+        return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
+
     def _handle_test_connectivity(self, param):
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -1299,6 +1385,12 @@ class AwsDynamodbConnector(BaseConnector):
             ret_val = self._list_global_tables(param)
         elif action_id == "restore_table_from_backup":
             ret_val = self._restore_table_from_backup(param)
+        elif action_id == "describe_table":
+            ret_val = self._describe_table(param)
+        elif action_id == "describe_backup":
+            ret_val = self._describe_backup(param)
+        elif action_id == "describe_global_table":
+            ret_val = self._describe_global_table(param)
         return ret_val
 
 
