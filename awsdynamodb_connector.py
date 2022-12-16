@@ -314,7 +314,7 @@ class AwsDynamodbConnector(BaseConnector):
         try:
             resp_json = boto_func(**kwargs)
         except Exception as e:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', e), None)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', str(e)), None)
 
         return phantom.APP_SUCCESS, resp_json
 
@@ -625,8 +625,8 @@ class AwsDynamodbConnector(BaseConnector):
 
         try:
             item_json = json.loads(param["item_json"])
-        except Exception:
-            return action_result.set_status(phantom.APP_ERROR, "Invalid JSON provided, please enter data in proper format for item json")
+        except Exception as e:
+            return action_result.set_status(phantom.APP_ERROR, str(e))
 
         payload = {
             "TableName": table_name,
@@ -655,7 +655,7 @@ class AwsDynamodbConnector(BaseConnector):
                         "Invalid format for expression attribute values, please enter data in correct format"
                     )
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, e)
+                return action_result.set_status(phantom.APP_ERROR, str(e))
         if condition_expression:
             payload['ConditionExpression'] = condition_expression
 
@@ -774,7 +774,7 @@ class AwsDynamodbConnector(BaseConnector):
                         "Invalid format for expression attribute values, please enter data in correct format"
                     )
             except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, e)
+                return action_result.set_status(phantom.APP_ERROR, str(e))
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
