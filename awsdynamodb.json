@@ -15,9 +15,12 @@
     "utctime_updated": "2022-08-22T10:16:54.377941Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
-    "min_phantom_version": "5.3.0",
+    "min_phantom_version": "5.3.5",
     "app_wizard_version": "1.0.0",
     "fips_compliant": true,
+    "latest_tested_versions": [
+        "Cloud tested on December 19, 2022"
+    ],
     "configuration": {
         "access_key": {
             "description": "Access Key",
@@ -30,7 +33,7 @@
             "order": 1
         },
         "region": {
-            "description": "Default Region",
+            "description": "Region",
             "data_type": "string",
             "required": true,
             "value_list": [
@@ -68,26 +71,13 @@
         }
     },
     "pip_dependencies": {
-        "wheel": [
-            {
-                "module": "boto3",
-                "input_file": "wheels/shared/boto3-1.24.80-py3-none-any.whl"
-            },
-            {
-                "module": "botocore",
-                "input_file": "wheels/shared/botocore-1.27.80-py3-none-any.whl"
-            },
-            {
-                "module": "jmespath",
-                "input_file": "wheels/shared/jmespath-1.0.1-py3-none-any.whl"
-            }
-        ]
+        "wheel": []
     },
     "actions": [
         {
             "action": "describe global table",
             "identifier": "describe_global_table",
-            "description": "Fetch metadata of a table",
+            "description": "Fetch metadata of a global table",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -100,13 +90,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.table_name",
-                    "data_type": "string",
-                    "example_values": [
-                        "room"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -115,13 +98,21 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.Table",
                     "data_type": "string",
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
                 },
                 {
                     "data_path": "action_result.message",
@@ -129,6 +120,10 @@
                     "example_values": [
                         "Created global table successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -143,11 +138,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
                 }
             ],
             "render": {
@@ -160,7 +150,7 @@
         {
             "action": "describe backup",
             "identifier": "describe_backup",
-            "description": "Fetch metadata of a table",
+            "description": "Fetch metadata of a backup",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -173,13 +163,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.table_name",
-                    "data_type": "string",
-                    "example_values": [
-                        "room"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -188,13 +171,21 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.Table",
                     "data_type": "string",
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
                 },
                 {
                     "data_path": "action_result.message",
@@ -202,6 +193,10 @@
                     "example_values": [
                         "Created global table successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -216,11 +211,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
                 }
             ],
             "render": {
@@ -246,13 +236,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.table_name",
-                    "data_type": "string",
-                    "example_values": [
-                        "room"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -261,13 +244,21 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.Table",
                     "data_type": "string",
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string",
+                    "example_values": []
                 },
                 {
                     "data_path": "action_result.message",
@@ -275,6 +266,10 @@
                     "example_values": [
                         "Created global table successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -289,11 +284,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
                 }
             ],
             "render": {
@@ -308,8 +298,8 @@
             "identifier": "create_global_table",
             "description": "Create a global table",
             "verbose": "<ul> <li> This action is used to create a table on DynamoDB </li> <li> Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key </li> <li>The date types that can be used for keys are:</li> <ul> <li>String</li> <li>Number</li> <li>Binary</li> </ul> <li> The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity. This setting can be changed later. By default the value for Billing Mode is PROVISIONED. <ul> <li> PROVISIONED We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to Provisioned Mode. </li> <li> PAY_PER_REQUEST We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST set the billing mode to On-Demand Mode. </li> </ul> </li> <li> The Read/Write Capacity values by default are 5 units and auto scaling is disable. </li> <li> Secondary Indexes <ul> <li> For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation above. </li> <li> Once created local secondary index cannot be added/updated, but Global Secondary can be created. </li> </ul> </li> <li> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table. To enable streams for table, check the enable stream checkbox and select the stream view type from Dropdown. <ul> <li> KEYS_ONLY - Only the key attributes of the modified item are written to the stream. </li> <li> NEW_IMAGE - The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD_IMAGE - The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW_AND_OLD_IMAGES - Both the new and the old item images of the item are written to the stream. </li> </ul> </li> <li> SSE <ul> <li> Set it to true to use server-side encryption. </li> <li> For the KMS master key id provide the KMS key value that should be used for encryption. </li> </ul> </li> </ul>",
-            "type": "investigate",
-            "read_only": true,
+            "type": "generic",
+            "read_only": false,
             "parameters": {
                 "global_table_name": {
                     "description": "Name of Table",
@@ -326,6 +316,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.global_table_name",
                     "data_type": "string",
                     "example_values": [
@@ -340,44 +338,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Created global table successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -483,6 +448,31 @@
                     "example_values": [
                         "CREATING"
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -493,7 +483,7 @@
         {
             "action": "list global tables",
             "identifier": "list_global_tables",
-            "description": "List global tables",
+            "description": "List the global tables from the database",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -515,6 +505,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.global_table_name",
                     "data_type": "string",
                     "example_values": []
@@ -530,42 +528,9 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Feteched global table list successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.GlobalTables.*.GlobalTableName",
@@ -661,6 +626,31 @@
                     "example_values": [
                         200
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Feteched global table list successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -673,8 +663,8 @@
         {
             "action": "list backups",
             "identifier": "list_backups",
-            "description": "List backups",
-            "type": "generic",
+            "description": "List all the backups present in the database",
+            "type": "investigate",
             "read_only": true,
             "parameters": {
                 "backup_type": {
@@ -710,6 +700,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.backup_type",
                     "data_type": "string",
                     "example_values": []
@@ -738,14 +736,6 @@
                     "data_path": "action_result.parameter.end_date",
                     "data_type": "numeric",
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.BackupSummaries.*.TableId",
@@ -892,15 +882,15 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
                         "Fetched backup data successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -928,7 +918,7 @@
             "identifier": "delete_backup",
             "description": "Delete backup of a table",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "backup_arn": {
                     "description": "Backup ARN",
@@ -939,18 +929,18 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.backup_arn",
-                    "data_type": "string",
-                    "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
                         "success",
                         "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
                     ]
                 },
                 {
@@ -1179,15 +1169,15 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
                         "Deleted backup successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -1213,9 +1203,9 @@
         {
             "action": "create backup",
             "identifier": "create_backup",
-            "description": "Create backup of an existing table",
+            "description": "Create a backup of an existing table",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Name of Table to backup",
@@ -1232,6 +1222,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -1243,14 +1241,6 @@
                     "data_type": "string",
                     "example_values": [
                         "newtable123-backup"
-                    ]
-                },
-                {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
                     ]
                 },
                 {
@@ -1379,15 +1369,15 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
                         "Created backup successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -1413,9 +1403,9 @@
         {
             "action": "restore backup table",
             "identifier": "restore_table_from_backup",
-            "description": "Restore table from backup",
-            "type": "investigate",
-            "read_only": true,
+            "description": "Restore a table from backup",
+            "type": "generic",
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Name of Table",
@@ -1476,6 +1466,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -1522,44 +1520,11 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -1910,6 +1875,31 @@
                     "example_values": [
                         0
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        ""
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -1939,6 +1929,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.max_items",
                     "data_type": "string",
                     "example_values": [
@@ -1953,14 +1951,6 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
@@ -1968,8 +1958,11 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "example_values": [
+                        "room_test_1"
+                    ]
                 },
                 {
                     "data_path": "action_result.message",
@@ -1977,6 +1970,10 @@
                     "example_values": [
                         "Fetched list of table successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -1990,13 +1987,6 @@
                     "data_type": "numeric",
                     "example_values": [
                         1
-                    ]
-                },
-                {
-                    "data_path": "action_result.data.*.TableNames",
-                    "data_type": "string",
-                    "example_values": [
-                        "room_test_1"
                     ]
                 }
             ],
@@ -2010,9 +2000,9 @@
         {
             "action": "delete table",
             "identifier": "delete_table",
-            "description": "Delete a table from database",
+            "description": "Delete a table from the database",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Name of Table to delete",
@@ -2023,13 +2013,6 @@
             },
             "output": [
                 {
-                    "data_path": "action_result.parameter.table_name",
-                    "data_type": "string",
-                    "example_values": [
-                        "yash"
-                    ]
-                },
-                {
                     "data_path": "action_result.status",
                     "data_type": "string",
                     "example_values": [
@@ -2038,36 +2021,18 @@
                     ]
                 },
                 {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "yash"
+                    ]
+                },
+                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Deleted Table Successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -2201,6 +2166,31 @@
                     "example_values": [
                         0
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Deleted Table Successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -2213,7 +2203,7 @@
             "identifier": "create_table",
             "description": "Create a table in the database",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "verbose": "<p><strong>NOTE</strong></p> <ul> <li> <p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p> </li> <li> <div> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p> <ul> <li>PROVISIONED: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p> </div> </li> <li> <div> <p>If stream are enabled you need to select stream view type. There are four options you could select from: </p> <ul> <li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li> <li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li> </ul> </div> </li> <li> <p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li> </ul>.",
             "parameters": {
                 "table_name": {
@@ -2317,6 +2307,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -2413,44 +2411,11 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableDescription",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Created Table successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -2773,6 +2738,31 @@
                     "example_values": [
                         0
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created Table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -2783,9 +2773,9 @@
         {
             "action": "delete item",
             "identifier": "delete_item",
-            "description": "Delete an item in the table",
+            "description": "Delete an item from the table",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Table name to delete item from",
@@ -2854,6 +2844,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -2918,44 +2916,11 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Item deleted successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3026,6 +2991,31 @@
                     "example_values": [
                         200
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item deleted successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -3036,9 +3026,9 @@
         {
             "action": "put item",
             "identifier": "put_item",
-            "description": "Add an item in the table",
+            "description": "Add an item to the table",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Name of table in which you want to add the item",
@@ -3069,6 +3059,14 @@
                 }
             },
             "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
                 {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
@@ -3105,44 +3103,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Item inserted successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3213,6 +3178,31 @@
                     "example_values": [
                         200
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item inserted successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -3225,7 +3215,7 @@
             "identifier": "update_item",
             "description": "Update an item in the table",
             "type": "generic",
-            "read_only": true,
+            "read_only": false,
             "parameters": {
                 "table_name": {
                     "description": "Name of table in which item is to be updated",
@@ -3294,6 +3284,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -3358,44 +3356,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Updated item successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3466,6 +3431,31 @@
                     "example_values": [
                         200
                     ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Updated item successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
                 }
             ],
             "render": {
@@ -3478,7 +3468,7 @@
             "identifier": "get_item",
             "description": "Get an item from the table",
             "verbose": "We don't need to pass value in encoded format for the parameters.",
-            "type": "generic",
+            "type": "investigate",
             "read_only": true,
             "parameters": {
                 "table_name": {
@@ -3545,6 +3535,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -3598,44 +3596,11 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
                     "column_order": 0,
                     "example_values": []
-                },
-                {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        "Fetched Item Data Successfully"
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
-                },
-                {
-                    "data_path": "summary.total_objects_successful",
-                    "data_type": "numeric",
-                    "example_values": [
-                        1
-                    ]
                 },
                 {
                     "data_path": "action_result.data.*.Item",
@@ -3710,6 +3675,31 @@
                     "data_type": "numeric",
                     "example_values": [
                         200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched Item Data Successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
                     ]
                 }
             ],
@@ -3810,6 +3800,14 @@
             },
             "output": [
                 {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
@@ -3889,14 +3887,6 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.status",
-                    "data_type": "string",
-                    "example_values": [
-                        "success",
-                        "failed"
-                    ]
-                },
-                {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
@@ -3904,8 +3894,9 @@
                     "example_values": []
                 },
                 {
-                    "data_path": "action_result.summary",
-                    "data_type": "string"
+                    "data_path": "action_result.data.*.Items",
+                    "data_type": "string",
+                    "example_values": []
                 },
                 {
                     "data_path": "action_result.message",
@@ -3913,6 +3904,10 @@
                     "example_values": [
                         "Fetched data successfully"
                     ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
                 },
                 {
                     "data_path": "summary.total_objects",
@@ -3927,11 +3922,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.Items",
-                    "data_type": "string",
-                    "example_values": []
                 }
             ],
             "render": {
@@ -3959,11 +3949,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.24.80-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.26.32-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.27.96-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.33-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
