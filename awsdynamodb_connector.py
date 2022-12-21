@@ -100,26 +100,23 @@ class AwsDynamodbConnector(BaseConnector):
         if parameter is not None:
             try:
                 if not float(parameter).is_integer():
-                    action_result.set_status(
-                        phantom.APP_ERROR, AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE.format(key=key))
-                    return None
+                    return action_result.set_status(
+                        phantom.APP_ERROR, AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE.format(key=key)), None
                 parameter = int(parameter)
 
             except Exception:
-                action_result.set_status(
-                    phantom.APP_ERROR, AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE.format(key=key))
-                return None
+                return action_result.set_status(
+                    phantom.APP_ERROR, AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE.format(key=key)), None
 
             if parameter < 0:
-                action_result.set_status(
-                    phantom.APP_ERROR, "Please provide a valid non-negative integer value in the {} parameter".format(key))
-                return None
-            if not allow_zero and parameter == 0:
-                action_result.set_status(
-                    phantom.APP_ERROR, "Please provide a positive integer value in the {} parameter".format(key))
-                return None
+                return action_result.set_status(
+                    phantom.APP_ERROR, "Please provide a valid non-negative integer value in the {} parameter".format(key)), None
 
-        return parameter
+            if not allow_zero and parameter == 0:
+                return action_result.set_status(
+                    phantom.APP_ERROR, "Please provide a positive integer value in the {} parameter".format(key)), None
+
+        return phantom.APP_SUCCESS, parameter
 
     def _handle_get_ec2_role(self):
 
@@ -127,19 +124,20 @@ class AwsDynamodbConnector(BaseConnector):
         credentials = session.get_credentials()
         return credentials
 
-    def _handle_comma_seperated_string(self, comma_str):
+    def _handle_comma_separated_string(self, comma_str):
         """
-        Convert comma seperated string into list.
+        Convert comma separated string into list.
 
-        :param comma_str: comma seperated string
+        :param comma_str: comma separated string
         :return : list
         """
         str_to_list = [x.strip() for x in comma_str.split(",") if x]
         return str_to_list
 
-    def _parse_json_for_indexes(self, action_result, key_data, original_resp, index_type, table_partiton_key=""):
+    def _parse_json_for_indexes(self, action_result, key_data, original_resp, index_type, table_partition_key=""):
 
-        attribute_definations = []
+        attribute_definitions = []
+
         for data in key_data:
             if not isinstance(data, dict):
                 return action_result.set_status(
@@ -172,10 +170,10 @@ class AwsDynamodbConnector(BaseConnector):
                     partition_key_datatype.lower())
 
             if key_projection:
-                # condtion to local secondary index
+                # condition to local secondary index
                 if index_type == "Local" and sort_key_name and sort_key_datatype:
 
-                    attribute_definations.append({
+                    attribute_definitions.append({
                         "AttributeName": sort_key_name,
                         "AttributeType": sort_key_datatype,
                     })
@@ -183,7 +181,7 @@ class AwsDynamodbConnector(BaseConnector):
                         sort_key_name)
                     index_key_object["KeySchema"].extend([
                         {
-                            "AttributeName": table_partiton_key,
+                            "AttributeName": table_partition_key,
                             "KeyType": "HASH",
                         },
                         {
@@ -200,7 +198,7 @@ class AwsDynamodbConnector(BaseConnector):
                 # condition for global secondary index
                 elif index_type == "Global" and partition_key_name and partition_key_datatype:
 
-                    attribute_definations.append({
+                    attribute_definitions.append({
                         "AttributeName": partition_key_name,
                         "AttributeType": partition_key_datatype
                     })
@@ -209,7 +207,7 @@ class AwsDynamodbConnector(BaseConnector):
                         'KeyType': 'HASH'
                     })
                     if sort_key_name and sort_key_datatype:
-                        attribute_definations.append({
+                        attribute_definitions.append({
                             "AttributeName": sort_key_name,
                             "AttributeType": sort_key_datatype
                         })
@@ -256,7 +254,7 @@ class AwsDynamodbConnector(BaseConnector):
             else:
                 return action_result.set_status(phantom.APP_ERROR, "Invalid input passed for creating secondary index")
 
-        original_resp['AttributeDefinitions'].extend(attribute_definations)
+        original_resp['AttributeDefinitions'].extend(attribute_definitions)
         return phantom.APP_SUCCESS
 
     def _create_client(self, action_result, param=None):
@@ -392,16 +390,21 @@ class AwsDynamodbConnector(BaseConnector):
 
         if billing_mode == "PROVISIONED":
             # read capacity
-            read_units = self._validate_integer(
+            ret_val, read_units = self._validate_integer(
                 action_result,
                 param.get('read_capacity_units', 5),
                 'read capacity units'
             )
-            write_units = self._validate_integer(
+            if (phantom.is_fail(ret_val)):
+                return action_result.get_status()
+
+            ret_val, write_units = self._validate_integer(
                 action_result,
                 param.get('write_capacity_units', 5),
                 'write capacity units'
             )
+            if (phantom.is_fail(ret_val)):
+                return action_result.get_status()
 
             payload['ProvisionedThroughput'] = {
                 'ReadCapacityUnits': read_units,
@@ -429,7 +432,7 @@ class AwsDynamodbConnector(BaseConnector):
             if len(local_sec_index) > 5:
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "Index limit exceeded, can create only 5 local seconday at max. Please enter 5 or less keys data"
+                    "Index limit exceeded, can create only 5 local secondary at max. Please enter 5 or less keys data"
                 )
 
             ret_val = self._parse_json_for_indexes(
@@ -437,7 +440,7 @@ class AwsDynamodbConnector(BaseConnector):
                 local_sec_index,
                 payload,
                 "Local",
-                table_partiton_key=partition_key_name
+                table_partition_key=partition_key_name
             )
 
             if (phantom.is_fail(ret_val)):
@@ -455,7 +458,7 @@ class AwsDynamodbConnector(BaseConnector):
             if len(global_sec_index) > 20:
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "Index limit exceeded, can create only 20 local seconday at max. Please enter 20 or less keys data"
+                    "Index limit exceeded, can create only 20 local secondary at max. Please enter 20 or less keys data"
                 )
 
             if isinstance(global_sec_index, dict):
@@ -528,12 +531,12 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        self.debug_print("Converting datatime object to string")
+        self.debug_print("Converting datetime object to string")
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Deleted Table Successfuly")
+        return action_result.set_status(phantom.APP_SUCCESS, "Deleted Table Successfully")
 
     def _list_tables(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -542,11 +545,13 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         payload = {'PaginationConfig': {}}
-        max_items = self._validate_integer(
+        ret_val, max_items = self._validate_integer(
             action_result,
             param.get('max_items'),
             "max items"
         )
+        if (phantom.is_fail(ret_val)):
+            return action_result.get_status()
 
         starting_token = param.get('starting_token')
 
@@ -608,6 +613,7 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
 
     def _put_item(self, param):
+        self.debug_print("Inside put item action")
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -618,44 +624,45 @@ class AwsDynamodbConnector(BaseConnector):
         attribute_names = param.get('expression_attribute_names')
         attribute_values = param.get('expression_attribute_values')
 
-        self.error_print("table value : {}".format(table_name))
-        self.error_print("condition value : {}".format(condition_expression))
-        self.error_print("attribute name value : {}".format(attribute_names))
-        self.error_print("attribute value : {}".format(attribute_values))
-
         try:
             item_json = json.loads(param["item_json"])
-        except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, str(e))
+        except Exception:
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Invalid format for expression Item Json, please enter data in correct format"
+            )
 
         payload = {
             "TableName": table_name,
             "Item": item_json
         }
 
-        self.debug_print('checking for optional parameters')
         if attribute_names and attribute_values:
+
             try:
                 attribute_names = json.loads(attribute_names)
-                attribute_values = json.loads(attribute_values)
-
                 if isinstance(attribute_names, dict):
                     payload['ExpressionAttributeNames'] = attribute_names
                 else:
-                    return action_result.set_status(
-                        phantom.APP_ERROR,
-                        "Invalid format for expression attribute names, please enter data in correct format"
-                    )
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute names, please enter data in correct format"
+                )
 
+            try:
+                attribute_values = json.loads(attribute_values)
                 if isinstance(attribute_values, dict):
                     payload['ExpressionAttributeValues'] = attribute_values
                 else:
-                    return action_result.set_status(
-                        phantom.APP_ERROR,
-                        "Invalid format for expression attribute values, please enter data in correct format"
-                    )
-            except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, str(e))
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute values, please enter data in correct format"
+                )
+
         if condition_expression:
             payload['ConditionExpression'] = condition_expression
 
@@ -704,7 +711,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         if reserved_keyword:
             payload['ExpressionAttributeNames'] = dict()
-            reserved_keyword_list = self._handle_comma_seperated_string(
+            reserved_keyword_list = self._handle_comma_separated_string(
                 reserved_keyword)
 
             for index, keyword in enumerate(reserved_keyword_list):
@@ -722,7 +729,7 @@ class AwsDynamodbConnector(BaseConnector):
             return ret_val
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Fetched Item Data Successfuly")
+        return action_result.set_status(phantom.APP_SUCCESS, "Fetched Item Data Successfully")
 
     def _delete_item(self, param):
 
@@ -754,27 +761,30 @@ class AwsDynamodbConnector(BaseConnector):
         if condition_expression:
             payload['ConditionExpression'] = condition_expression
         if attribute_names and attribute_values:
+
             try:
                 attribute_names = json.loads(attribute_names)
-                attribute_values = json.loads(attribute_values)
-
                 if isinstance(attribute_names, dict):
                     payload['ExpressionAttributeNames'] = attribute_names
                 else:
-                    return action_result.set_status(
-                        phantom.APP_ERROR,
-                        "Invalid format for expression attribute names, please enter data in correct format"
-                    )
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute names, please enter data in correct format"
+                )
 
+            try:
+                attribute_values = json.loads(attribute_values)
                 if isinstance(attribute_values, dict):
                     payload['ExpressionAttributeValues'] = attribute_values
                 else:
-                    return action_result.set_status(
-                        phantom.APP_ERROR,
-                        "Invalid format for expression attribute values, please enter data in correct format"
-                    )
-            except Exception as e:
-                return action_result.set_status(phantom.APP_ERROR, str(e))
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute values, please enter data in correct format"
+                )
 
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
@@ -880,36 +890,45 @@ class AwsDynamodbConnector(BaseConnector):
         attribute_names = param.get('expression_attribute_names')
         attribute_values = param.get('expression_attribute_values')
 
-        max_items = self._validate_integer(
+        ret_val, max_items = self._validate_integer(
             action_result,
             param.get('max_items'),
             'max items'
         )
+        if (phantom.is_fail(ret_val)):
+            return action_result.get_status()
+
         exclusive_start_key = param.get('exclusive_start_key')
-
-        if attribute_names and attribute_values:
-            try:
-                attribute_names = json.loads(attribute_names)
-                attribute_values = json.loads(attribute_values)
-            except Exception:
-                return action_result.set_status(
-                    phantom.APP_ERROR,
-                    "Invalid input format for data, please enter data in valid json format for attribute expression names/values"
-                )
-
-            if isinstance(attribute_values, dict) and isinstance(attribute_names, dict):
-                payload["ExpressionAttributeNames"] = attribute_names
-                payload["ExpressionAttributeValues"] = attribute_values
-            else:
-                return action_result.set_status(
-                    phantom.APP_ERROR,
-                    "Invalid input format for data, please enter data in valid json format for attribute expression names/values"
-                )
 
         payload = {
             "TableName": table_name,
             "KeyConditionExpression": key_condition_expression,
         }
+
+        if attribute_names and attribute_values:
+            try:
+                attribute_names = json.loads(attribute_names)
+                if isinstance(attribute_names, dict):
+                    payload['ExpressionAttributeNames'] = attribute_names
+                else:
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute names, please enter data in correct format"
+                )
+
+            try:
+                attribute_values = json.loads(attribute_values)
+                if isinstance(attribute_values, dict):
+                    payload['ExpressionAttributeValues'] = attribute_values
+                else:
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Invalid format for expression attribute values, please enter data in correct format"
+                )
 
         # adding data for optional data
         self.debug_print("checking optional parameters")
@@ -1104,11 +1123,14 @@ class AwsDynamodbConnector(BaseConnector):
 
         backup_type = param.get("backup_type")
         exclusive_start_backup_arn = param.get("exclusive_start_backup_arn")
-        max_items = self._validate_integer(
+        ret_val, max_items = self._validate_integer(
             action_result,
             param.get("max_items"),
             'max items'
         )
+        if (phantom.is_fail(ret_val)):
+            return action_result.get_status()
+
         table_name = param.get("table_name")
         time_range_lower_bound = param.get("start_date")
         time_range_upper_bound = param.get("end_date")
@@ -1120,6 +1142,7 @@ class AwsDynamodbConnector(BaseConnector):
             payload['BackupType'] = backup_type
         if exclusive_start_backup_arn:
             payload['PaginationConfig']['StartingToken'] = exclusive_start_backup_arn
+
         if max_items:
             payload['PaginationConfig']['MaxItems'] = max_items
         if table_name:
@@ -1231,7 +1254,7 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         global_table_name = param["global_table_name"]
-        replication_group = self._handle_comma_seperated_string(
+        replication_group = self._handle_comma_separated_string(
             param["replication_group"])
 
         payload = {
@@ -1266,11 +1289,14 @@ class AwsDynamodbConnector(BaseConnector):
 
         global_table_name = param.get("global_table_name")
         region_name = param.get("region_name")
-        limit = self._validate_integer(
+        ret_val, limit = self._validate_integer(
             action_result,
             param.get("limit"),
             'limit'
         )
+
+        if (phantom.is_fail(ret_val)):
+            return action_result.get_status()
 
         payload = dict()
 

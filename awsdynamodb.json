@@ -15,7 +15,7 @@
     "utctime_updated": "2022-08-22T10:16:54.377941Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
-    "min_phantom_version": "5.3.5",
+    "min_phantom_version": "5.2.0",
     "app_wizard_version": "1.0.0",
     "fips_compliant": true,
     "latest_tested_versions": [
@@ -98,7 +98,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.table_name",
+                    "data_path": "action_result.parameter.global_table_name",
                     "data_type": "string",
                     "example_values": [
                         "room"
@@ -106,13 +106,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.Table",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -171,7 +169,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.table_name",
+                    "data_path": "action_result.parameter.backup_arn",
                     "data_type": "string",
                     "example_values": [
                         "room"
@@ -179,13 +177,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.Table",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -252,13 +248,11 @@
                 },
                 {
                     "data_path": "action_result.data.*.Table",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",
@@ -341,8 +335,7 @@
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -514,23 +507,19 @@
                 },
                 {
                     "data_path": "action_result.parameter.global_table_name",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.region_name",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.limit",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.data",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.GlobalTables.*.GlobalTableName",
@@ -538,7 +527,7 @@
                     "example_values": [
                         "cars"
                     ],
-                    "column_name": "Table name",
+                    "column_name": "Table Name",
                     "column_order": 0
                 },
                 {
@@ -673,7 +662,7 @@
                     "order": 0
                 },
                 "exclusive_start_backup_arn": {
-                    "description": "",
+                    "description": "List tables backups after specific given backup name",
                     "data_type": "string",
                     "order": 1
                 },
@@ -709,33 +698,27 @@
                 },
                 {
                     "data_path": "action_result.parameter.backup_type",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.exclusive_start_backup_arn",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "data_type": "numeric",
-                    "example_values": []
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.parameter.table_name",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.start_date",
-                    "data_type": "numeric",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.end_date",
-                    "data_type": "numeric",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.BackupSummaries.*.TableId",
@@ -766,7 +749,7 @@
                     "example_values": [
                         "test_dev_table"
                     ],
-                    "column_name": "Table name",
+                    "column_name": "Table Name",
                     "column_order": 1
                 },
                 {
@@ -775,7 +758,7 @@
                     "example_values": [
                         "newDevTableBackup"
                     ],
-                    "column_name": "Backup name",
+                    "column_name": "Backup Name",
                     "column_order": 2
                 },
                 {
@@ -1035,7 +1018,7 @@
                         "cars_backup",
                         "newDevTableBackup"
                     ],
-                    "column_name": "Backup name",
+                    "column_name": "Backup Name",
                     "column_order": 1
                 },
                 {
@@ -1114,7 +1097,7 @@
                         "cars",
                         "test_dev_table"
                     ],
-                    "column_name": "Table name",
+                    "column_name": "Table Name",
                     "column_order": 2
                 },
                 {
@@ -1260,7 +1243,7 @@
                         "cars_backup",
                         "newtable123-backup"
                     ],
-                    "column_name": "Backup name",
+                    "column_name": "Backup Name",
                     "column_order": 1
                 },
                 {
@@ -1489,18 +1472,15 @@
                 },
                 {
                     "data_path": "action_result.parameter.billing_mode_override",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.read_capacity_override",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.parameter.write_capacity_override",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.parameter.restore_secondary_indexes",
@@ -1511,20 +1491,17 @@
                 },
                 {
                     "data_path": "action_result.parameter.sse_enable_override",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.kms_master_key_id",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -1668,7 +1645,7 @@
                 },
                 {
                     "data_path": "action_result.data.*.TableDescription.RestoreSummary.RestoreInProgress",
-                    "data_type": "numeric",
+                    "data_type": "boolean",
                     "example_values": [
                         true
                     ]
@@ -1878,10 +1855,7 @@
                 },
                 {
                     "data_path": "action_result.message",
-                    "data_type": "string",
-                    "example_values": [
-                        ""
-                    ]
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.summary",
@@ -1917,13 +1891,11 @@
                 "max_items": {
                     "data_type": "numeric",
                     "description": "Maximum number of items to list",
-                    "value_list": [],
                     "order": 0
                 },
                 "starting_token": {
                     "data_type": "string",
                     "description": "Start from a specific table",
-                    "value_list": [],
                     "order": 1
                 }
             },
@@ -1938,7 +1910,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "data_type": "string",
+                    "data_type": "numeric",
                     "example_values": [
                         5
                     ]
@@ -1954,8 +1926,7 @@
                     "data_path": "action_result.data",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.TableNames",
@@ -2031,8 +2002,7 @@
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -2407,15 +2377,13 @@
                 },
                 {
                     "data_path": "action_result.parameter.kms_master_key_id",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.TableDescription",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -2860,8 +2828,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.condition_expression",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.partition_key",
@@ -2907,20 +2874,17 @@
                 },
                 {
                     "data_path": "action_result.parameter.expression_attribute_names",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.expression_attribute_values",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3106,8 +3070,7 @@
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3314,13 +3277,11 @@
                 },
                 {
                     "data_path": "action_result.parameter.sort_key",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_value",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.partition_key_datatype",
@@ -3331,8 +3292,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_datatype",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.update_expression",
@@ -3359,8 +3319,7 @@
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3523,14 +3482,12 @@
                 "attributes_to_get": {
                     "data_type": "string",
                     "description": "To fetch specific attributes from the item",
-                    "order": 7,
-                    "value_list": []
+                    "order": 7
                 },
                 "reserved_keyword_attributes": {
                     "data_type": "string",
                     "description": "To fetch attributes from items whose names are same as reserved keywords",
-                    "order": 8,
-                    "value_list": []
+                    "order": 8
                 }
             },
             "output": [
@@ -3565,13 +3522,11 @@
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_name",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_value",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.partition_key_datatype",
@@ -3582,30 +3537,25 @@
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_datatype",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.attributes_to_get",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.reserved_keyword_attributes",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.Item",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -3755,7 +3705,6 @@
                 "exclusive_start_key": {
                     "data_type": "string",
                     "description": "Exclusive Start Key",
-                    "value_list": [],
                     "order": 7
                 },
                 "select": {
@@ -3782,19 +3731,16 @@
                 "max_items": {
                     "data_type": "numeric",
                     "description": "Maximum number of items to process",
-                    "value_list": [],
                     "order": 10
                 },
                 "sort_descending": {
                     "data_type": "boolean",
                     "description": "Attributes to be included in the result",
-                    "value_list": [],
                     "order": 11
                 },
                 "consistent_read": {
                     "data_type": "boolean",
                     "description": "Attributes to be included in the result",
-                    "value_list": [],
                     "order": 12
                 }
             },
@@ -3816,8 +3762,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.index_name",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.expression_attribute_names",
@@ -3842,13 +3787,11 @@
                 },
                 {
                     "data_path": "action_result.parameter.filter_expression",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.projection_expression",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.select",
@@ -3859,44 +3802,39 @@
                 },
                 {
                     "data_path": "action_result.parameter.consistent_read",
-                    "data_type": "string",
+                    "data_type": "boolean",
                     "example_values": [
                         false
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.sort_descending",
-                    "data_type": "string",
+                    "data_type": "boolean",
                     "example_values": [
                         false
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.return_consumed_capacity",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.exclusive_start_key",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "numeric"
                 },
                 {
                     "data_path": "action_result.data.*.TableNames",
                     "data_type": "string",
                     "column_name": "Tables",
-                    "column_order": 0,
-                    "example_values": []
+                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.data.*.Items",
-                    "data_type": "string",
-                    "example_values": []
+                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.message",

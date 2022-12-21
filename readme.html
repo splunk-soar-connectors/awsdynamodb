@@ -34,7 +34,7 @@ and limitations under the License.
     Condition Expressions
   </h4>
   <p>
-    To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item operatios.
+    To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item operation.
     For these data manipulation operations, we can specify a condition expression to determine which items should be
     modified. If the condition expression evaluates to true, the operation succeeds; otherwise, the operation fails.
   </p>
@@ -390,83 +390,128 @@ and limitations under the License.
 </div>
 
 
-
-
-<!-- <ul>
-  <li>
-    This action is used to create a table on DynamoDB
-  </li>
-  <li>
-    Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key
-    and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key
-  </li>
-  <li>The date types that can be used for keys are:</li>
-  <ul>
-    <li>String</li>
-    <li>Number</li>
-    <li>Binary</li>
-  </ul>
-  <li>
-    The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity.
-    This setting can be changed later. By default the value for Billing Mode is PROVISIONED.
-    <ul>
-      <li>
-        PROVISIONED
-        We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to
-        Provisioned Mode.
-      </li>
-      <li>
-        PAY_PER_REQUEST
-        We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST set the
-        billing mode to On-Demand Mode.
-      </li>
-    </ul>
-  </li>
-  <li>
-    The Read/Write Capacity values by default are 5 units and auto scaling is disable.
-  </li>
-  <li>
-    Secondary Indexes
-    <ul>
-      <li>
-        For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation
-        above.
-      </li>
-      <li>
-        Once created local secondary index cannot be added/updated, but Global Secondary can be created.
-      </li>
-    </ul>
-
-  </li>
-
-  <li>
-    A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable
-    a stream on a table, DynamoDB captures information about every modification to data items in the table. To
-    enable streams for table, check the enable stream checkbox and select the stream view type from Dropdown.
-    <ul>
-      <li>
-        KEYS_ONLY - Only the key attributes of the modified item are written to the stream.
-      </li>
-      <li>
-        NEW_IMAGE - The entire item, as it appears after it was modified, is written to the stream.
-      </li>
-      <li>
-        OLD_IMAGE - The entire item, as it appeared before it was modified, is written to the stream.
-      </li>
-      <li>
-        NEW_AND_OLD_IMAGES - Both the new and the old item images of the item are written to the stream.
-      </li>
-    </ul>
-  </li>
-  <li>
-    SSE
-    <ul>
-      <li>
-        Set it to true to use server-side encryption.
-      </li>
-      <li>
-        For the KMS master key id provide the KMS key value that should be used for encryption.
-      </li>
-    </ul>
-  </li>
-</ul> -->
+<div>
+  <h4>Available AWS Regions</h4>
+  <table>
+    <tbody>
+      <tr>
+        <th>REGION NAME</th>
+        <th>REGION</th>
+      </tr>
+      <tr>
+        <td>US East (Ohio)</td>
+        <td>us-east-2</td>
+      </tr>
+      <tr>
+        <td>US East (N. Virginia)</td>
+        <td>us-east-1</td>
+      </tr>
+      <tr>
+        <td>US West (N. California)</td>
+        <td>us-west-1</td>
+      </tr>
+      <tr>
+        <td>US West (Oregon)</td>
+        <td>us-west-2</td>
+      </tr>
+      <tr>
+        <td>Africa (Cape Town)</td>
+        <td>af-south-1</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Hong Kong)</td>
+        <td>ap-east-1</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Hyderabad)</td>
+        <td>ap-south-2</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Jakarta)</td>
+        <td>ap-southeast-3</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Mumbai)</td>
+        <td>ap-south-1</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Osaka)</td>
+        <td>ap-northeast-3</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Seoul)</td>
+        <td>ap-northeast-2</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Singapore)</td>
+        <td>ap-southeast-1</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Sydney)</td>
+        <td>ap-southeast-2</td>
+      </tr>
+      <tr>
+        <td>Asia Pacific (Tokyo)</td>
+        <td>ap-northeast-1</td>
+      </tr>
+      <tr>
+        <td>Canada (Central)</td>
+        <td>ca-central-1</td>
+      </tr>
+      <tr>
+        <td>Europe (Frankfurt)</td>
+        <td>eu-central-1</td>
+      </tr>
+      <tr>
+        <td>Europe (Ireland)</td>
+        <td>eu-west-1</td>
+      </tr>
+      <tr>
+        <td>Europe (London)</td>
+        <td>eu-west-2</td>
+      </tr>
+      <tr>
+        <td>Europe (Milan)</td>
+        <td>eu-south-1</td>
+      </tr>
+      <tr>
+        <td>Europe (Paris)</td>
+        <td>eu-west-3</td>
+      </tr>
+      <tr>
+        <td>Europe (Spain)</td>
+        <td>eu-south-2</td>
+      </tr>
+      <tr>
+        <td>Europe (Stockholm)</td>
+        <td>eu-north-1</td>
+      </tr>
+      <tr>
+        <td>Europe (Zurich)</td>
+        <td>eu-central-2</td>
+      </tr>
+      <tr>
+        <td>Middle East (Bahrain)</td>
+        <td>me-south-1</td>
+      </tr>
+      <tr>
+        <td>Middle East (UAE)</td>
+        <td>me-central-1</td>
+      </tr>
+      <tr>
+        <td>South America (São Paulo)</td>
+        <td>sa-east-1</td>
+      </tr>
+      <tr>
+        <td>
+          AWS GovCloud (US-East)</td>
+        <td>us-gov-east-1</td>
+      </tr>
+      <tr>
+        <td>
+          AWS GovCloud (US-West)</td>
+        <td>us-gov-west-1</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
