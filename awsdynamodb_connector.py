@@ -135,6 +135,19 @@ class AwsDynamodbConnector(BaseConnector):
         return str_to_list
 
     def _parse_json_for_indexes(self, action_result, key_data, original_resp, index_type, table_partition_key=""):
+        """
+        Parse values for global and local secondary in
+
+        Args:
+            action_result : Action result or BaseConnector object
+            key_data : json data from which key values are to be parsed
+            original_resp : payload in which key values are to be added
+            index_type : type of index key (Local/Global)
+            table_partition_key : Partition key provided for the table. Defaults to "".
+
+        Returns:
+            _type_: _description_
+        """
 
         attribute_definitions = []
 
@@ -327,7 +340,11 @@ class AwsDynamodbConnector(BaseConnector):
 
         return phantom.APP_SUCCESS, resp_object
 
-    def _create_table(self, param):
+    def _create_table(self, param):  # noqa: C901
+        """
+        Create a table in the DynamoDB database
+        """
+
         action_result = self.add_action_result(ActionResult(dict(param)))
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -355,6 +372,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         enable_stream = param.get("enable_stream")
         stream_view_type = param.get("stream_view_type")
+        tags = param.get("tags")
 
         # payload to send
         payload = {
@@ -501,6 +519,49 @@ class AwsDynamodbConnector(BaseConnector):
             else:
                 return action_result.set_status(phantom.APP_ERROR, "Please select a stream view type")
 
+        if tags:
+
+            try:
+                tags = json.loads(tags)
+
+                if isinstance(tags, dict):
+                    tags = [tags]
+                elif not isinstance(tags, list):
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Invalid data format for tags, please enter data in valid format as mentioned in documentation"
+                    )
+
+                if isinstance(tags, list) and all(isinstance(x, dict) for x in tags):
+                    pass
+                else:
+                    raise Exception
+            except Exception:
+                return action_result.set_status(
+                    phantom.APP_ERROR, "Invalid Json data for tags")
+
+            if len(tags) > 50:
+                return action_result.set_status(
+                    phantom.APP_ERROR,
+                    "Limit crossed for maximum number of tags, at max 50 tags can be created"
+                )
+
+            tags_list = list()
+
+            for data in tags:
+                if 'Key' in data.keys() and 'Value' in data.keys():
+                    tags_data = {
+                        "Key": data.get("Key", ""),
+                        "Value": data.get("Value", "")
+                    }
+                    tags_list.append(tags_data)
+                else:
+                    return action_result.set_status(
+                        phantom.APP_ERROR,
+                        "Could not parse data for tags, please enter data in valid format"
+                    )
+            payload["Tags"] = tags_list
+
         self.debug_print("Making Boto call")
         ret_val, resp = self._make_boto_call(
             action_result, "create_table", kwargs=payload)
@@ -539,6 +600,10 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Deleted Table Successfully")
 
     def _list_tables(self, param):
+        """
+        List all the available tables in the DynamoDB database
+        """
+
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -797,6 +862,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Item deleted successfully")
 
     def _update_item(self, param):
+        """
+        Update an item in the table
+        """
         action_result = self.add_action_result(ActionResult(dict(param)))
         self.save_progress("Querying AWS to validate credentials")
 
@@ -1355,6 +1423,10 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
 
     def _handle_test_connectivity(self, param):
+        """
+        Check asset connectivity with the application platform
+        """
+
         # Add an action result object to self (BaseConnector) to represent the action for this param
         action_result = self.add_action_result(ActionResult(dict(param)))
         self.save_progress("Querying AWS to validate credentials")

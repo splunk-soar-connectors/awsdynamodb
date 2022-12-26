@@ -2174,7 +2174,7 @@
             "description": "Create a table in the database",
             "type": "generic",
             "read_only": false,
-            "verbose": "<p><strong>NOTE</strong></p> <ul> <li> <p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p> </li> <li> <div> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p> <ul> <li>PROVISIONED: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p> </div> </li> <li> <div> <p>If stream are enabled you need to select stream view type. There are four options you could select from: </p> <ul> <li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li> <li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li> </ul> </div> </li> <li> <p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li> </ul>.",
+            "verbose": "<p><strong>NOTE</strong></p><ul><li><p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p></li><li><div><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p><ul><li>PROVISIONED: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p></div></li><li><div><p>If stream are enabled you need to select stream view type. There are four options you could select from: </p><ul><li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li><li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li><li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li><li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object. The JSON object should contain the 'Key' and 'Value' keys. These two keys are required and without these adding tags won't be possible. <pre> { 'Key' : 'key_data', 'Value' : 'value_data' } </pre></li><li> For multiple values in tags, pass a list of JSON object. <pre> [ { 'Key' : 'key_data1', 'Value' : 'value_data1' }, { 'Key' : 'key_data2', 'Value' : 'value_data2' } ] </pre></li></ul></li></ul>.",
             "parameters": {
                 "table_name": {
                     "description": "Name of table to be created",
@@ -2273,6 +2273,11 @@
                     "description": "The KMS key that should be used for the KMS encryption",
                     "data_type": "string",
                     "order": 13
+                },
+                "tags": {
+                    "description": "List of tags to add to table",
+                    "data_type": "string",
+                    "order": 14
                 }
             },
             "output": [
@@ -2377,6 +2382,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.kms_master_key_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tags",
                     "data_type": "string"
                 },
                 {
