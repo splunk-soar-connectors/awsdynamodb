@@ -127,11 +127,16 @@ and limitations under the License.
                             </tr>
                         </thead>
                         <tbody>
+                            {%if not result.data.0.TableNames%}
+                            <tr>
+                                <td>No tables available to list</td>
+                            </tr>
+                            {% else %}
                             {% for item in result.data.0.TableNames %}
                             <tr>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': [], 'value': '{{ item }}' }], 0, {{ container.id }}, null, false);">
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{ item }}' }], 0, {{ container.id }}, null, false);">
                                         {{ item }}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -139,6 +144,7 @@ and limitations under the License.
                                 </td>
                             </tr>
                             {% endfor %}
+                            {% endif%}
                         </tbody>
                     </table>
                 </div>

@@ -156,7 +156,11 @@
                     "description": "Backup ARN string",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
                 }
             },
             "output": [
@@ -173,6 +177,9 @@
                     "data_type": "string",
                     "example_values": [
                         "room"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
                     ]
                 },
                 {
@@ -227,6 +234,10 @@
                     "description": "Name of Table",
                     "required": true,
                     "data_type": "string",
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true,
                     "order": 0
                 }
             },
@@ -244,6 +255,9 @@
                     "data_type": "string",
                     "example_values": [
                         "room"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -490,7 +504,7 @@
                     "data_type": "string",
                     "order": 1
                 },
-                "limit": {
+                "max_items": {
                     "description": "No of tables to fetch",
                     "data_type": "numeric",
                     "order": 2
@@ -514,7 +528,7 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.limit",
+                    "data_path": "action_result.parameter.max_items",
                     "data_type": "numeric"
                 },
                 {
@@ -662,9 +676,13 @@
                     "order": 0
                 },
                 "exclusive_start_backup_arn": {
-                    "description": "List tables backups after specific given backup name",
+                    "description": "List tables backups after specific given backup arn",
                     "data_type": "string",
-                    "order": 1
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
                 },
                 "max_items": {
                     "description": "Maximum backups to get in a call",
@@ -674,7 +692,11 @@
                 "table_name": {
                     "description": "Table name",
                     "data_type": "string",
-                    "order": 3
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "start_date": {
                     "description": "List tables created after provided date.(Valid date format allowed: YYYY/MM/DD",
@@ -702,7 +724,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.exclusive_start_backup_arn",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
@@ -710,7 +735,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.table_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.start_date",
@@ -740,6 +768,9 @@
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01659614741851-9435638e"
                     ],
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
                     "column_name": "Backup ARN",
                     "column_order": 0
                 },
@@ -750,7 +781,11 @@
                         "test_dev_table"
                     ],
                     "column_name": "Table Name",
-                    "column_order": 1
+                    "column_order": 1,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 {
                     "data_path": "action_result.data.*.BackupSummaries.*.BackupName",
@@ -907,7 +942,11 @@
                     "description": "Backup ARN",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
                 }
             },
             "output": [
@@ -924,6 +963,9 @@
                     "data_type": "string",
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
                     ]
                 },
                 {
@@ -1194,7 +1236,11 @@
                     "description": "Name of Table to backup",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "backup_name": {
                     "description": "Name of backup",
@@ -1217,6 +1263,9 @@
                     "data_type": "string",
                     "example_values": [
                         "newtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -1230,11 +1279,13 @@
                     "data_path": "action_result.data.*.BackupDetails.BackupArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de",
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
                     ],
                     "column_name": "Backup ARN",
-                    "column_order": 0
+                    "column_order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.BackupDetails.BackupName",
@@ -1394,13 +1445,21 @@
                     "description": "Name of Table",
                     "data_type": "string",
                     "required": true,
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "backup_arn": {
                     "description": "Backup ARN",
                     "data_type": "string",
                     "required": true,
-                    "order": 1
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
                 },
                 "billing_mode_override": {
                     "description": "Billing mode override",
@@ -1461,6 +1520,9 @@
                     "data_type": "string",
                     "example_values": [
                         "retorenewtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -1468,6 +1530,9 @@
                     "data_type": "string",
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
                     ]
                 },
                 {
@@ -1893,10 +1958,14 @@
                     "description": "Maximum number of items to list",
                     "order": 0
                 },
-                "starting_token": {
+                "exclusive_start_table_name": {
                     "data_type": "string",
                     "description": "Start from a specific table",
-                    "order": 1
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb exclusive start table name"
+                    ],
+                    "primary": true
                 }
             },
             "output": [
@@ -1916,10 +1985,13 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.starting_token",
+                    "data_path": "action_result.parameter.exclusive_start_table_name",
                     "data_type": "string",
                     "example_values": [
                         "cars2"
+                    ],
+                    "contains": [
+                        "aws dynamodb exclusive start table name"
                     ]
                 },
                 {
@@ -1979,7 +2051,11 @@
                     "description": "Name of Table to delete",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 }
             },
             "output": [
@@ -1996,6 +2072,9 @@
                     "data_type": "string",
                     "example_values": [
                         "yash"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -2180,7 +2259,11 @@
                     "description": "Name of table to be created",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "billing_mode": {
                     "description": "Billing mode to be used for table",
@@ -2195,7 +2278,11 @@
                     "description": "Partition key name for table items",
                     "data_type": "string",
                     "required": true,
-                    "order": 2
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ],
+                    "primary": true
                 },
                 "partition_key_datatype": {
                     "description": "Datatype of partition key",
@@ -2211,7 +2298,11 @@
                 "sort_key_name": {
                     "description": "Sort key name for table items",
                     "data_type": "string",
-                    "order": 4
+                    "order": 4,
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ],
+                    "primary": true
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
@@ -2294,6 +2385,9 @@
                     "data_type": "string",
                     "example_values": [
                         "newtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -2308,6 +2402,9 @@
                     "data_type": "string",
                     "example_values": [
                         "ID"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key name"
                     ]
                 },
                 {
@@ -2315,6 +2412,9 @@
                     "data_type": "string",
                     "example_values": [
                         "name"
+                    ],
+                    "contains": [
+                        "aws dynamodb sort key name"
                     ]
                 },
                 {
@@ -2758,23 +2858,35 @@
                     "description": "Table name to delete item from",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "condition_expression": {
                     "description": "Condition to be check before delete an item",
                     "data_type": "string",
                     "order": 1
                 },
-                "partition_key": {
+                "partition_key_name": {
                     "description": "Partition key name",
                     "data_type": "string",
                     "required": true,
-                    "order": 2
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ],
+                    "primary": true
                 },
-                "sort_key": {
+                "sort_key_name": {
                     "description": "Sort key name",
                     "data_type": "string",
-                    "order": 3
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ],
+                    "primary": true
                 },
                 "partition_key_value": {
                     "description": "Partition key value",
@@ -2833,6 +2945,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_query"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -2840,10 +2955,13 @@
                     "data_type": "string"
                 },
                 {
-                    "data_path": "action_result.parameter.partition_key",
+                    "data_path": "action_result.parameter.partition_key_name",
                     "data_type": "string",
                     "example_values": [
                         "firstname"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key"
                     ]
                 },
                 {
@@ -2854,10 +2972,13 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.sort_key",
+                    "data_path": "action_result.parameter.sort_key_name",
                     "data_type": "string",
                     "example_values": [
                         "lastname"
+                    ],
+                    "contains": [
+                        "aws dynamodb sort key"
                     ]
                 },
                 {
@@ -3007,7 +3128,11 @@
                     "description": "Name of table in which you want to add the item",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "item_json": {
                     "description": "Item that is to be added in the table",
@@ -3045,6 +3170,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -3193,23 +3321,35 @@
                     "description": "Name of table in which item is to be updated",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "update_expression": {
                     "description": "Expression to update the attribute",
                     "data_type": "string",
                     "order": 1
                 },
-                "partition_key": {
+                "partition_key_name": {
                     "description": "Partition key name",
                     "data_type": "string",
                     "required": true,
-                    "order": 2
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ],
+                    "primary": true
                 },
-                "sort_key": {
+                "sort_key_name": {
                     "description": "Sort key name",
                     "data_type": "string",
-                    "order": 3
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ],
+                    "primary": true
                 },
                 "partition_key_value": {
                     "description": "Partition key value",
@@ -3268,13 +3408,19 @@
                     "data_type": "string",
                     "example_values": [
                         "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.partition_key",
+                    "data_path": "action_result.parameter.partition_key_name",
                     "data_type": "string",
                     "example_values": [
                         "testing1"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key"
                     ]
                 },
                 {
@@ -3285,8 +3431,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.sort_key",
-                    "data_type": "string"
+                    "data_path": "action_result.parameter.sort_key_name",
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_value",
@@ -3443,18 +3592,30 @@
                     "description": "Name of table from which you want to fetch item",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "partition_key_name": {
                     "description": "Name of partition key",
                     "data_type": "string",
                     "required": true,
-                    "order": 1
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ],
+                    "primary": true
                 },
                 "sort_key_name": {
                     "description": "Name of sort key",
                     "data_type": "string",
-                    "order": 2
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ],
+                    "primary": true
                 },
                 "partition_key_value": {
                     "description": "Partition key value",
@@ -3513,6 +3674,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -3520,6 +3684,9 @@
                     "data_type": "string",
                     "example_values": [
                         "testing1"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key name"
                     ]
                 },
                 {
@@ -3531,7 +3698,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.sort_key_value",
@@ -3678,11 +3848,15 @@
                     "data_type": "string",
                     "description": "Name of Table to perform query on",
                     "required": true,
-                    "order": 0
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
                 },
                 "index_name": {
                     "data_type": "string",
-                    "description": "Name of Table to perform query on",
+                    "description": "Name of index to be used for the query",
                     "order": 1
                 },
                 "expression_attribute_names": {
@@ -3698,7 +3872,6 @@
                 "key_condition_expression": {
                     "data_type": "string",
                     "description": "Attribute values json",
-                    "required": true,
                     "order": 4
                 },
                 "filter_expression": {
@@ -3767,6 +3940,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_query"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -3896,11 +4072,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.26.32-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.26.41-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.33-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.41-py3-none-any.whl"
             },
             {
                 "module": "jmespath",

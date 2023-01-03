@@ -53,3 +53,5 @@ AWS_DYNAMODB_KEYTYPE = {
 }
 EC2_ROLE_CREDENTIALS_FAILURE_MESSAGE = "Failed to get EC2 role credentials"
 AWS_DYNAMODB_BAD_ASSET_CONFIG_MESSAGE = "Please provide access keys or select assume role check box in asset configuration"
+AWS_DATE_TIME_CONVERSION = "Converting datetime object to string"
+AWS_BOTO_CALL = "Making boto call to DynamoDB"

@@ -155,7 +155,7 @@ class AwsDynamodbConnector(BaseConnector):
             if not isinstance(data, dict):
                 return action_result.set_status(
                     phantom.APP_ERROR,
-                    "DICT CHECK Invalid input passed for creating {} secondary index".format(
+                    "Invalid input passed for creating {} secondary index".format(
                         index_type
                     )
                 )
@@ -437,7 +437,7 @@ class AwsDynamodbConnector(BaseConnector):
                 local_sec_index = json.loads(local_sec_index)
             except Exception as e:
                 return action_result.set_status(
-                    phantom.APP_ERROR, "Invalid Json data for Local Secondary Index : {}".format(e))
+                    phantom.APP_ERROR, "Invalid JSON data for Local Secondary Index : {}".format(e))
 
             if isinstance(local_sec_index, dict):
                 local_sec_index = [local_sec_index]
@@ -502,9 +502,8 @@ class AwsDynamodbConnector(BaseConnector):
                 "SSEType": "KMS"
             }
             if kms_master_key_id:
-                payload["SSESpecification"] = {
-                    "KMSMasterKeyId": kms_master_key_id
-                }
+                payload["SSESpecification"]["KMSMasterKeyId"] = kms_master_key_id
+
         elif sse == "False":
             payload["SSESpecification"] = {
                 "Enabled": False
@@ -513,7 +512,7 @@ class AwsDynamodbConnector(BaseConnector):
         if enable_stream:
             payload["StreamSpecification"] = dict()
             if stream_view_type:
-                payload["StreamSpecification"]["StreamEnable"] = enable_stream
+                payload["StreamSpecification"]["StreamEnabled"] = enable_stream
                 payload["StreamSpecification"]["StreamViewType"] = stream_view_type
 
             else:
@@ -562,19 +561,19 @@ class AwsDynamodbConnector(BaseConnector):
                     )
             payload["Tags"] = tags_list
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "create_table", kwargs=payload)
 
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        # converting datetime object to str
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Created Table successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Created table successfully")
 
     def _delete_table(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -585,19 +584,19 @@ class AwsDynamodbConnector(BaseConnector):
         table_name = param["table_name"]
         payload = {'TableName': table_name}
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "delete_table", kwargs=payload)
 
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        self.debug_print("Converting datetime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Deleted Table Successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Deleted table successfully")
 
     def _list_tables(self, param):
         """
@@ -618,14 +617,14 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return action_result.get_status()
 
-        starting_token = param.get('starting_token')
+        starting_token = param.get('exclusive_start_table_name')
 
         if max_items:
             payload['PaginationConfig']['MaxItems'] = max_items
         if starting_token:
             payload['PaginationConfig']['StartingToken'] = starting_token
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._paginator(action_result, "list_tables", payload)
 
         if (phantom.is_fail(ret_val)):
@@ -644,7 +643,12 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(e))
 
         result['TableNames'] = table_list
+
         action_result.add_data(result)
+
+        if not table_list:
+            return action_result.set_status(phantom.APP_SUCCESS, "No tables available to list")
+
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of table successfully")
 
     def _describe_table(self, param):
@@ -660,7 +664,7 @@ class AwsDynamodbConnector(BaseConnector):
             "TableName": table_name
         }
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result,
             "describe_table",
@@ -670,7 +674,7 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
@@ -731,7 +735,7 @@ class AwsDynamodbConnector(BaseConnector):
         if condition_expression:
             payload['ConditionExpression'] = condition_expression
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result,
             "put_item",
@@ -765,14 +769,14 @@ class AwsDynamodbConnector(BaseConnector):
             },
         }
 
-        self.debug_print('checking for optional parameters')
+        self.debug_print('Checking for optional parameters')
         if sort_key_name:
             payload['Key'][sort_key_name] = {
                 AWS_DYNAMODB_DATATYPES.get(param.get('sort_key_datatype').lower()): param.get('sort_key_value')
             }
 
         if projection_expression:
-            payload['ProjectionExpression'] = projection_expression.strip(",")
+            payload['ProjectionExpression'] = projection_expression.strip(',')
 
         if reserved_keyword:
             payload['ExpressionAttributeNames'] = dict()
@@ -786,7 +790,7 @@ class AwsDynamodbConnector(BaseConnector):
 
             payload['ProjectionExpression'] = projection_expression.strip(",")
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "get_item", kwargs=payload)
 
@@ -794,7 +798,7 @@ class AwsDynamodbConnector(BaseConnector):
             return ret_val
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Fetched Item Data Successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Fetched item data successfully")
 
     def _delete_item(self, param):
 
@@ -803,8 +807,8 @@ class AwsDynamodbConnector(BaseConnector):
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
-        partition_key = param['partition_key']
-        sort_key = param.get('sort_key')
+        partition_key = param['partition_key_name']
+        sort_key = param.get('sort_key_name')
         condition_expression = param.get('condition_expression')
         attribute_names = param.get('expression_attribute_names')
         attribute_values = param.get('expression_attribute_values')
@@ -818,7 +822,7 @@ class AwsDynamodbConnector(BaseConnector):
             },
         }
 
-        self.debug_print('checking for optional parameters')
+        self.debug_print('Checking for optional parameters')
         if sort_key:
             payload['Key'][sort_key] = {
                 AWS_DYNAMODB_DATATYPES.get(param.get('sort_key_datatype').lower()): param.get('sort_key_value')
@@ -851,7 +855,7 @@ class AwsDynamodbConnector(BaseConnector):
                     "Invalid format for expression attribute values, please enter data in correct format"
                 )
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "delete_item", kwargs=payload)
 
@@ -859,7 +863,7 @@ class AwsDynamodbConnector(BaseConnector):
             return ret_val
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Item deleted successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Deleted item successfully")
 
     def _update_item(self, param):
         """
@@ -872,8 +876,8 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         table_name = param['table_name']
-        partiton_key = param['partition_key']
-        sort_key = param.get('sort_key')
+        partition_key = param['partition_key_name']
+        sort_key = param.get('sort_key_name')
 
         update_expression = param.get('update_expression')
         attribute_names = param.get('expression_attribute_names')
@@ -882,13 +886,13 @@ class AwsDynamodbConnector(BaseConnector):
         payload = {
             "TableName": table_name,
             "Key": {
-                partiton_key: {
+                partition_key: {
                     AWS_DYNAMODB_DATATYPES.get(param['partition_key_datatype'].lower()): param['partition_key_value']
                 }
             }
         }
 
-        self.debug_print('checking for optional parameters')
+        self.debug_print('Checking for optional parameters')
         if sort_key:
             sort_key_datatype = param.get('sort_key_datatype')
             sort_key_value = param.get('sort_key_value')
@@ -931,7 +935,7 @@ class AwsDynamodbConnector(BaseConnector):
                     "Invalid format for expression attribute values, please enter data in correct format"
                 )
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "update_item", kwargs=payload)
 
@@ -948,7 +952,7 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         table_name = param['table_name']
-        key_condition_expression = param['key_condition_expression']
+        key_condition_expression = param.get('key_condition_expression')
         filter_expression = param.get('filter_expression')
         projection_expression = param.get('projection_expression')
         sort_descending = param.get('sort_descending')
@@ -957,6 +961,7 @@ class AwsDynamodbConnector(BaseConnector):
         consistent_read = param.get('consistent_read')
         attribute_names = param.get('expression_attribute_names')
         attribute_values = param.get('expression_attribute_values')
+        index_name = param.get('index_name')
 
         ret_val, max_items = self._validate_integer(
             action_result,
@@ -972,6 +977,9 @@ class AwsDynamodbConnector(BaseConnector):
             "TableName": table_name,
             "KeyConditionExpression": key_condition_expression,
         }
+
+        if index_name:
+            payload['IndexName'] = index_name
 
         if attribute_names and attribute_values:
             try:
@@ -1018,7 +1026,7 @@ class AwsDynamodbConnector(BaseConnector):
         if return_consumed_capacity:
             payload['ReturnConsumedCapacity'] = return_consumed_capacity
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._paginator(action_result, "query", payload)
 
         if phantom.is_fail(ret_val):
@@ -1052,7 +1060,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         payload = {"BackupName": backup_name, "TableName": table_name}
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "create_backup", kwargs=payload
         )
@@ -1060,7 +1068,7 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
@@ -1077,7 +1085,7 @@ class AwsDynamodbConnector(BaseConnector):
 
         payload = {"BackupArn": backup_arn}
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "delete_backup", kwargs=payload
         )
@@ -1085,7 +1093,7 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
@@ -1105,7 +1113,7 @@ class AwsDynamodbConnector(BaseConnector):
             "BackupArn": backup_arn
         }
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result,
             "describe_backup",
@@ -1115,12 +1123,12 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Backups table details fetched successfully")
 
     def check_for_future_datetime(self, datetime_obj):
         """
@@ -1133,7 +1141,7 @@ class AwsDynamodbConnector(BaseConnector):
 
     def _check_starttime_greater_than_endtime(self, datetime_start, datetime_end):
         """
-        Check if the starttime is greater than endtime or not.
+        Check if the start-time is greater than end-time or not.
 
         :param datetime_start: start datetime
         :param datetime_end: end datetime
@@ -1239,7 +1247,7 @@ class AwsDynamodbConnector(BaseConnector):
             if self._check_starttime_greater_than_endtime(time_range_lower_bound, time_range_upper_bound):
                 return action_result.set_status(phantom.APP_ERROR, "The upper bound value must be greater than lower bound value")
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._paginator(action_result, "list_backups", payload)
 
         if phantom.is_fail(ret_val):
@@ -1252,7 +1260,7 @@ class AwsDynamodbConnector(BaseConnector):
         except Exception as e:
             return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(e))
 
-        return action_result.set_status(phantom.APP_SUCCESS, "Fetched backup data successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of backups successfully")
 
     def _restore_table_from_backup(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -1292,15 +1300,13 @@ class AwsDynamodbConnector(BaseConnector):
                 "SSEType": "KMS"
             }
             if kms_master_key_id:
-                payload["SSESpecificationOverride"] = {
-                    "KMSMasterKeyId": kms_master_key_id
-                }
+                payload["SSESpecificationOverride"]["KMSMasterKeyId"] = kms_master_key_id
         elif sse == "False":
             payload["SSESpecificationOverride"] = {
                 "Enabled": False
             }
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "restore_table_from_backup", kwargs=payload
         )
@@ -1308,12 +1314,12 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Restored backup from table successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Restored table from backup successfully")
 
     def _create_global_table(self, param):
         action_result = self.add_action_result(ActionResult(dict(param)))
@@ -1334,7 +1340,7 @@ class AwsDynamodbConnector(BaseConnector):
             ]
         }
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "create_global_table", kwargs=payload
         )
@@ -1342,7 +1348,7 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return ret_val
 
-        self.debug_print("converting datetime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
@@ -1359,8 +1365,8 @@ class AwsDynamodbConnector(BaseConnector):
         region_name = param.get("region_name")
         ret_val, limit = self._validate_integer(
             action_result,
-            param.get("limit"),
-            'limit'
+            param.get("max_items"),
+            'max_items'
         )
 
         if (phantom.is_fail(ret_val)):
@@ -1377,7 +1383,7 @@ class AwsDynamodbConnector(BaseConnector):
         if limit:
             payload["Limit"] = limit
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result, "list_global_tables", kwargs=payload
         )
@@ -1385,7 +1391,7 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             return ret_val
 
-        self.debug_print("converting datetime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
@@ -1405,7 +1411,7 @@ class AwsDynamodbConnector(BaseConnector):
             "GlobalTableName": global_table_name
         }
 
-        self.debug_print("Making Boto call")
+        self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._make_boto_call(
             action_result,
             "describe_global_table",
@@ -1415,12 +1421,12 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return ret_val
 
-        self.debug_print("converting datatime object to string")
+        self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Global table details fetched successfully")
 
     def _handle_test_connectivity(self, param):
         """
@@ -1441,6 +1447,16 @@ class AwsDynamodbConnector(BaseConnector):
         if phantom.is_fail(ret_val):
             self.save_progress("Test Connectivity Failed")
             return action_result.get_status()
+
+        try:
+            for data in resp:
+                pass
+        except Exception:
+            self.save_progress("Test Connectivity Failed")
+            return action_result.set_status(
+                phantom.APP_ERROR,
+                "Please check the asset configuration"
+            )
 
         self.save_progress("Test Connectivity Passed")
         return action_result.set_status(phantom.APP_SUCCESS)

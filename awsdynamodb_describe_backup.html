@@ -171,14 +171,14 @@ and limitations under the License.
                                             <td>{{result.data.0.BackupDescription.SourceTableDetails.BillingMode}}</td>
                                         </tr>
                                         <tr>
-                                            <td class="boldtext">Partition key name</td>
+                                            <td class="boldtext">Partition Key Name</td>
                                             <td>
                                                 {{result.data.0.BackupDescription.SourceTableDetails.KeySchema.0.AttributeName}}
                                             </td>
                                         </tr>
                                         {% if result.data.0.BackupDescription.SourceTableDetails.KeySchema.1.AttributeName %}
                                         <tr>
-                                            <td>Sort Key</td>
+                                            <td class="boldtext">Sort Key Name</td>
                                             <td>
                                                 {{result.data.0.BackupDescription.SourceTableDetails.KeySchema.1.AttributeName}}
                                             </td>
@@ -234,8 +234,3 @@ and limitations under the License.
 </script>
 {% endblock %}
 <!-- Main Start Block -->
-
-
-<table>
-
-</table>

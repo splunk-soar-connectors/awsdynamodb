@@ -124,14 +124,19 @@ and limitations under the License.
                         <thead>
                             <tr>
                                 <th>Table Name</th>
-                                <th>Replication Groups</th>
+                                <th>Replication Regions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for item in result.data.0.GlobalTables%}
                             <tr>
                                 <td>
-                                    {{item.GlobalTableName}}
+                                    <a href="javascript:;"
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{ item.GlobalTableName }}' }], 0, {{ container.id }}, null, false);">
+                                        {{item.GlobalTableName}}
+                                        &nbsp;
+                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                    </a>
                                 </td>
                                 <td>
                                     <table style="border: hidden;" width="100%">
@@ -179,8 +184,3 @@ and limitations under the License.
 </script>
 {% endblock %}
 <!-- Main Start Block -->
-
-
-<table>
-
-</table>

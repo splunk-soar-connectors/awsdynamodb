@@ -138,11 +138,11 @@ and limitations under the License.
                                 <td>{{result.data.0.Table.TableStatus}}</td>
                             </tr>
                             <tr>
-                                <td class="boldtext">Partition key</td>
+                                <td class="boldtext">Partition Key</td>
                                 <td>{{result.data.0.Table.KeySchema.0.AttributeName}}</td>
                             </tr>
                             <tr>
-                                <td class="boldtext">Partition key Datatype</td>
+                                <td class="boldtext">Partition Key Datatype</td>
                                 {% for index in result.data.0.Table.AttributeDefinitions%}
                                 {% if index.AttributeName == result.data.0.Table.KeySchema.0.AttributeName %}
                                 {% if index.AttributeType == "N" %}
@@ -162,7 +162,7 @@ and limitations under the License.
                                 <td>{{result.data.0.Table.KeySchema.1.AttributeName}}</td>
                             </tr>
                             <tr>
-                                <td class="boldtext">Sort key Datatype</td>
+                                <td class="boldtext">Sort Key Datatype</td>
                                 {% for index in result.data.0.Table.AttributeDefinitions%}
                                 {% if index.AttributeName == result.data.0.Table.KeySchema.1.AttributeName %}
                                 {% if index.AttributeType == "N" %}
@@ -194,7 +194,7 @@ and limitations under the License.
 
                             {% if result.data.0.Table.GlobalSecondaryIndexes%}
                             <tr>
-                                <td class="boldtext">New Global Secondary Index</td>
+                                <td class="boldtext">Global Secondary Index</td>
                                 <td>
                                     <table style="border: hidden;" width="100%">
                                         {% for index in result.data.0.Table.GlobalSecondaryIndexes%}
@@ -223,7 +223,7 @@ and limitations under the License.
                                 <td class="boldtext">Stream View Type</td>
                                 <td>{{result.data.0.Table.StreamSpecification.StreamViewType}}</td>
                             </tr>
-                            {% endif %}s
+                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -258,8 +258,3 @@ and limitations under the License.
 </script>
 {% endblock %}
 <!-- Main Start Block -->
-
-
-<table>
-
-</table>
