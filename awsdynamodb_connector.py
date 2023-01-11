@@ -971,11 +971,10 @@ class AwsDynamodbConnector(BaseConnector):
         if (phantom.is_fail(ret_val)):
             return action_result.get_status()
 
-        exclusive_start_key = param.get('exclusive_start_key')
-
         payload = {
             "TableName": table_name,
             "KeyConditionExpression": key_condition_expression,
+            "PaginationConfig": {}
         }
 
         if index_name:
@@ -1021,8 +1020,7 @@ class AwsDynamodbConnector(BaseConnector):
             payload["Select"] = "SPECIFIC_ATTRIBUTES"
         if consistent_read:
             payload['ConsistentRead'] = consistent_read
-        if exclusive_start_key:
-            payload['ExclusiveStartKey'] = exclusive_start_key
+
         if return_consumed_capacity:
             payload['ReturnConsumedCapacity'] = return_consumed_capacity
 
@@ -1036,7 +1034,7 @@ class AwsDynamodbConnector(BaseConnector):
         result = dict()
         try:
             for data in resp:
-                self.debug_print(data)
+                self.debug_print("Query data : {}".format(data))
                 data_list.extend(data['Items'])
                 if data.get('LastEvaluatedKey'):
                     last_evaluated_key = data['LastEvaluatedKey']
