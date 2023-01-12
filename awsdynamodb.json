@@ -1,0 +1,4094 @@
+{
+    "appid": "6f58c338-7829-4dfa-ae3e-0d44cf2427f9",
+    "name": "AWS DynamoDB",
+    "description": "This app supports CRUD operations in a AWS DynamoDB database",
+    "type": "information",
+    "product_vendor": "AWS",
+    "logo": "logo_awsdynamodb.svg",
+    "logo_dark": "logo_awsdynamodb_dark.svg",
+    "product_name": "AWS DynamoDB",
+    "python_version": "3",
+    "product_version_regex": ".*",
+    "publisher": "Splunk",
+    "license": "Copyright (c) 2023 Splunk Inc.",
+    "app_version": "1.0.0",
+    "utctime_updated": "2022-08-22T10:16:54.377941Z",
+    "package_name": "phantom_awsdynamodb",
+    "main_module": "awsdynamodb_connector.py",
+    "min_phantom_version": "5.4.0",
+    "app_wizard_version": "1.0.0",
+    "fips_compliant": true,
+    "latest_tested_versions": [
+        "Cloud tested on January 3, 2023"
+    ],
+    "configuration": {
+        "access_key": {
+            "description": "Access Key",
+            "data_type": "password",
+            "order": 0
+        },
+        "secret_key": {
+            "description": "Secret Key",
+            "data_type": "password",
+            "order": 1
+        },
+        "region": {
+            "description": "Region",
+            "data_type": "string",
+            "required": true,
+            "value_list": [
+                "US East (Ohio)",
+                "US East (N. Virginia)",
+                "US West (N. California)",
+                "US West (Oregon)",
+                "Asia Pacific (Mumbai)",
+                "Asia Pacific (Seoul)",
+                "Asia Pacific (Singapore)",
+                "Asia Pacific (Sydney)",
+                "Asia Pacific (Tokyo)",
+                "Canada (Central)",
+                "China (Beijing)",
+                "China (Ningxia)",
+                "EU (Frankfurt)",
+                "EU (Ireland)",
+                "EU (London)",
+                "EU (Paris)",
+                "EU (Stockholm)",
+                "South America (Sao Paulo)",
+                "AWS GovCloud (US-East)",
+                "AWS GovCloud (US)"
+            ],
+            "order": 2
+        },
+        "use_role": {
+            "description": "Use attached role when running Phantom in EC2",
+            "data_type": "boolean",
+            "default": false,
+            "visibility": [
+                "onprem"
+            ],
+            "order": 3
+        }
+    },
+    "pip_dependencies": {
+        "wheel": []
+    },
+    "actions": [
+        {
+            "action": "describe global table",
+            "identifier": "describe_global_table",
+            "description": "Fetch metadata of a global table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Global Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.global_table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Global Table",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "describe backup",
+            "identifier": "describe_backup",
+            "description": "Fetch metadata of a backup",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "backup_arn": {
+                    "description": "Backup ARN string",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Backup",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "describe table",
+            "identifier": "describe_table",
+            "description": "Fetch metadata of a table",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table",
+                    "required": true,
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true,
+                    "order": 0
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.Table",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.Table.TableName",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "Describe Table",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create global table",
+            "identifier": "create_global_table",
+            "description": "Create a global table",
+            "verbose": "<ul> <li> This action is used to create a table on DynamoDB </li> <li> Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key </li> <li>The date types that can be used for keys are:</li> <ul> <li>String</li> <li>Number</li> <li>Binary</li> </ul> <li> The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity. This setting can be changed later. By default the value for Billing Mode is PROVISIONED. <ul> <li> PROVISIONED We recommend using PROVISIONED for predictable workloads. PROVISIONED sets the billing mode to Provisioned Mode. </li> <li> PAY_PER_REQUEST We recommend using PAY_PER_REQUEST for unpredictable workloads. PAY_PER_REQUEST set the billing mode to On-Demand Mode. </li> </ul> </li> <li> The Read/Write Capacity values by default are 5 units and auto scaling is disable. </li> <li> Secondary Indexes <ul> <li> For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation above. </li> <li> Once created local secondary index cannot be added/updated, but Global Secondary can be created. </li> </ul> </li> <li> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table. To enable streams for table, check the enable stream checkbox and select the stream view type from Dropdown. <ul> <li> KEYS_ONLY - Only the key attributes of the modified item are written to the stream. </li> <li> NEW_IMAGE - The entire item, as it appears after it was modified, is written to the stream. </li> <li> OLD_IMAGE - The entire item, as it appeared before it was modified, is written to the stream. </li> <li> NEW_AND_OLD_IMAGES - Both the new and the old item images of the item are written to the stream. </li> </ul> </li> <li> SSE <ul> <li> Set it to true to use server-side encryption. </li> <li> For the KMS master key id provide the KMS key value that should be used for encryption. </li> </ul> </li> </ul>.",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0
+                },
+                "replication_group": {
+                    "description": "Name of region",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.global_table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.replication_group",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 11:50:25 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "1081780290"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "236"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb::157568067690:global-table/room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "room"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:50:25.594000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.ReplicationGroup.*.RegionName",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTableDescription.GlobalTableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created global table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list global tables",
+            "identifier": "list_global_tables",
+            "description": "List the global tables from the database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "global_table_name": {
+                    "description": "Name of Table",
+                    "data_type": "string",
+                    "order": 0
+                },
+                "region_name": {
+                    "description": "Name of region",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "max_items": {
+                    "description": "No of tables to fetch",
+                    "data_type": "numeric",
+                    "order": 2
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.global_table_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.region_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTables.*.GlobalTableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars"
+                    ],
+                    "column_name": "Table Name",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTables.*.ReplicationGroup",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-2"
+                    ],
+                    "column_name": "Replication Group Regions",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.GlobalTables.*.ReplicationGroup.*.RegionName",
+                    "data_type": "string",
+                    "example_values": [
+                        "us-east-2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 05:53:30 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2321728776"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "224"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Feteched global table list successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "List Global Tables",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list backups",
+            "identifier": "list_backups",
+            "description": "List all the backups present in the database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "backup_type": {
+                    "description": "Backup type",
+                    "data_type": "string",
+                    "order": 0
+                },
+                "exclusive_start_backup_arn": {
+                    "description": "List tables backups after specific given backup arn",
+                    "data_type": "string",
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
+                },
+                "max_items": {
+                    "description": "Maximum backups to get in a call",
+                    "data_type": "numeric",
+                    "order": 2
+                },
+                "table_name": {
+                    "description": "Table name",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "start_date": {
+                    "description": "List tables created after provided date.(Valid date format allowed: YYYY/MM/DD",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "end_date": {
+                    "description": "List tables created before provided data.(Valid date format allowed: YYYY/MM/DD)",
+                    "data_type": "string",
+                    "order": 5
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_type",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.exclusive_start_backup_arn",
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.start_date",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.end_date",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "c08213e2-7a1b-4c44-abaa-bf3a52092232"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01659614741851-9435638e"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ],
+                    "column_name": "Table Name",
+                    "column_order": 1,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newDevTableBackup"
+                    ],
+                    "column_name": "Backup Name",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "AVAILABLE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        182
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-08-04 12:05:41.851000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:24:04 GMT",
+                        "Wed, 21 Sep 2022 17:15:59 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4139981727",
+                        "949983841"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1570",
+                        "1935"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched backup data successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "List Backups"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete backup",
+            "identifier": "delete_backup",
+            "description": "Delete backup of a table",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "backup_arn": {
+                    "description": "Backup ARN",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:29:44 GMT",
+                        "Thu, 22 Sep 2022 10:45:17 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "408729803",
+                        "2968903155"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "769",
+                        "810"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de",
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars_backup",
+                        "newDevTableBackup"
+                    ],
+                    "column_name": "Backup Name",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "DELETED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        352
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-14 12:29:03.903000+00:00",
+                        "2022-09-22 05:29:10.617000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "0fa008bb-5e6d-4287-949e-9872a952927f",
+                        "c08213e2-7a1b-4c44-abaa-bf3a52092232"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars",
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        3,
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "VID",
+                        "testing1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars",
+                        "test_dev_table"
+                    ],
+                    "column_name": "Table Name",
+                    "column_order": 2
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.BillingMode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        352
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-08-05 10:14:20.426000+00:00",
+                        "2022-07-29 12:44:24.597000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableFeatureDetails.StreamDescription.StreamEnabled",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDescription.SourceTableFeatureDetails.StreamDescription.StreamViewType",
+                    "data_type": "string",
+                    "example_values": [
+                        "NEW_AND_OLD_IMAGES"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Deleted backup successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "Delete Backup"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create backup",
+            "identifier": "create_backup",
+            "description": "Create a backup of an existing table",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table to backup",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "backup_name": {
+                    "description": "Name of backup",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123-backup"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
+                    ],
+                    "column_name": "Backup ARN",
+                    "column_order": 0,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupName",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars_backup",
+                        "newtable123-backup"
+                    ],
+                    "column_name": "Backup Name",
+                    "column_order": 1
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupType",
+                    "data_type": "string",
+                    "example_values": [
+                        "USER"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        266,
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.BackupDetails.BackupCreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-14 12:29:03.903000+00:00",
+                        "2022-09-22 11:30:03.118000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 14 Sep 2022 12:29:03 GMT",
+                        "Thu, 22 Sep 2022 11:30:03 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "1789868498",
+                        "1895002589"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "252",
+                        "264"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG",
+                        "DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created backup successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "table",
+                "title": "Create Backup"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "restore backup table",
+            "identifier": "restore_table_from_backup",
+            "description": "Restore a table from backup",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "backup_arn": {
+                    "description": "Backup ARN",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ],
+                    "primary": true
+                },
+                "billing_mode_override": {
+                    "description": "Billing mode override",
+                    "data_type": "string",
+                    "order": 2,
+                    "value_list": [
+                        "PROVISIONED",
+                        "PAY_PER_REQUEST"
+                    ]
+                },
+                "read_capacity_override": {
+                    "description": "Read capacity override",
+                    "data_type": "numeric",
+                    "order": 3
+                },
+                "write_capacity_override": {
+                    "description": "Write capacity override",
+                    "data_type": "numeric",
+                    "order": 4
+                },
+                "restore_secondary_indexes": {
+                    "description": "Restore secondary indexes",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 5,
+                    "default": "Restore the table without secondary indexes",
+                    "value_list": [
+                        "Restore the entire table",
+                        "Restore the table without secondary indexes"
+                    ]
+                },
+                "sse_enable_override": {
+                    "description": "SSE",
+                    "data_type": "string",
+                    "order": 6,
+                    "value_list": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "kms_master_key_id": {
+                    "description": "Local secondary indexes",
+                    "data_type": "string",
+                    "order": 7
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "retorenewtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.backup_arn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ],
+                    "contains": [
+                        "aws dynamodb backup arn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.billing_mode_override",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.read_capacity_override",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.parameter.write_capacity_override",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.parameter.restore_secondary_indexes",
+                    "data_type": "string",
+                    "example_values": [
+                        "Restore the entire table"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sse_enable_override",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.kms_master_key_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 11:43:36 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4165026467"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1995"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "67ede490-028f-40ca-b286-2e320f2295c4"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "retorenewtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.SourceTableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.RestoreDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:30:03.118000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.SourceBackupArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.RestoreSummary.RestoreInProgress",
+                    "data_type": "boolean",
+                    "example_values": [
+                        true
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.Status",
+                    "data_type": "string",
+                    "example_values": [
+                        "ENABLED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.SSEType",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMS"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.KMSMasterKeyArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 11:43:36.491000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.BillingModeSummary.BillingMode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newname"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeType",
+                    "data_type": "string",
+                    "example_values": [
+                        "S"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "INCLUDE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.NonKeyAttributes",
+                    "data_type": "string",
+                    "example_values": [
+                        "num1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "list tables",
+            "identifier": "list_tables",
+            "description": "List all the tables present in the database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "max_items": {
+                    "data_type": "numeric",
+                    "description": "Maximum number of items to list",
+                    "order": 0
+                },
+                "exclusive_start_table_name": {
+                    "data_type": "string",
+                    "description": "Start from a specific table",
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb exclusive start table name"
+                    ],
+                    "primary": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.exclusive_start_table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "cars2"
+                    ],
+                    "contains": [
+                        "aws dynamodb exclusive start table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "example_values": [
+                        "room_test_1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched list of table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "custom",
+                "title": "List Tables",
+                "view": "awsdynamodb_view.display_view"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete table",
+            "identifier": "delete_table",
+            "description": "Delete a table from the database",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of Table to delete",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "yash"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 21 Sep 2022 18:29:19 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "3710880937"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "310"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "78197d82-7d17-49ad-b622-fb5a619832dd"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/yash"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "yash"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "DELETING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        5
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Deleted Table Successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "create table",
+            "identifier": "create_table",
+            "description": "Create a table in the database",
+            "type": "generic",
+            "read_only": false,
+            "verbose": "<p><strong>NOTE</strong></p><ul><li><p>All the keys(partition & sort) in Dynamodb have only three supported datatypes [String,Number,Binary]</p></li><li><div><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p><ul><li>PROVISIONED: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p></div></li><li><div><p>If stream are enabled you need to select stream view type. There are four options you could select from: </p><ul><li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li><li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li><li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li><li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object. The JSON object should contain the 'Key' and 'Value' keys. These two keys are required and without these adding tags won't be possible. <pre> { 'Key' : 'key_data', 'Value' : 'value_data' } </pre></li><li> For multiple values in tags, pass a list of JSON object. <pre> [ { 'Key' : 'key_data1', 'Value' : 'value_data1' }, { 'Key' : 'key_data2', 'Value' : 'value_data2' } ] </pre></li></ul></li></ul>.",
+            "parameters": {
+                "table_name": {
+                    "description": "Name of table to be created",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "billing_mode": {
+                    "description": "Billing mode to be used for table",
+                    "data_type": "string",
+                    "order": 1,
+                    "value_list": [
+                        "PROVISIONED",
+                        "PAY_PER_REQUEST"
+                    ]
+                },
+                "partition_key_name": {
+                    "description": "Partition key name for table items",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ],
+                    "primary": true
+                },
+                "partition_key_datatype": {
+                    "description": "Datatype of partition key",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 3,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_name": {
+                    "description": "Sort key name for table items",
+                    "data_type": "string",
+                    "order": 4,
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ],
+                    "primary": true
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Datatype for sort key",
+                    "order": 5,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "read_capacity_units": {
+                    "data_type": "numeric",
+                    "description": "Read capacity units for provisioned mode",
+                    "order": 6
+                },
+                "write_capacity_units": {
+                    "data_type": "numeric",
+                    "description": "Write capacity units for provisioned mode",
+                    "order": 7
+                },
+                "local_secondary_index": {
+                    "data_type": "string",
+                    "description": "JSON input for creating local secondary index",
+                    "order": 8
+                },
+                "global_secondary_index": {
+                    "data_type": "string",
+                    "description": "JSON input for creating global secondary index",
+                    "order": 9
+                },
+                "enable_stream": {
+                    "data_type": "boolean",
+                    "description": "Enable streams for the table",
+                    "order": 10
+                },
+                "stream_view_type": {
+                    "data_type": "string",
+                    "description": "View type of dynamodb stream",
+                    "order": 11,
+                    "value_list": [
+                        "NEW_IMAGE",
+                        "OLD_IMAGE",
+                        "NEW_AND_OLD_IMAGES",
+                        "KEYS_ONLY"
+                    ]
+                },
+                "sse": {
+                    "description": "Settings used to enable server-side encryption",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 12,
+                    "value_list": [
+                        "True",
+                        "False"
+                    ]
+                },
+                "kms_master_key_id": {
+                    "description": "The KMS key that should be used for the KMS encryption",
+                    "data_type": "string",
+                    "order": 13
+                },
+                "tags": {
+                    "description": "List of tags to add to table",
+                    "data_type": "string",
+                    "order": 14
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.billing_mode",
+                    "data_type": "string",
+                    "example_values": [
+                        "PROVISIONED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "name"
+                    ],
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "Number"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.read_capacity_units",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.write_capacity_units",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.local_secondary_index",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"attribute_projection\": \"ALL\",\n    \"sort_key_name\": \"hardikst\",\n    \"sort_key_datatype\":  \"string\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.global_secondary_index",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\n    \"attribute_projection\": \"INCLUDE\",\n    \"partition_key_name\": \"newid\",\n    \"partition_key_datatype\": \"string\",\n    \"sort_key_name\":  \"newname\",\n    \"sort_key_datatype\":  \"string\",\n    \"NonKeyAttributes\":  [\"num1\",\"num2\"]\n}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.enable_stream",
+                    "data_type": "string",
+                    "example_values": [
+                        "True"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.stream_view_type",
+                    "data_type": "string",
+                    "example_values": [
+                        "NEW_IMAGE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sse",
+                    "data_type": "string",
+                    "example_values": [
+                        "False"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.kms_master_key_id",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.tags",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 06:07:34 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2160627733"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "1680"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableId",
+                    "data_type": "string",
+                    "example_values": [
+                        "f250b7a4-20e6-49cd-afed-20de7a883fef"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newtable123"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.Status",
+                    "data_type": "string",
+                    "example_values": [
+                        "ENABLED"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.SSEType",
+                    "data_type": "string",
+                    "example_values": [
+                        "KMS"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.SSEDescription.KMSMasterKeyArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.TableSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.CreationDateTime",
+                    "data_type": "string",
+                    "example_values": [
+                        "2022-09-22 06:07:34.858000+00:00"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.AttributeDefinitions.*.AttributeType",
+                    "data_type": "string",
+                    "example_values": [
+                        "N"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "hardikst-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "ID"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexArn",
+                    "data_type": "string",
+                    "example_values": [
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid-newname-index"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ItemCount",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.KeyType",
+                    "data_type": "string",
+                    "example_values": [
+                        "HASH"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.KeySchema.*.AttributeName",
+                    "data_type": "string",
+                    "example_values": [
+                        "newid"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.ProjectionType",
+                    "data_type": "string",
+                    "example_values": [
+                        "INCLUDE"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.Projection.NonKeyAttributes",
+                    "data_type": "string",
+                    "example_values": [
+                        "num1"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexStatus",
+                    "data_type": "string",
+                    "example_values": [
+                        "CREATING"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.IndexSizeBytes",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.ReadCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.WriteCapacityUnits",
+                    "data_type": "numeric",
+                    "example_values": [
+                        4
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.GlobalSecondaryIndexes.*.ProvisionedThroughput.NumberOfDecreasesToday",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Created Table successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "delete item",
+            "identifier": "delete_item",
+            "description": "Delete an item from the table",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Table name to delete item from",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "condition_expression": {
+                    "description": "Condition to be check before delete an item",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "partition_key_name": {
+                    "description": "Partition key name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ],
+                    "primary": true
+                },
+                "sort_key_name": {
+                    "description": "Sort key name",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ],
+                    "primary": true
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 4
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 7,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "Attribute names json",
+                    "order": 8
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "Attribute values json",
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_query"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.condition_expression",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "firstname"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "Hardik"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "lastname"
+                    ],
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "Kamani"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Wed, 21 Sep 2022 18:17:41 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item deleted successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "put item",
+            "identifier": "put_item",
+            "description": "Add an item to the table",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of table in which you want to add the item",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "item_json": {
+                    "description": "Item that is to be added in the table",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 1
+                },
+                "condition_expression": {
+                    "description": "Condition to be checked before inserting an item",
+                    "data_type": "string",
+                    "order": 2
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "Attribute names json",
+                    "order": 3
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "Attribute values json",
+                    "order": 4
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.item_json",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"testing1\":{\"S\":\"32\"},\"age\":{\"N\":\"12\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.condition_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "#age <> :age"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"#age\":\"age\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":age\":{\"N\":\"12\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 10:24:42 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Item inserted successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "update item",
+            "identifier": "update_item",
+            "description": "Update an item in the table",
+            "type": "generic",
+            "read_only": false,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of table in which item is to be updated",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "update_expression": {
+                    "description": "Expression to update the attribute",
+                    "data_type": "string",
+                    "order": 1
+                },
+                "partition_key_name": {
+                    "description": "Partition key name",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ],
+                    "primary": true
+                },
+                "sort_key_name": {
+                    "description": "Sort key name",
+                    "data_type": "string",
+                    "order": 3,
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ],
+                    "primary": true
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 4
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 5
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 7,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "Attribute names json",
+                    "order": 8
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "Attribute values json",
+                    "order": 9
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "testing1"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_name",
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb sort key"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.update_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "set #age = :age"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\"#age\" :  \"age\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":age\":{\"N\":\"24\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 10:01:09 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "2745614147"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Updated item successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "get item",
+            "identifier": "get_item",
+            "description": "Get an item from the table",
+            "verbose": "We don't need to pass value in encoded format for the parameters.",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "description": "Name of table from which you want to fetch item",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "partition_key_name": {
+                    "description": "Name of partition key",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 1,
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ],
+                    "primary": true
+                },
+                "sort_key_name": {
+                    "description": "Name of sort key",
+                    "data_type": "string",
+                    "order": 2,
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ],
+                    "primary": true
+                },
+                "partition_key_value": {
+                    "description": "Partition key value",
+                    "data_type": "string",
+                    "required": true,
+                    "order": 3
+                },
+                "sort_key_value": {
+                    "description": "Sort key value",
+                    "data_type": "string",
+                    "order": 4
+                },
+                "partition_key_datatype": {
+                    "description": "Partition key datatype",
+                    "required": true,
+                    "data_type": "string",
+                    "order": 5,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "sort_key_datatype": {
+                    "data_type": "string",
+                    "description": "Sort key datatype",
+                    "order": 6,
+                    "value_list": [
+                        "String",
+                        "Binary",
+                        "Number"
+                    ]
+                },
+                "attributes_to_get": {
+                    "data_type": "string",
+                    "description": "To fetch specific attributes from the item",
+                    "order": 7
+                },
+                "reserved_keyword_attributes": {
+                    "data_type": "string",
+                    "description": "To fetch attributes from items whose names are same as reserved keywords",
+                    "order": 8
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_dev_table"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "testing1"
+                    ],
+                    "contains": [
+                        "aws dynamodb partition key name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_value",
+                    "data_type": "string",
+                    "example_values": [
+                        "2"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_name",
+                    "data_type": "string",
+                    "contains": [
+                        "aws dynamodb sort key name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_value",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.partition_key_datatype",
+                    "data_type": "string",
+                    "example_values": [
+                        "String"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_key_datatype",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.attributes_to_get",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.reserved_keyword_attributes",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.Item",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RequestId",
+                    "data_type": "string",
+                    "example_values": [
+                        "EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.date",
+                    "data_type": "string",
+                    "example_values": [
+                        "Thu, 22 Sep 2022 05:59:54 GMT"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.server",
+                    "data_type": "string",
+                    "example_values": [
+                        "Server"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.connection",
+                    "data_type": "string",
+                    "example_values": [
+                        "keep-alive"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amz-crc32",
+                    "data_type": "string",
+                    "example_values": [
+                        "4263225874"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-type",
+                    "data_type": "string",
+                    "example_values": [
+                        "application/x-amz-json-1.0"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
+                    "data_type": "string",
+                    "example_values": [
+                        "106"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
+                    "data_type": "string",
+                    "example_values": [
+                        "EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.RetryAttempts",
+                    "data_type": "numeric",
+                    "example_values": [
+                        0
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.ResponseMetadata.HTTPStatusCode",
+                    "data_type": "numeric",
+                    "example_values": [
+                        200
+                    ]
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched Item Data Successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "query data",
+            "identifier": "query_data",
+            "description": "Query data from database",
+            "type": "investigate",
+            "read_only": true,
+            "parameters": {
+                "table_name": {
+                    "data_type": "string",
+                    "description": "Name of Table to perform query on",
+                    "required": true,
+                    "order": 0,
+                    "contains": [
+                        "aws dynamodb table name"
+                    ],
+                    "primary": true
+                },
+                "index_name": {
+                    "data_type": "string",
+                    "description": "Name of index to be used for the query",
+                    "order": 1
+                },
+                "expression_attribute_names": {
+                    "data_type": "string",
+                    "description": "Attribute names json",
+                    "order": 2
+                },
+                "expression_attribute_values": {
+                    "data_type": "string",
+                    "description": "Attribute values json",
+                    "order": 3
+                },
+                "key_condition_expression": {
+                    "data_type": "string",
+                    "description": "Attribute values json",
+                    "order": 4
+                },
+                "filter_expression": {
+                    "data_type": "string",
+                    "description": "Expression to filter data from table",
+                    "order": 5
+                },
+                "projection_expression": {
+                    "data_type": "string",
+                    "description": "Attributes to be included in the result",
+                    "order": 6
+                },
+                "select": {
+                    "data_type": "string",
+                    "description": "Attributes to be included in the result",
+                    "value_list": [
+                        "COUNT",
+                        "ALL_ATTRIBUTES",
+                        "ALL_PROJECTED_ATTRIBUTES",
+                        "SPECIFIC_ATTRIBUTES"
+                    ],
+                    "order": 7
+                },
+                "return_consumed_capacity": {
+                    "data_type": "string",
+                    "description": "Attributes to be included in the result",
+                    "value_list": [
+                        "INDEXES",
+                        "TOTAL",
+                        "NONE"
+                    ],
+                    "order": 8
+                },
+                "max_items": {
+                    "data_type": "numeric",
+                    "description": "Maximum number of items to process",
+                    "order": 9
+                },
+                "sort_descending": {
+                    "data_type": "boolean",
+                    "description": "Attributes to be included in the result",
+                    "order": 10
+                },
+                "consistent_read": {
+                    "data_type": "boolean",
+                    "description": "Attributes to be included in the result",
+                    "order": 11
+                }
+            },
+            "output": [
+                {
+                    "data_path": "action_result.status",
+                    "data_type": "string",
+                    "example_values": [
+                        "success",
+                        "failed"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.table_name",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_query"
+                    ],
+                    "contains": [
+                        "aws dynamodb table name"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.index_name",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_names",
+                    "data_type": "string",
+                    "example_values": [
+                        "{ \"#fn\" :  \"firstname\"}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.expression_attribute_values",
+                    "data_type": "string",
+                    "example_values": [
+                        "{\":fn\" : { \"S\" : \"Hardik\"}}"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.key_condition_expression",
+                    "data_type": "string",
+                    "example_values": [
+                        "#fn  =  :fn"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.filter_expression",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.projection_expression",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.select",
+                    "data_type": "string",
+                    "example_values": [
+                        "ALL_ATTRIBUTES"
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.consistent_read",
+                    "data_type": "boolean",
+                    "example_values": [
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.sort_descending",
+                    "data_type": "boolean",
+                    "example_values": [
+                        false
+                    ]
+                },
+                {
+                    "data_path": "action_result.parameter.return_consumed_capacity",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.parameter.max_items",
+                    "data_type": "numeric"
+                },
+                {
+                    "data_path": "action_result.data.*.TableNames",
+                    "data_type": "string",
+                    "column_name": "Tables",
+                    "column_order": 0
+                },
+                {
+                    "data_path": "action_result.data.*.Items",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "action_result.message",
+                    "data_type": "string",
+                    "example_values": [
+                        "Fetched data successfully"
+                    ]
+                },
+                {
+                    "data_path": "action_result.summary",
+                    "data_type": "string"
+                },
+                {
+                    "data_path": "summary.total_objects",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                },
+                {
+                    "data_path": "summary.total_objects_successful",
+                    "data_type": "numeric",
+                    "example_values": [
+                        1
+                    ]
+                }
+            ],
+            "render": {
+                "type": "json"
+            },
+            "versions": "EQ(*)"
+        },
+        {
+            "action": "test connectivity",
+            "identifier": "test_connectivity",
+            "description": "Validate the asset configuration for connectivity using the supplied configuration",
+            "type": "test",
+            "read_only": true,
+            "parameters": {},
+            "output": [],
+            "versions": "EQ(*)"
+        }
+    ],
+    "directory": "awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9",
+    "version": 1,
+    "appname": "-",
+    "executable": "spawn3",
+    "disabled": false,
+    "pip39_dependencies": {
+        "wheel": [
+            {
+                "module": "boto3",
+                "input_file": "wheels/py3/boto3-1.26.47-py3-none-any.whl"
+            },
+            {
+                "module": "botocore",
+                "input_file": "wheels/py3/botocore-1.29.47-py3-none-any.whl"
+            },
+            {
+                "module": "jmespath",
+                "input_file": "wheels/py3/jmespath-1.0.1-py3-none-any.whl"
+            },
+            {
+                "module": "python_dateutil",
+                "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
+            },
+            {
+                "module": "s3transfer",
+                "input_file": "wheels/py3/s3transfer-0.6.0-py3-none-any.whl"
+            },
+            {
+                "module": "six",
+                "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
+            },
+            {
+                "module": "urllib3",
+                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
+            }
+        ]
+    }
+}
