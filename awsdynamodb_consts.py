@@ -14,6 +14,7 @@
 # and limitations under the License.
 
 AWS_DYNAMODB_VALIDATE_INTEGER_MESSAGE = "Please provide a valid integer value in the {key} parameter"
+ERROR_MESSAGE_UNAVAILABLE = "Error message unavailable. Please check the asset configuration and|or action parameters"
 AWS_DYNAMODB_JSON_REGION = "region"
 AWS_DYNAMODB_JSON_ACCESS_KEY = "access_key"
 AWS_DYNAMODB_JSON_SECRET_KEY = "secret_key"  # pragma: allowlist secret`

@@ -118,6 +118,33 @@ class AwsDynamodbConnector(BaseConnector):
 
         return phantom.APP_SUCCESS, parameter
 
+    def _get_error_message_from_exception(self, e):
+        """
+        Get appropriate error message from the exception.
+        :param e: Exception object
+        :return: error message
+        """
+
+        error_code = None
+        error_message = ERROR_MESSAGE_UNAVAILABLE
+        self.error_print("Error occurred : ", e)
+        try:
+            if hasattr(e, 'args'):
+                if len(e.args) > 1:
+                    error_code = e.args[0]
+                    error_message = e.args[1]
+                elif len(e.args) == 1:
+                    error_message = e.args[0]
+        except Exception as e:
+            self.debug_print("Error occurred while fetching exception information. Details: {}".format(str(e)))
+
+        if not error_code:
+            error_text = "Error Message: {}".format(error_message)
+        else:
+            error_text = "Error Code: {}. Error Message: {}".format(error_code, error_message)
+
+        return error_text
+
     def _handle_get_ec2_role(self):
 
         session = Session(region_name=self._region)
@@ -288,8 +315,9 @@ class AwsDynamodbConnector(BaseConnector):
                 self.save_progress(
                     "Using temporary assume role credentials for action")
             except Exception as e:
+                error_msg = self._get_error_message_from_exception(e)
                 return action_result.set_status(phantom.APP_ERROR,
-                                                "Failed to get temporary credentials: {0}".format(e))
+                                                "Failed to get temporary credentials: {0}".format(error_msg))
         try:
 
             if self._access_key and self._secret_key:
@@ -311,7 +339,8 @@ class AwsDynamodbConnector(BaseConnector):
                     config=boto_config)
 
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, "Could not create boto3 client: {0}".format(e))
+            error_msg = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, "Could not create boto3 client: {0}".format(error_msg))
 
         return phantom.APP_SUCCESS
 
@@ -325,7 +354,8 @@ class AwsDynamodbConnector(BaseConnector):
         try:
             resp_json = boto_func(**kwargs)
         except Exception as e:
-            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', str(e)), None)
+            error_msg = self._get_error_message_from_exception(e)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', str(error_msg)), None)
 
         return phantom.APP_SUCCESS, resp_json
 
@@ -436,8 +466,9 @@ class AwsDynamodbConnector(BaseConnector):
             try:
                 local_sec_index = json.loads(local_sec_index)
             except Exception as e:
+                error_msg = self._get_error_message_from_exception(e)
                 return action_result.set_status(
-                    phantom.APP_ERROR, "Invalid JSON data for Local Secondary Index : {}".format(e))
+                    phantom.APP_ERROR, "Invalid JSON data for Local Secondary Index : {}".format(error_msg))
 
             if isinstance(local_sec_index, dict):
                 local_sec_index = [local_sec_index]
@@ -470,8 +501,9 @@ class AwsDynamodbConnector(BaseConnector):
             try:
                 global_sec_index = json.loads(global_sec_index)
             except Exception as e:
+                error_msg = self._get_error_message_from_exception(e)
                 return action_result.set_status(
-                    phantom.APP_ERROR, "Invalid Json data for Global Secondary Index : {}".format(e))
+                    phantom.APP_ERROR, "Invalid Json data for Global Secondary Index : {}".format(error_msg))
 
             if len(global_sec_index) > 20:
                 return action_result.set_status(
@@ -640,7 +672,8 @@ class AwsDynamodbConnector(BaseConnector):
             for data in resp:
                 table_list.extend(data["TableNames"])
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(e))
+            error_msg = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(error_msg))
 
         result['TableNames'] = table_list
 
@@ -1039,7 +1072,8 @@ class AwsDynamodbConnector(BaseConnector):
                 if data.get('LastEvaluatedKey'):
                     last_evaluated_key = data['LastEvaluatedKey']
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(e))
+            error_msg = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(error_msg))
 
         result['Items'] = data_list
         if last_evaluated_key:
@@ -1256,7 +1290,8 @@ class AwsDynamodbConnector(BaseConnector):
                 response = json.loads(response)
                 action_result.add_data(response)
         except Exception as e:
-            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(e))
+            error_msg = self._get_error_message_from_exception(e)
+            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(error_msg))
 
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of backups successfully")
 
