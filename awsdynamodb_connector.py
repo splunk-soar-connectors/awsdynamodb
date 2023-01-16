@@ -28,8 +28,6 @@ from phantom.base_connector import BaseConnector
 
 from awsdynamodb_consts import *
 
-# Phantom App imports
-
 
 class RetVal(tuple):
 
@@ -158,7 +156,7 @@ class AwsDynamodbConnector(BaseConnector):
         :param comma_str: comma separated string
         :return : list
         """
-        str_to_list = [x.strip() for x in comma_str.split(",") if x]
+        str_to_list = [x.strip() for x in comma_str.split(",") if x.strip()]
         return str_to_list
 
     def _parse_json_for_indexes(self, action_result, key_data, original_resp, index_type, table_partition_key=""):
@@ -272,14 +270,17 @@ class AwsDynamodbConnector(BaseConnector):
 
                 if key_projection == "INCLUDE":
                     attributes = data.get('non_key_attributes')
-                    if len(attributes) > 0:
+                    if attributes and len(attributes) > 0:
                         if isinstance(attributes, list) and all(isinstance(x, str) for x in attributes):
                             index_key_object["Projection"]["NonKeyAttributes"] = attributes
                         else:
-                            print('Invalid List Attributes passed')
+                            return action_result.set_status(
+                                phantom.APP_ERROR,
+                                "Invalid input, Please enter non key attributes in proper format"
+                            )
                     else:
                         error_in_index = ""
-                        if index_type == 'Local':
+                        if index_type == "Local":
                             error_in_index = sort_key_name
                         elif index_type == "Global":
                             error_in_index = partition_key_name
@@ -440,18 +441,18 @@ class AwsDynamodbConnector(BaseConnector):
             # read capacity
             ret_val, read_units = self._validate_integer(
                 action_result,
-                param.get('read_capacity_units', 5),
+                param.get('read_capacity_units', AWS_DYNAMODB_READ_CAPACITY_UNITS),
                 'read capacity units'
             )
-            if (phantom.is_fail(ret_val)):
+            if phantom.is_fail(ret_val):
                 return action_result.get_status()
 
             ret_val, write_units = self._validate_integer(
                 action_result,
-                param.get('write_capacity_units', 5),
+                param.get('write_capacity_units', AWS_DYNAMODB_WRITE_CAPACITY_UNITS),
                 'write capacity units'
             )
-            if (phantom.is_fail(ret_val)):
+            if phantom.is_fail(ret_val):
                 return action_result.get_status()
 
             payload['ProvisionedThroughput'] = {
@@ -462,6 +463,10 @@ class AwsDynamodbConnector(BaseConnector):
         self.debug_print("Parsing data for local indexes")
         # handle local secondary index
         if local_sec_index:
+            if not( sort_key_name and sort_key_datatype):
+                return action_result.set_status(
+                    phantom.APP_ERROR, "Sort key name and Sort key datatype are required to create Local Secondary Indexes")
+
             payload["LocalSecondaryIndexes"] = list()
             try:
                 local_sec_index = json.loads(local_sec_index)
@@ -492,7 +497,7 @@ class AwsDynamodbConnector(BaseConnector):
                 table_partition_key=partition_key_name
             )
 
-            if (phantom.is_fail(ret_val)):
+            if phantom.is_fail(ret_val):
                 return ret_val
 
         # handle global secondary index
@@ -525,7 +530,7 @@ class AwsDynamodbConnector(BaseConnector):
                 payload,
                 "Global"
             )
-            if (phantom.is_fail(ret_val)):
+            if phantom.is_fail(ret_val):
                 return ret_val
 
         if sse == "True":
@@ -546,7 +551,6 @@ class AwsDynamodbConnector(BaseConnector):
             if stream_view_type:
                 payload["StreamSpecification"]["StreamEnabled"] = enable_stream
                 payload["StreamSpecification"]["StreamViewType"] = stream_view_type
-
             else:
                 return action_result.set_status(phantom.APP_ERROR, "Please select a stream view type")
 
@@ -563,9 +567,7 @@ class AwsDynamodbConnector(BaseConnector):
                         "Invalid data format for tags, please enter data in valid format as mentioned in documentation"
                     )
 
-                if isinstance(tags, list) and all(isinstance(x, dict) for x in tags):
-                    pass
-                else:
+                if not (isinstance(tags, list) and all(isinstance(x, dict) for x in tags)):
                     raise Exception
             except Exception:
                 return action_result.set_status(
@@ -580,7 +582,7 @@ class AwsDynamodbConnector(BaseConnector):
             tags_list = list()
 
             for data in tags:
-                if 'Key' in data.keys() and 'Value' in data.keys():
+                if 'Key' in data and 'Value' in data:
                     tags_data = {
                         "Key": data.get("Key", ""),
                         "Value": data.get("Value", "")
@@ -594,15 +596,12 @@ class AwsDynamodbConnector(BaseConnector):
             payload["Tags"] = tags_list
 
         self.debug_print(AWS_BOTO_CALL)
-        ret_val, resp = self._make_boto_call(
-            action_result, "create_table", kwargs=payload)
+        ret_val, resp = self._make_boto_call(action_result, "create_table", kwargs=payload)
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Created table successfully")
@@ -620,15 +619,21 @@ class AwsDynamodbConnector(BaseConnector):
         ret_val, resp = self._make_boto_call(
             action_result, "delete_table", kwargs=payload)
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
+
+        resp = self._convert_date_time_to_str(resp)
+
+        action_result.add_data(resp)
+        return action_result.set_status(phantom.APP_SUCCESS, "Deleted table successfully")
+
+    def _convert_date_time_to_str(self, resp):
 
         self.debug_print(AWS_DATE_TIME_CONVERSION)
         resp = json.dumps(resp, default=str)
         resp = json.loads(resp)
 
-        action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Deleted table successfully")
+        return resp
 
     def _list_tables(self, param):
         """
@@ -646,7 +651,7 @@ class AwsDynamodbConnector(BaseConnector):
             param.get('max_items'),
             "max items"
         )
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         starting_token = param.get('exclusive_start_table_name')
@@ -659,10 +664,10 @@ class AwsDynamodbConnector(BaseConnector):
         self.debug_print(AWS_BOTO_CALL)
         ret_val, resp = self._paginator(action_result, "list_tables", payload)
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
-        # declaring varibales to store result data from pagination object
+        # declaring variables to store result data from pagination object
         table_list = list()
         result = dict()
 
@@ -675,13 +680,11 @@ class AwsDynamodbConnector(BaseConnector):
             error_msg = self._get_error_message_from_exception(e)
             return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(error_msg))
 
-        result['TableNames'] = table_list
-
-        action_result.add_data(result)
-
         if not table_list:
             return action_result.set_status(phantom.APP_SUCCESS, "No tables available to list")
 
+        result['TableNames'] = table_list
+        action_result.add_data(result)
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of table successfully")
 
     def _describe_table(self, param):
@@ -704,18 +707,16 @@ class AwsDynamodbConnector(BaseConnector):
             kwargs=payload
         )
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
 
     def _put_item(self, param):
-        self.debug_print("Inside put item action")
+
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -775,8 +776,8 @@ class AwsDynamodbConnector(BaseConnector):
             kwargs=payload
         )
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Item inserted successfully")
@@ -827,8 +828,8 @@ class AwsDynamodbConnector(BaseConnector):
         ret_val, resp = self._make_boto_call(
             action_result, "get_item", kwargs=payload)
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched item data successfully")
@@ -892,8 +893,8 @@ class AwsDynamodbConnector(BaseConnector):
         ret_val, resp = self._make_boto_call(
             action_result, "delete_item", kwargs=payload)
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Deleted item successfully")
@@ -929,16 +930,15 @@ class AwsDynamodbConnector(BaseConnector):
         if sort_key:
             sort_key_datatype = param.get('sort_key_datatype')
             sort_key_value = param.get('sort_key_value')
-            if sort_key_datatype:
-                sort_key_datatype = sort_key_datatype.lower()
-            else:
+            if not sort_key_datatype:
                 return action_result.set_status(phantom.APP_ERROR, "Missing sort key datatype, please enter a value for it")
 
-            if sort_key_value:
-                payload['Key'][sort_key] = {
-                    AWS_DYNAMODB_DATATYPES.get(sort_key_datatype): sort_key_value}
-            else:
+            sort_key_datatype = sort_key_datatype.lower()
+
+            if not sort_key_value:
                 return action_result.set_status(phantom.APP_ERROR, "Missing sort key value, please enter a value for it")
+
+            payload['Key'][sort_key] = {AWS_DYNAMODB_DATATYPES.get(sort_key_datatype): sort_key_value}
 
         if update_expression:
             payload['UpdateExpression'] = update_expression
@@ -946,10 +946,10 @@ class AwsDynamodbConnector(BaseConnector):
         if attribute_names and attribute_values:
             try:
                 attribute_names = json.loads(attribute_names)
-                if isinstance(attribute_names, dict):
-                    payload['ExpressionAttributeNames'] = attribute_names
-                else:
+                if not isinstance(attribute_names, dict):
                     raise Exception
+
+                payload['ExpressionAttributeNames'] = attribute_names
             except Exception:
                 return action_result.set_status(
                     phantom.APP_ERROR,
@@ -958,10 +958,10 @@ class AwsDynamodbConnector(BaseConnector):
 
             try:
                 attribute_values = json.loads(attribute_values)
-                if isinstance(attribute_values, dict):
-                    payload['ExpressionAttributeValues'] = attribute_values
-                else:
+                if not isinstance(attribute_values, dict):
                     raise Exception
+
+                payload['ExpressionAttributeValues'] = attribute_values
             except Exception:
                 return action_result.set_status(
                     phantom.APP_ERROR,
@@ -1001,7 +1001,7 @@ class AwsDynamodbConnector(BaseConnector):
             param.get('max_items'),
             'max items'
         )
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         payload = {
@@ -1016,10 +1016,11 @@ class AwsDynamodbConnector(BaseConnector):
         if attribute_names and attribute_values:
             try:
                 attribute_names = json.loads(attribute_names)
-                if isinstance(attribute_names, dict):
-                    payload['ExpressionAttributeNames'] = attribute_names
-                else:
+                if not isinstance(attribute_names, dict):
                     raise Exception
+
+                payload['ExpressionAttributeNames'] = attribute_names
+
             except Exception:
                 return action_result.set_status(
                     phantom.APP_ERROR,
@@ -1028,10 +1029,10 @@ class AwsDynamodbConnector(BaseConnector):
 
             try:
                 attribute_values = json.loads(attribute_values)
-                if isinstance(attribute_values, dict):
-                    payload['ExpressionAttributeValues'] = attribute_values
-                else:
+                if not isinstance(attribute_values, dict):
                     raise Exception
+
+                payload['ExpressionAttributeValues'] = attribute_values
             except Exception:
                 return action_result.set_status(
                     phantom.APP_ERROR,
@@ -1053,7 +1054,6 @@ class AwsDynamodbConnector(BaseConnector):
             payload["Select"] = "SPECIFIC_ATTRIBUTES"
         if consistent_read:
             payload['ConsistentRead'] = consistent_read
-
         if return_consumed_capacity:
             payload['ReturnConsumedCapacity'] = return_consumed_capacity
 
@@ -1062,12 +1062,12 @@ class AwsDynamodbConnector(BaseConnector):
 
         if phantom.is_fail(ret_val):
             return action_result.get_status()
+
         data_list = []
         last_evaluated_key = dict()
         result = dict()
         try:
             for data in resp:
-                self.debug_print("Query data : {}".format(data))
                 data_list.extend(data['Items'])
                 if data.get('LastEvaluatedKey'):
                     last_evaluated_key = data['LastEvaluatedKey']
@@ -1098,11 +1098,9 @@ class AwsDynamodbConnector(BaseConnector):
         )
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Created backup successfully")
@@ -1123,11 +1121,9 @@ class AwsDynamodbConnector(BaseConnector):
         )
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Deleted backup successfully")
@@ -1152,12 +1148,10 @@ class AwsDynamodbConnector(BaseConnector):
             kwargs=payload
         )
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Backups table details fetched successfully")
@@ -1236,7 +1230,7 @@ class AwsDynamodbConnector(BaseConnector):
             param.get("max_items"),
             'max items'
         )
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         table_name = param.get("table_name")
@@ -1283,11 +1277,10 @@ class AwsDynamodbConnector(BaseConnector):
         ret_val, resp = self._paginator(action_result, "list_backups", payload)
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
         try:
             for data in resp:
-                response = json.dumps(data, default=str)
-                response = json.loads(response)
+                response = self._convert_date_time_to_str(data)
                 action_result.add_data(response)
         except Exception as e:
             error_msg = self._get_error_message_from_exception(e)
@@ -1304,8 +1297,8 @@ class AwsDynamodbConnector(BaseConnector):
         table_name = param["table_name"]
         backup_arn = param["backup_arn"]
         billing_mode_override = param.get("billing_mode_override")
-        read_capacity_override = param.get("read_capacity_override", 5)
-        write_capacity_override = param.get("write_capacity_override", 5)
+        read_capacity_override = param.get("read_capacity_override", AWS_DYNAMODB_READ_CAPACITY_UNITS)
+        write_capacity_override = param.get("write_capacity_override", AWS_DYNAMODB_WRITE_CAPACITY_UNITS)
         restore_secondary_indexes = param["restore_secondary_indexes"]
         sse = param.get("sse_enable_override")
         kms_master_key_id = param.get("kms_master_key_id")
@@ -1345,11 +1338,9 @@ class AwsDynamodbConnector(BaseConnector):
         )
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Restored table from backup successfully")
@@ -1379,11 +1370,9 @@ class AwsDynamodbConnector(BaseConnector):
         )
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Created global table successfully")
@@ -1402,7 +1391,7 @@ class AwsDynamodbConnector(BaseConnector):
             'max_items'
         )
 
-        if (phantom.is_fail(ret_val)):
+        if phantom.is_fail(ret_val):
             return action_result.get_status()
 
         payload = dict()
@@ -1422,11 +1411,9 @@ class AwsDynamodbConnector(BaseConnector):
         )
 
         if phantom.is_fail(ret_val):
-            return ret_val
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched global table list successfully")
@@ -1451,12 +1438,10 @@ class AwsDynamodbConnector(BaseConnector):
             kwargs=payload
         )
 
-        if (phantom.is_fail(ret_val)):
-            return ret_val
+        if phantom.is_fail(ret_val):
+            return action_result.get_status()
 
-        self.debug_print(AWS_DATE_TIME_CONVERSION)
-        resp = json.dumps(resp, default=str)
-        resp = json.loads(resp)
+        resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
         return action_result.set_status(phantom.APP_SUCCESS, "Global table details fetched successfully")
@@ -1482,14 +1467,10 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         try:
-            for data in resp:
-                pass
+            resp._method()
         except Exception:
             self.save_progress("Test Connectivity Failed")
-            return action_result.set_status(
-                phantom.APP_ERROR,
-                "Please check the asset configuration"
-            )
+            return action_result.set_status(phantom.APP_ERROR, "Please check the asset configuration")
 
         self.save_progress("Test Connectivity Passed")
         return action_result.set_status(phantom.APP_SUCCESS)
