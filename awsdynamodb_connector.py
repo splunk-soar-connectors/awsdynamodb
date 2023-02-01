@@ -366,8 +366,11 @@ class AwsDynamodbConnector(BaseConnector):
             boto_func = getattr(self._client, "get_paginator")(method)
         except AttributeError:
             return RetVal(action_result.set_status(phantom.APP_ERROR, "Invalid method: {0}".format(method)), None)
-
-        resp_object = boto_func.paginate(**kwargs)
+        try:
+            resp_object = boto_func.paginate(**kwargs)
+        except Exception as e:
+            error_msg = self._get_error_message_from_exception(e)
+            return RetVal(action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed', str(error_msg)), None)
 
         return phantom.APP_SUCCESS, resp_object
 
@@ -1068,14 +1071,14 @@ class AwsDynamodbConnector(BaseConnector):
         result = dict()
         try:
             for data in resp:
-                data_list.extend(data['Items'])
+                data_list.append(data)
                 if data.get('LastEvaluatedKey'):
                     last_evaluated_key = data['LastEvaluatedKey']
         except Exception as e:
             error_msg = self._get_error_message_from_exception(e)
-            return action_result.set_status(phantom.APP_ERROR, 'boto3 call to Dynamodb failed : {}'.format(error_msg))
+            return action_result.set_status(phantom.APP_ERROR, 'Error : {}'.format(error_msg))
 
-        result['Items'] = data_list
+        result['QueryData'] = data_list
         if last_evaluated_key:
             result['Last_evaluated_key'] = last_evaluated_key
         action_result.add_data(result)
