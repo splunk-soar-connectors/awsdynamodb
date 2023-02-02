@@ -559,7 +559,10 @@
                 }
             ],
             "render": {
-                "type": "json"
+                "type": "custom",
+                "title":"Create Global Table",
+                "view":"awsdynamodb_view.display_view"
+
             },
             "versions": "EQ(*)"
         },
@@ -570,8 +573,8 @@
             "type": "investigate",
             "read_only": true,
             "parameters": {
-                "global_table_name": {
-                    "description": "Name of Table",
+                "exclusive_start_global_table_name": {
+                    "description": "Name of Global Table",
                     "data_type": "string",
                     "order": 0
                 },
@@ -605,7 +608,7 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.parameter.global_table_name",
+                    "data_path": "action_result.parameter.exclusive_start_global_table_name",
                     "data_type": "string"
                 },
                 {

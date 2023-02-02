@@ -64,3 +64,6 @@ def display_view(provides, all_app_runs, context):
 
     if provides == "describe backup":
         return "awsdynamodb_describe_backup.html"
+
+    if provides == "create global table":
+        return "awsdynamodb_create_global_table.html"
