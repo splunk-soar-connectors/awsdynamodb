@@ -560,9 +560,8 @@
             ],
             "render": {
                 "type": "custom",
-                "title":"Create Global Table",
-                "view":"awsdynamodb_view.display_view"
-
+                "title": "Create Global Table",
+                "view": "awsdynamodb_view.display_view"
             },
             "versions": "EQ(*)"
         },
@@ -1949,14 +1948,14 @@
                     "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/hardikst-index"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/retorenewtable123/index/testdatast-index"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
                     "data_type": "string",
                     "example_values": [
-                        "hardikst-index"
+                        "testdatast-index"
                     ]
                 },
                 {
@@ -2273,7 +2272,7 @@
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
-                        "yash"
+                        "testdata"
                     ],
                     "contains": [
                         "aws dynamodb table name"
@@ -2376,7 +2375,7 @@
                     "data_path": "action_result.data.*.TableDescription.TableArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/yash"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/testdata"
                     ]
                 },
                 {
@@ -2390,7 +2389,7 @@
                     "data_path": "action_result.data.*.TableDescription.TableName",
                     "data_type": "string",
                     "example_values": [
-                        "yash"
+                        "testdata"
                     ]
                 },
                 {
@@ -2670,7 +2669,7 @@
                     "data_path": "action_result.parameter.local_secondary_index",
                     "data_type": "string",
                     "example_values": [
-                        "{\"attribute_projection\": \"ALL\",\n    \"sort_key_name\": \"hardikst\",\n    \"sort_key_datatype\":  \"string\"}"
+                        "{\"attribute_projection\": \"ALL\",\n    \"sort_key_name\": \"testdatast\",\n    \"sort_key_datatype\":  \"string\"}"
                     ]
                 },
                 {
@@ -2897,14 +2896,14 @@
                     "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/hardikst-index"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/index/testdatast-index"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.IndexName",
                     "data_type": "string",
                     "example_values": [
-                        "hardikst-index"
+                        "testdatast-index"
                     ]
                 },
                 {
@@ -3208,7 +3207,7 @@
                     "data_path": "action_result.parameter.partition_key_value",
                     "data_type": "string",
                     "example_values": [
-                        "Hardik"
+                        "testdata"
                     ]
                 },
                 {
@@ -4271,7 +4270,7 @@
                     "data_path": "action_result.parameter.expression_attribute_values",
                     "data_type": "string",
                     "example_values": [
-                        "{\":fn\" : { \"S\" : \"Hardik\"}}"
+                        "{\":fn\" : { \"S\" : \"testdata\"}}"
                     ]
                 },
                 {
@@ -4389,11 +4388,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.26.47-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.26.69-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.47-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.69-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
@@ -4413,7 +4412,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.13-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.14-py2.py3-none-any.whl"
             }
         ]
     }
