@@ -1422,7 +1422,7 @@ class AwsDynamodbConnector(BaseConnector):
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
-        global_table_name = param.get("global_table_name")
+        global_table_name = param.get("exclusive_start_global_table_name")
         region_name = param.get("region_name")
         ret_val, limit = self._validate_integer(
             action_result,
