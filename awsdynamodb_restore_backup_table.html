@@ -11,7 +11,7 @@ background-repeat: no-repeat; background-image: url('/app_resource/{{ title_logo
 {% block widget_content %}
 
 
-<!-- File: awsdynamodb_describe_table.html
+<!-- File: awsdynamodb_restore_backup_table.html
   Copyright (c) 2023 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -118,7 +118,7 @@ and limitations under the License.
     <h4 class="wf-h4-style">No data found</h4>
     {% else %}
 
-    <h3 class="wf-h3-style">Describe Table</h3>
+    <h3 class="wf-h3-style">Restore Table from Backup</h3>
     <div class="metadata_div">
         <!--Default View-->
         <div class="panel-group" id="server-information">
@@ -126,40 +126,34 @@ and limitations under the License.
                 <div id="default-view-table" class="panel-collapse collapse in">
                     <table class="wf-table-horizontal datatable">
                         <thead>
-                            Table Details
+                            Restored Table From Backup Details
                         </thead>
                         <tbody>
                             <tr>
-                                <td class="boldtext">Table Name</td>
+                                <td class="boldtext">New Table Name</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{result.data.0.Table.TableName}}' }], 0, {{ container.id }}, null, false);">
-                                        {{result.data.0.Table.TableName}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{result.data.0.TableDescription.TableName}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.TableName}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
                                 </td>
-
-                            </tr>
-                            <tr>
-                                <td class="boldtext">Table Status</td>
-                                <td>{{result.data.0.Table.TableStatus}}</td>
                             </tr>
                             <tr>
                                 <td class="boldtext">Partition Key</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb partition key'], 'value': '{{result.data.0.Table.KeySchema.0.AttributeName}}' }], 0, {{ container.id }}, null, false);">
-                                        {{result.data.0.Table.KeySchema.0.AttributeName}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb partition key'], 'value': '{{result.data.0.TableDescription.KeySchema.0.AttributeName}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.AttributeDefinitions.0.AttributeName}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
                                 </td>
-                            </tr>
-                            <tr>
+                            </tr> <tr>
                                 <td class="boldtext">Partition Key Datatype</td>
-                                {% for index in result.data.0.Table.AttributeDefinitions%}
-                                {% if index.AttributeName == result.data.0.Table.KeySchema.0.AttributeName %}
+                                {% for index in result.data.0.TableDescription.AttributeDefinitions%}
+                                {% if index.AttributeName == result.data.0.TableDescription.AttributeDefinitions.0.AttributeName%}
                                 {% if index.AttributeType == "N" %}
                                 <td>Number</td>
                                 {% elif index.AttributeType == "S" %}
@@ -170,14 +164,13 @@ and limitations under the License.
                                 {% endif %}
                                 {% endfor %}
                             </tr>
-
-                            {% if result.data.0.Table.KeySchema.1.AttributeName%}
+                            {% if result.data.0.TableDescription.AttributeDefinitions.1.AttributeName%}
                             <tr>
                                 <td class="boldtext">Sort Key</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb sort key'], 'value': '{{result.data.0.Table.KeySchema.1.AttributeName}}' }], 0, {{ container.id }}, null, false);">
-                                        {{result.data.0.Table.KeySchema.1.AttributeName}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb sort key'], 'value': '{{result.data.0.TableDescription.AttributeDefinitions.1.AttributeName}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.AttributeDefinitions.1.AttributeName}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
@@ -185,8 +178,8 @@ and limitations under the License.
                             </tr>
                             <tr>
                                 <td class="boldtext">Sort Key Datatype</td>
-                                {% for index in result.data.0.Table.AttributeDefinitions%}
-                                {% if index.AttributeName == result.data.0.Table.KeySchema.1.AttributeName %}
+                                {% for index in result.data.0.TableDescription.AttributeDefinitions%}
+                                {% if index.AttributeName == result.data.0.TableDescription.AttributeDefinitions.1.AttributeName%}
                                 {% if index.AttributeType == "N" %}
                                 <td>Number</td>
                                 {% elif index.AttributeType == "S" %}
@@ -198,42 +191,23 @@ and limitations under the License.
                                 {% endfor %}
                             </tr>
                             {% endif %}
-
-                            {% if result.data.0.Table.LocalSecondaryIndexes%}
                             <tr>
-                                <td class="boldtext">Local Secondary Index</td>
+                                <td class="boldtext">Billing Mode</td>
                                 <td>
-                                    <table style="border: hidden;" width="100%">
-                                        {% for index in result.data.0.Table.LocalSecondaryIndexes%}
-                                        <tr>
-                                            <td>{{index.IndexName}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </table>
+                                    <a href="javascript:;"
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb billing mode'], 'value': '{{result.data.0.TableDescription.BillingModeSummary.BillingMode}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.BillingModeSummary.BillingMode}}
+                                        &nbsp;
+                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                    </a>
                                 </td>
                             </tr>
-                            {% endif %}
-
-                            {% if result.data.0.Table.GlobalSecondaryIndexes%}
-                            <tr>
-                                <td class="boldtext">Global Secondary Index</td>
-                                <td>
-                                    <table style="border: hidden;" width="100%">
-                                        {% for index in result.data.0.Table.GlobalSecondaryIndexes%}
-                                        <tr>
-                                            <td>{{index.IndexName}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </table>
-                                </td>
-                            </tr>
-                            {% endif %}
                             <tr>
                                 <td class="boldtext">Read Capacity Units</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb read capacity'], 'value': '{{result.data.0.Table.ProvisionedThroughput.ReadCapacityUnits}}' }], 0, {{ container.id }}, null, false);">
-                                        {{result.data.0.Table.ProvisionedThroughput.ReadCapacityUnits}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb read capacity'], 'value': '{{result.data.0.TableDescription.ProvisionedThroughput.ReadCapacityUnits}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.ProvisionedThroughput.ReadCapacityUnits}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
@@ -243,23 +217,24 @@ and limitations under the License.
                                 <td class="boldtext">Write Capacity Units</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb write capacity'], 'value': '{{result.data.0.Table.ProvisionedThroughput.WriteCapacityUnits}}' }], 0, {{ container.id }}, null, false);">
-                                        {{result.data.0.Table.ProvisionedThroughput.WriteCapacityUnits}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb write capacity'], 'value': '{{result.data.0.TableDescription.ProvisionedThroughput.WriteCapacityUnits}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.ProvisionedThroughput.WriteCapacityUnits}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
                                 </td>
                             </tr>
-                            {% if result.data.0.Table.StreamSpecification%}
                             <tr>
-                                <td class="boldtext">Stream Enabled</td>
-                                <td>{{result.data.0.Table.StreamSpecification.StreamEnabled}}</td>
+                                <td class="boldtext">Source Backup ARN</td>
+                                <td>
+                                    <a href="javascript:;"
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb backup arn'], 'value': '{{result.data.0.RestoreSummary.SourceBackupArn}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.TableDescription.RestoreSummary.SourceBackupArn}}
+                                        &nbsp;
+                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                    </a>
+                                </td>
                             </tr>
-                            <tr>
-                                <td class="boldtext">Stream View Type</td>
-                                <td>{{result.data.0.Table.StreamSpecification.StreamViewType}}</td>
-                            </tr>
-                            {% endif %}
                         </tbody>
                     </table>
                 </div>
@@ -277,6 +252,7 @@ and limitations under the License.
     $.extend(true, $.fn.dataTable.defaults, {
         "searching": false,
         "bLengthChange": false,
+        "ordering": true,
         "language": {
             "paginate": {
                 "previous": "<i class='fa fa-angle-left fa-lg'></i>",
@@ -290,7 +266,7 @@ and limitations under the License.
         }
     });
     $.fn.DataTable.ext.pager.numbers_length = 5;
-    $('.datatable').DataTable();
+    $('.datatable').DataTable({order: []});
 </script>
 {% endblock %}
 <!-- Main Start Block -->

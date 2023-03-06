@@ -11,7 +11,7 @@ background-repeat: no-repeat; background-image: url('/app_resource/{{ title_logo
 {% block widget_content %}
 
 
-<!-- File: awsdynamodb_list_global_tables.html
+<!-- File: awsdynamodb_restore_backup_table.html
   Copyright (c) 2023 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
@@ -102,6 +102,10 @@ and limitations under the License.
         content: counter(serial-number);
         /* Display the counter */
     }
+
+    .boldtext {
+        font-weight: bold;
+    }
 </style>
 <div class="awsdynamodb" style="overflow: auto; width: 100%; height: 100%; padding-left:10px; padding-right:10px">
     <!-- Main Div -->
@@ -114,7 +118,7 @@ and limitations under the License.
     <h4 class="wf-h4-style">No data found</h4>
     {% else %}
 
-    <h3 class="wf-h3-style">List Tables</h3>
+    <h3 class="wf-h3-style">Delete Backup</h3>
     <div class="metadata_div">
         <!--Default View-->
         <div class="panel-group" id="server-information">
@@ -122,34 +126,48 @@ and limitations under the License.
                 <div id="default-view-table" class="panel-collapse collapse in">
                     <table class="wf-table-horizontal datatable">
                         <thead>
-                            <tr>
-                                <th>Table Name</th>
-                                <th>Replication Regions</th>
-                            </tr>
+                            Delete Backup Table
                         </thead>
                         <tbody>
-                            {% for item in result.data.0.GlobalTables%}
                             <tr>
+                                <td class="boldtext">Table Name</td>
                                 <td>
                                     <a href="javascript:;"
-                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{ item.GlobalTableName }}' }], 0, {{ container.id }}, null, false);">
-                                        {{item.GlobalTableName}}
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{result.data.0.BackupDescription.SourceTableDetails.TableName}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.BackupDescription.SourceTableDetails.TableName}}
                                         &nbsp;
                                         <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                     </a>
                                 </td>
-                                <td>
-                                    <table style="border: hidden;" width="100%">
-                                        {% for regions in item.ReplicationGroup%}
-                                        <tr>
-                                            <td>{{regions.RegionName}}</td>
-                                        </tr>
-                                        {% endfor %}
-                                    </table>
-                                </td>
-
                             </tr>
-                            {% endfor %}
+                            <tr>
+                                <td class="boldtext">Backup Name</td>
+                                <td>
+                                    {{result.data.0.BackupDescription.BackupDetails.BackupName}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="boldtext">Backup ARN</td>
+                                <td>
+                                    <a href="javascript:;"
+                                        onclick="context_menu(this, [{'contains': ['aws dynamodb backup arn'], 'value': ' {{result.data.0.BackupDescription.BackupDetails.BackupArn}}' }], 0, {{ container.id }}, null, false);">
+                                        {{result.data.0.BackupDescription.BackupDetails.BackupArn}}
+                                        &nbsp;
+                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="boldtext">Backup Type</td>
+                                <td>
+                                    <a href="javascript:;"
+                                    onclick="context_menu(this, [{'contains': ['aws dynamodb backup type'], 'value': '{{result.data.0.BackupDescription.BackupDetails.BackupType}}' }], 0, {{ container.id }}, null, false);">
+                                    {{result.data.0.BackupDescription.BackupDetails.BackupType}}
+                                    &nbsp;
+                                        <span class="fa fa-caret-down" style="font-size: smaller;"></span>
+                                    </a>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>

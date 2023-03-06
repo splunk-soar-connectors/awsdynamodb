@@ -6,7 +6,7 @@ Connector Version: 1\.0\.0
 Product Vendor: AWS  
 Product Name: AWS DynamoDB  
 Product Version Supported (regex): "\.\*"  
-Minimum Product Version: 5\.4\.0  
+Minimum Product Version: 5\.5\.0  
 
 This app supports CRUD operations in a AWS DynamoDB database
 
@@ -452,7 +452,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [describe global table](#action-describe-global-table) - Fetch metadata of a global table  
 [describe backup](#action-describe-backup) - Fetch metadata of a backup  
 [describe table](#action-describe-table) - Fetch metadata of a table  
-[create global table](#action-create-global-table) - Create a global table from an existing table in the specified region l  
+[create global table](#action-create-global-table) - Create a global table from an existing table in the specified region  
 [list global tables](#action-list-global-tables) - List all global tables that have a replica in the specified Region  
 [list backups](#action-list-backups) - List all the backups present in the database  
 [delete backup](#action-delete-backup) - Delete backup of a table  
@@ -485,7 +485,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.global\_table\_name | string |  |   room 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  pragma: allowlist secret
 action\_result\.data\.\*\.Table | string |  |  
 action\_result\.data\.\*\.Table\.TableName | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   IVODR6MSFJFABNQ92LLHFE1BVJVV4KQNSO5AEMVJF66Q9ASUAAJG 
@@ -525,7 +525,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   room 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.Table | string |  |  
 action\_result\.data\.\*\.Table\.TableName | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   M2M76PL4BOD12BK61IEUN1604VVV4KQNSO5AEMVJF66Q9ASUAAJG 
@@ -592,7 +592,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   room 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.Table | string |  |  
 action\_result\.data\.\*\.Table\.TableName | string |  |  
 action\_result\.data\.\*\.Table\.TableId | string |  |   44b4bcbc\-b591\-466f\-a05d\-370d7df1561b 
@@ -651,7 +651,7 @@ summary\.total\_objects | numeric |  |   1
 summary\.total\_objects\_successful | numeric |  |   1   
 
 ## action: 'create global table'
-Create a global table from an existing table in the specified region l
+Create a global table from an existing table in the specified region
 
 Type: **generic**  
 Read only: **False**
@@ -671,7 +671,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.global\_table\_name | string |  `aws dynamodb table name`  |   room 
 action\_result\.parameter\.replication\_group | string |  `aws region`  |   us\-east\-1 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 11\:50\:25 GMT 
@@ -714,7 +714,7 @@ action\_result\.status | string |  |   success  failed
 action\_result\.parameter\.exclusive\_start\_global\_table\_name | string |  `aws dynamodb table name`  |   cars\_backup 
 action\_result\.parameter\.region\_name | string |  `aws region`  |   us\-east\-1 
 action\_result\.parameter\.max\_items | numeric |  |   3 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.GlobalTables\.\*\.GlobalTableName | string |  `aws dynamodb table name`  |   cars 
 action\_result\.data\.\*\.GlobalTables\.\*\.ReplicationGroup\.\*\.RegionName | string |  `aws region`  |   us\-east\-2 
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG 
@@ -760,7 +760,7 @@ action\_result\.parameter\.max\_items | numeric |  |   2
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   cars 
 action\_result\.parameter\.start\_date | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
 action\_result\.parameter\.end\_date | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.BackupSummaries\.\*\.TableId | string |  |   c08213e2\-7a1b\-4c44\-abaa\-bf3a52092232 
 action\_result\.data\.\*\.BackupSummaries\.\*\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table 
 action\_result\.data\.\*\.BackupSummaries\.\*\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table/backup/01659614741851\-9435638e 
@@ -803,7 +803,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table/backup/01663824550617\-bcee6561 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 14 Sep 2022 12\:29\:44 GMT  Thu, 22 Sep 2022 10\:45\:17 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
@@ -814,24 +814,24 @@ action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | strin
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de  arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table/backup/01663824550617\-bcee6561 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   cars\_backup  newDevTableBackup 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   cars\_backup 
 action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
 action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
 action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupStatus | string |  |   DELETED 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |   266  352 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupCreationDateTime | string |  |   2022\-09\-14 12\:29\:03\.903000\+00\:00  2022\-09\-22 05\:29\:10\.617000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   0fa008bb\-5e6d\-4287\-949e\-9872a952927f  c08213e2\-7a1b\-4c44\-abaa\-bf3a52092232 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars  arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |   3  4 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupCreationDateTime | string |  |   2022\-09\-14 12\:29\:03\.903000\+00\:00 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   0fa008bb\-5e6d\-4287\-949e\-9872a952927f 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |   3 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   VID 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableName | string |  `aws dynamodb table name`  |   cars 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.BillingMode | string |  |   PROVISIONED 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |   266  352 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |   266 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   1 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   1 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableCreationDateTime | string |  |   2022\-08\-05 10\:14\:20\.426000\+00\:00  2022\-07\-29 12\:44\:24\.597000\+00\:00 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableCreationDateTime | string |  |   2022\-07\-29 12\:44\:24\.597000\+00\:00 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamEnabled | boolean |  |   True 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.Status | string |  |   ENABLED 
@@ -871,12 +871,12 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   newtable123 
 action\_result\.parameter\.backup\_name | string |  |   newtable123\-backup 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de 
 action\_result\.data\.\*\.BackupDetails\.BackupName | string |  |   cars\_backup 
 action\_result\.data\.\*\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
 action\_result\.data\.\*\.BackupDetails\.BackupStatus | string |  |   CREATING 
-action\_result\.data\.\*\.BackupDetails\.BackupSizeBytes | numeric |  |   266  0 
+action\_result\.data\.\*\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
 action\_result\.data\.\*\.BackupDetails\.BackupCreationDateTime | string |  |   2022\-09\-14 12\:29\:03\.903000\+00\:00 
 action\_result\.data\.\*\.BackupDetails\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG 
@@ -885,8 +885,8 @@ action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   1789868498 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252  264 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG  DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
 action\_result\.message | string |  |   Created backup successfully 
@@ -899,6 +899,8 @@ Create a new table from an existing backup
 
 Type: **generic**  
 Read only: **False**
+
+<p>NOTE</p><p>Restore Secondary Indexes parameter is used to restore the define the secondary indexes of the new restored table\. There are following two options for the parameter\:<ul><li><b>Restore the entire table</b><p>Restore table with original indexes as they are in the backup</p></li><li><b>Restore the table without secondary indexes</b> \(Selected by Default\)<p>Restore table without any indexes\. There will be no Local and GLobal Secondary Index\. Incase you want to add indexes, you can only create Global Secondary Indexes\. Local Secondary Indexes cannot be created once the table is create\.Hence there will be no Local Secondary Index is this option is selected\.</p></li></ul></p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -925,7 +927,7 @@ action\_result\.parameter\.write\_capacity\_override | numeric |  `aws dynamodb 
 action\_result\.parameter\.restore\_secondary\_indexes | string |  |   Restore the entire table 
 action\_result\.parameter\.sse\_enable\_override | string |  |   True 
 action\_result\.parameter\.kms\_master\_key\_id | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 11\:43\:36 GMT 
@@ -1001,7 +1003,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.max\_items | numeric |  |   5 
 action\_result\.parameter\.exclusive\_start\_table\_name | string |  `aws dynamodb table name`  |   cars2 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data | string |  |  
 action\_result\.data\.\*\.TableNames | string |  `aws dynamodb table name`  |   room\_test\_1 
 action\_result\.message | string |  |   Fetched list of table successfully 
@@ -1026,7 +1028,7 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   testdata 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 21 Sep 2022 18\:29\:19 GMT 
@@ -1065,7 +1067,7 @@ Create a table in the database
 Type: **generic**  
 Read only: **False**
 
-<ul><li> Each table has a Primary Key to identify items uniquely\. The primary in DynamoDB is made up of Partition Key and Sort Key\. Sort is Optional, but once the table is created you cannot add/update Sort Key </li><li><p>All the keys\(partition & sort\) in Dynamodb have only three supported datatype \[String,Number,Binary\]</p></li><li><div><p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity\.This setting can be changed later\.</p><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>\.</p><ul><li>PROVISIONED\: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST\: Sets the billing mode to On\-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters\. The values for read and write capacity units are default set to 5\. Also, auto\-scaling is disabled\. </p></div></li><li><div><p>Secondary Indexes</p><ul><li> For creating Local Secondary Index \(LSI\) and Global Secondary Index \(GSI\), please refer the documentation above\. </li><li> Once created local secondary index cannot be added/updated, but Global Secondary can be created\. </li></ul></li></div></li><li><div><p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\. To enable streams for table, check the enable stream checkbox\. </p><p>If stream are enabled you need to select stream view type\. There are four options you could select from\: </p><ul><li> KEYS ONLY\: Only the key attributes of the modified item are written to the stream\. </li><li> NEW IMAGE\: The entire item, as it appears after it was modified, is written to the stream\. </li><li> OLD IMAGE\: The entire item, as it appeared before it was modified, is written to the stream\. </li><li> NEW AND OLD IMAGES\: Both the new and the old item images of the item are written to the stream\. </li></ul></div></li><li><div><p>SSE</p><ul><li> Set it to true to use server\-side encryption\. </li><li> For the KMS master key id provide the KMS key value that should be used for encryption\. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption\. To specify a key, use its key ID, Amazon Resource Name \(ARN\), alias name, or alias ARN\. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index\. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object\. The JSON object should contain the 'Key' and 'Value' keys\. These two keys are required and without these adding tags won't be possible\. <pre> \{ 'Key' \: 'key\_data', 'Value' \: 'value\_data' \} </pre></li><li> For multiple values in tags, pass a list of JSON object\. <pre> \[ \{ 'Key' \: 'key\_data1', 'Value' \: 'value\_data1' \}, \{ 'Key' \: 'key\_data2', 'Value' \: 'value\_data2' \} \] </pre></li></ul></li></ul>\.
+<ul><li> Each table has a Primary Key to identify items uniquely\. The primary in DynamoDB is made up of Partition Key and Sort Key\. Sort is Optional, but once the table is created you cannot add/update Sort Key </li><li><p>All the keys\(partition & sort\) in Dynamodb have only three supported datatype \[String,Number,Binary\]</p></li><li><div><p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity\.This setting can be changed later\.</p><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>\.</p><ul><li>PROVISIONED\: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST\: Sets the billing mode to On\-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters\. The values for read and write capacity units are default set to 5\. Also, auto\-scaling is disabled\. </p></div></li><li><div><p>Secondary Indexes</p><ul><li> For creating Local Secondary Index \(LSI\) and Global Secondary Index \(GSI\), please refer the documentation above\. </li><li> Once created local secondary index cannot be added/updated, but Global Secondary can be created\. </li></ul></li></div></li><li><div><p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\. To enable streams for table, check the enable stream checkbox\. </p><p>If stream are enabled you need to select stream view type\. There are four options you could select from\: </p><ul><li> KEYS ONLY\: Only the key attributes of the modified item are written to the stream\. </li><li> NEW IMAGE\: The entire item, as it appears after it was modified, is written to the stream\. </li><li> OLD IMAGE\: The entire item, as it appeared before it was modified, is written to the stream\. </li><li> NEW AND OLD IMAGES\: Both the new and the old item images of the item are written to the stream\. </li></ul></div></li><li><div><p>SSE</p><ul><li> Set it to true to use server\-side encryption\. </li><li> For the KMS master key id provide the KMS key value that should be used for encryption\. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption\. To specify a key, use its key ID, Amazon Resource Name \(ARN\), alias name, or alias ARN\. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index\. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object\. The JSON object should contain the 'Key' and 'Value' keys\. These two keys are required and without these adding tags won't be possible\. <pre> \{ 'Key' \: 'key\_data', 'Value' \: 'value\_data' \} </pre></li><li> For multiple values in tags, pass a list of JSON object\. <pre> \[ \{ 'Key' \: 'key\_data1', 'Value' \: 'value\_data1' \}, \{ 'Key' \: 'key\_data2', 'Value' \: 'value\_data2' \} \] </pre></li></ul></li></ul>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1099,23 +1101,14 @@ action\_result\.parameter\.partition\_key\_datatype | string |  |   Number
 action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
 action\_result\.parameter\.read\_capacity\_units | numeric |  |   4 
 action\_result\.parameter\.write\_capacity\_units | numeric |  |   4 
-action\_result\.parameter\.local\_secondary\_index | string |  |   \{"attribute\_projection"\: "ALL",
-    "sort\_key\_name"\: "testdatast",
-    "sort\_key\_datatype"\:  "string"\} 
-action\_result\.parameter\.global\_secondary\_index | string |  |   \{
-    "attribute\_projection"\: "INCLUDE",
-    "partition\_key\_name"\: "newid",
-    "partition\_key\_datatype"\: "string",
-    "sort\_key\_name"\:  "newname",
-    "sort\_key\_datatype"\:  "string",
-    "NonKeyAttributes"\:  \["num1","num2"\]
-\} 
+action\_result\.parameter\.local\_secondary\_index | string |  |   \{"attribute\_projection"\: "ALL",<br>    "sort\_key\_name"\: "testdatast",<br>    "sort\_key\_datatype"\:  "string"\} 
+action\_result\.parameter\.global\_secondary\_index | string |  |   \{<br>    "attribute\_projection"\: "INCLUDE",<br>    "partition\_key\_name"\: "newid",<br>    "partition\_key\_datatype"\: "string",<br>    "sort\_key\_name"\:  "newname",<br>    "sort\_key\_datatype"\:  "string",<br>    "NonKeyAttributes"\:  \["num1","num2"\]<br>\} 
 action\_result\.parameter\.enable\_stream | boolean |  |   True 
 action\_result\.parameter\.stream\_view\_type | string |  |   NEW\_IMAGE 
 action\_result\.parameter\.sse | string |  |   False 
 action\_result\.parameter\.kms\_master\_key\_id | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
 action\_result\.parameter\.tags | string |  |   events 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableDescription | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 06\:07\:34 GMT 
@@ -1207,7 +1200,7 @@ action\_result\.parameter\.partition\_key\_datatype | string |  |   String
 action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
 action\_result\.parameter\.expression\_attribute\_names | string |  |  
 action\_result\.parameter\.expression\_attribute\_values | string |  |  
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 21 Sep 2022 18\:17\:41 GMT 
@@ -1249,7 +1242,7 @@ action\_result\.parameter\.item\_json | string |  |   \{"testing1"\:\{"S"\:"32"\
 action\_result\.parameter\.condition\_expression | string |  |   \#age <> \:age 
 action\_result\.parameter\.expression\_attribute\_names | string |  |   \{"\#age"\:"age"\} 
 action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:age"\:\{"N"\:"12"\}\} 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 10\:24\:42 GMT 
@@ -1301,7 +1294,7 @@ action\_result\.parameter\.sort\_key\_datatype | string |  |
 action\_result\.parameter\.update\_expression | string |  |   set \#age = \:age 
 action\_result\.parameter\.expression\_attribute\_names | string |  |   \{"\#age" \:  "age"\} 
 action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:age"\:\{"N"\:"24"\}\} 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 10\:01\:09 GMT 
@@ -1353,7 +1346,7 @@ action\_result\.parameter\.partition\_key\_datatype | string |  |   String
 action\_result\.parameter\.sort\_key\_datatype | string |  |  
 action\_result\.parameter\.attributes\_to\_get | string |  |  
 action\_result\.parameter\.reserved\_keyword\_attributes | string |  |  
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.Item | string |  |  
 action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG 
@@ -1412,7 +1405,7 @@ action\_result\.parameter\.consistent\_read | boolean |  |   False
 action\_result\.parameter\.sort\_descending | boolean |  |   False 
 action\_result\.parameter\.return\_consumed\_capacity | string |  |  
 action\_result\.parameter\.max\_items | numeric |  |   2 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  # pragma: allowlist secret
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.data\.\*\.QueryData | string |  |  
 action\_result\.message | string |  |   Fetched data successfully 

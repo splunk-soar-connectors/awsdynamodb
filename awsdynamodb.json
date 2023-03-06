@@ -15,7 +15,7 @@
     "utctime_updated": "2022-08-22T10:16:54.377941Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
-    "min_phantom_version": "5.4.0",
+    "min_phantom_version": "5.5.0",
     "app_wizard_version": "1.0.0",
     "fips_compliant": true,
     "latest_tested_versions": [
@@ -82,10 +82,14 @@
             "read_only": true,
             "parameters": {
                 "global_table_name": {
-                    "description": "Name of Global Table",
+                    "description": "Name of Global Table to describe",
                     "required": true,
                     "data_type": "string",
-                    "order": 0
+                    "order": 0,
+                    "primary":true,
+                    "contains":[
+                        "aws dynamodb table name"
+                    ]
                 },
                 "credentials": {
                     "description": "Assumed role credentials",
@@ -111,6 +115,9 @@
                     "data_type": "string",
                     "example_values": [
                         "room"
+                    ],
+                    "contains":[
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -122,14 +129,6 @@
                     "contains": [
                         "aws credentials"
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.Table",
-                    "data_type": "string"
-                },
-                {
-                    "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string"
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -224,6 +223,9 @@
                     "data_type": "string",
                     "example_values": [
                         "us-east-1"
+                    ],
+                    "contains":[
+                        "aws region"
                     ]
                 },
                 {
@@ -237,7 +239,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Created global table successfully"
+                        "Global table details fetched successfully"
                     ]
                 },
                 {
@@ -274,7 +276,7 @@
             "read_only": true,
             "parameters": {
                 "backup_arn": {
-                    "description": "Backup ARN string",
+                    "description": "Backup ARN of backup to describe",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -306,7 +308,7 @@
                     "data_path": "action_result.parameter.backup_arn",
                     "data_type": "string",
                     "example_values": [
-                        "room"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_playbook/backup/01676542512426-8ea20723"
                     ],
                     "contains": [
                         "aws dynamodb backup arn"
@@ -402,6 +404,9 @@
                     "data_type": "string",
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/test_playbook/backup/01676542512426-8ea20723"
+                    ],
+                    "contains":[
+                        "aws dynamodb backup arn"
                     ]
                 },
                 {
@@ -416,6 +421,9 @@
                     "data_type": "string",
                     "example_values": [
                         "USER"
+                    ],
+                    "contains":[
+                        "aws dynamodb backup type"
                     ]
                 },
                 {
@@ -466,6 +474,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_part_key"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -473,6 +484,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_playbook"
+                    ],
+                    "contains":[
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -480,6 +494,9 @@
                     "data_type": "string",
                     "example_values": [
                         "PROVISIONED"
+                    ],
+                    "contains":[
+                        "aws dynamodb billing mode"
                     ]
                 },
                 {
@@ -491,6 +508,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         3
+                    ],
+                    "contains":[
+                        "aws dynamodb read capacity"
                     ]
                 },
                 {
@@ -498,6 +518,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         3
+                    ],
+                    "contains":[
+                        "aws dynamodb write capacity"
                     ]
                 },
                 {
@@ -526,6 +549,9 @@
                     "data_type": "string",
                     "example_values": [
                         "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ],
+                    "contains":[
+                        "aws dynamodb kms master key id"
                     ]
                 },
                 {
@@ -541,6 +567,9 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_AND_OLD_IMAGES"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
@@ -562,6 +591,9 @@
                     "data_type": "string",
                     "example_values": [
                         "test_part_key"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -590,6 +622,9 @@
                     "data_type": "string",
                     "example_values": [
                         "gsi_part1"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -604,6 +639,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         3
+                    ],
+                    "contains":[
+                        "aws dynamodb read capacity"
                     ]
                 },
                 {
@@ -611,13 +649,16 @@
                     "data_type": "numeric",
                     "example_values": [
                         3
+                    ],
+                    "contains":[
+                        "aws dynamodb write capacity"
                     ]
                 },
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Created global table successfully"
+                        "Backup details fetched successfully"
                     ]
                 },
                 {
@@ -654,7 +695,7 @@
             "read_only": true,
             "parameters": {
                 "table_name": {
-                    "description": "Name of Table",
+                    "description": "Name of the table to describe",
                     "required": true,
                     "data_type": "string",
                     "contains": [
@@ -686,7 +727,7 @@
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
                     "example_values": [
-                        "room"
+                        "test_playbook_backup"
                     ],
                     "contains": [
                         "aws dynamodb table name"
@@ -703,12 +744,11 @@
                     ]
                 },
                 {
-                    "data_path": "action_result.data.*.Table",
-                    "data_type": "string"
-                },
-                {
                     "data_path": "action_result.data.*.Table.TableName",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "example_values":[
+                        "test_playbook_backup"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.Table.TableId",
@@ -1038,13 +1078,16 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_AND_OLD_IMAGES"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Created global table successfully"
+                        "Table details fetched successfully"
                     ]
                 },
                 {
@@ -1076,27 +1119,27 @@
         {
             "action": "create global table",
             "identifier": "create_global_table",
-            "description": "Create a global table from an existing table in the specified region l",
+            "description": "Create a global table from an existing table in the specified region",
             "verbose": "<ul><li><p>Conditions to create a global table : </p><ul><li>The table must have the same name as all of the other replicas</li><li>The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item.</li></ul></li><li><p>If you want to add a new replica table to a global table, each of the following conditions must be true:</p><ul><li>The table must have the same primary key as all of the other replicas.</li><li>The table must have the same name as all of the other replicas.</li><li>The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item.</li><li>None of the replica tables in the global table can contain any data.</li></ul></li><li><p>If global secondary indexes are specified, then the following conditions must also be met:</p><ul><li>The global secondary indexes must have the same name.</li><li>The global secondary indexes must have the same hash key and sort key (if present).</li></ul></li><li><p>If local secondary indexes are specified, then the following conditions must also be met:</p><ul><li>The local secondary indexes must have the same name.</li><li>The local secondary indexes must have the same hash key and sort key (if present).</li></ul></li></ul>",
             "type": "generic",
             "read_only": false,
             "parameters": {
                 "global_table_name": {
-                    "description": "Name of Table",
+                    "description": "Name of Table to make global",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ],
-                    "primary":true
+                    "primary": true
                 },
                 "replication_group": {
-                    "description": "Name of region",
+                    "description": "Name of region to create global table",
                     "required": true,
                     "data_type": "string",
                     "order": 1,
-                    "contains":[
+                    "contains": [
                         "aws region"
                     ],
                     "primary": true
@@ -1126,7 +1169,7 @@
                     "example_values": [
                         "room"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ]
                 },
@@ -1136,7 +1179,7 @@
                     "example_values": [
                         "us-east-1"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws region"
                     ]
                 },
@@ -1305,19 +1348,19 @@
                     "description": "List global tables after specific given global table name",
                     "data_type": "string",
                     "order": 0,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ],
-                    "primary":true
+                    "primary": true
                 },
                 "region_name": {
                     "description": "List the global tables in a specific Region",
                     "data_type": "string",
                     "order": 1,
-                    "contains":[
+                    "contains": [
                         "aws region"
                     ],
-                    "primary":true
+                    "primary": true
                 },
                 "max_items": {
                     "description": "Maximum number of tables to fetch",
@@ -1346,24 +1389,26 @@
                 {
                     "data_path": "action_result.parameter.exclusive_start_global_table_name",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "cars_backup"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.region_name",
                     "data_type": "string",
-                    "example_values":["us-east-1"],
-                    "contains":[
+                    "example_values": [
+                        "us-east-1"
+                    ],
+                    "contains": [
                         "aws region"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "example_values":[
+                    "example_values": [
                         3
                     ],
                     "data_type": "numeric"
@@ -1384,7 +1429,7 @@
                     "example_values": [
                         "cars"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ],
                     "column_name": "Table Name",
@@ -1396,7 +1441,9 @@
                     "example_values": [
                         "us-east-2"
                     ],
-                    "contains":["aws region"]
+                    "contains": [
+                        "aws region"
+                    ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.RequestId",
@@ -1519,10 +1566,10 @@
                     "description": "Backup type",
                     "data_type": "string",
                     "order": 0,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup type"
                     ],
-                    "primary":true
+                    "primary": true
                 },
                 "exclusive_start_backup_arn": {
                     "description": "List backups after specific given backup arn",
@@ -1579,17 +1626,17 @@
                 {
                     "data_path": "action_result.parameter.backup_type",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "USER"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup type"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.exclusive_start_backup_arn",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
                     ],
                     "contains": [
@@ -1598,7 +1645,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "example_values":[
+                    "example_values": [
                         2
                     ],
                     "data_type": "numeric"
@@ -1606,7 +1653,7 @@
                 {
                     "data_path": "action_result.parameter.table_name",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "cars"
                     ],
                     "contains": [
@@ -1616,14 +1663,14 @@
                 {
                     "data_path": "action_result.parameter.start_date",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "2022-09-22 11:30:03.118000+00:00"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.end_date",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "2022-09-22 11:30:03.118000+00:00"
                     ]
                 },
@@ -1691,14 +1738,14 @@
                     "example_values": [
                         "USER"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup type"
                     ]
                 },
                 {
-                    "data_path":"action_result.data.*.BackupSummaries.*.BackupExpiryDateTime",
-                    "data_type":"string",
-                    "example_values":[
+                    "data_path": "action_result.data.*.BackupSummaries.*.BackupExpiryDateTime",
+                    "data_type": "string",
+                    "example_values": [
                         "2022-09-22 11:30:03.118000+00:00"
                     ]
                 },
@@ -1961,12 +2008,11 @@
                     "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de",
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
                     ],
                     "column_name": "Backup ARN",
                     "column_order": 0,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup arn"
                     ]
                 },
@@ -1974,16 +2020,15 @@
                     "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupName",
                     "data_type": "string",
                     "example_values": [
-                        "cars_backup",
-                        "newDevTableBackup"
+                        "cars_backup"
                     ],
                     "column_name": "Backup Name",
                     "column_order": 1
                 },
                 {
-                    "data_path":"action_result.data.*.BackupDescription.BackupDetails.BackupExpiryDateTime",
-                    "data_type":"string",
-                    "example_values":[
+                    "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupExpiryDateTime",
+                    "data_type": "string",
+                    "example_values": [
                         "2022-09-22 11:30:03.118000+00:00"
                     ]
                 },
@@ -1993,7 +2038,7 @@
                     "example_values": [
                         "USER"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup type"
                     ]
                 },
@@ -2008,41 +2053,35 @@
                     "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupSizeBytes",
                     "data_type": "numeric",
                     "example_values": [
-                        266,
-                        352
+                        266
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.BackupDescription.BackupDetails.BackupCreationDateTime",
                     "data_type": "string",
                     "example_values": [
-                        "2022-09-14 12:29:03.903000+00:00",
-                        "2022-09-22 05:29:10.617000+00:00"
+                        "2022-09-14 12:29:03.903000+00:00"
                     ]
                 },
-
                 {
                     "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableId",
                     "data_type": "string",
                     "example_values": [
-                        "0fa008bb-5e6d-4287-949e-9872a952927f",
-                        "c08213e2-7a1b-4c44-abaa-bf3a52092232"
+                        "0fa008bb-5e6d-4287-949e-9872a952927f"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableArn",
                     "data_type": "string",
                     "example_values": [
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars",
-                        "arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table"
+                        "arn:aws:dynamodb:us-east-1:157568067690:table/cars"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.ItemCount",
                     "data_type": "numeric",
                     "example_values": [
-                        3,
-                        4
+                        3
                     ]
                 },
                 {
@@ -2058,7 +2097,7 @@
                     "example_values": [
                         "VID"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute name"
                     ]
                 },
@@ -2070,7 +2109,7 @@
                     ],
                     "column_name": "Table Name",
                     "column_order": 2,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ]
                 },
@@ -2085,8 +2124,7 @@
                     "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableSizeBytes",
                     "data_type": "numeric",
                     "example_values": [
-                        266,
-                        352
+                        266
                     ]
                 },
                 {
@@ -2107,7 +2145,6 @@
                     "data_path": "action_result.data.*.BackupDescription.SourceTableDetails.TableCreationDateTime",
                     "data_type": "string",
                     "example_values": [
-                        "2022-08-05 10:14:20.426000+00:00",
                         "2022-07-29 12:44:24.597000+00:00"
                     ]
                 },
@@ -2123,6 +2160,9 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_AND_OLD_IMAGES"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
@@ -2243,8 +2283,9 @@
                 }
             ],
             "render": {
-                "type": "table",
-                "title": "Delete Backup"
+                "type": "custom",
+                "title": "Delete Backup",
+                "view": "awsdynamodb_view.display_view"
             },
             "versions": "EQ(*)"
         },
@@ -2344,7 +2385,7 @@
                     "example_values": [
                         "USER"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup type"
                     ]
                 },
@@ -2359,8 +2400,7 @@
                     "data_path": "action_result.data.*.BackupDetails.BackupSizeBytes",
                     "data_type": "numeric",
                     "example_values": [
-                        266,
-                        0
+                        266
                     ]
                 },
                 {
@@ -2371,9 +2411,9 @@
                     ]
                 },
                 {
-                    "data_path" : "action_result.data.*.BackupDetails.BackupExpiryDateTime",
-                    "data_type":"string",
-                    "example_values":[
+                    "data_path": "action_result.data.*.BackupDetails.BackupExpiryDateTime",
+                    "data_type": "string",
+                    "example_values": [
                         "2022-09-22 11:30:03.118000+00:00"
                     ]
                 },
@@ -2423,16 +2463,14 @@
                     "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.content-length",
                     "data_type": "string",
                     "example_values": [
-                        "252",
-                        "264"
+                        "252"
                     ]
                 },
                 {
                     "data_path": "action_result.data.*.ResponseMetadata.HTTPHeaders.x-amzn-requestid",
                     "data_type": "string",
                     "example_values": [
-                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG",
-                        "DPPQT09D3JLAT4VSO7T5CBA3QNVV4KQNSO5AEMVJF66Q9ASUAAJG"
+                        "K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG"
                     ]
                 },
                 {
@@ -2487,6 +2525,7 @@
             "description": "Create a new table from an existing backup",
             "type": "generic",
             "read_only": false,
+            "verbose": "<p>NOTE</p><p>Restore Secondary Indexes parameter is used to restore the define the secondary indexes of the new restored table. There are following two options for the parameter:<ul><li><b>Restore the entire table</b><p>Restore table with original indexes as they are in the backup</p></li><li><b>Restore the table without secondary indexes</b> (Selected by Default)<p>Restore table without any indexes. There will be no Local and GLobal Secondary Index. Incase you want to add indexes, you can only create Global Secondary Indexes. Local Secondary Indexes cannot be created once the table is create.Hence there will be no Local Secondary Index is this option is selected.</p></li></ul></p>",
             "parameters": {
                 "table_name": {
                     "description": "Name of the table to restore",
@@ -2516,7 +2555,7 @@
                         "PROVISIONED",
                         "PAY_PER_REQUEST"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb billing mode"
                     ]
                 },
@@ -2524,10 +2563,10 @@
                     "description": "Read capacity override (for PROVISIONED billing mode)",
                     "data_type": "numeric",
                     "order": 3,
-                    "example_values":[
+                    "example_values": [
                         5
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb read capacity"
                     ]
                 },
@@ -2535,10 +2574,10 @@
                     "description": "Write capacity override (for PROVISIONED billing mode)",
                     "data_type": "numeric",
                     "order": 4,
-                    "example_values":[
+                    "example_values": [
                         5
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb write capacity"
                     ]
                 },
@@ -2566,7 +2605,7 @@
                     "description": "Key to use for the AWS KMS encryption (Used when SSE is enabled)",
                     "data_type": "string",
                     "order": 7,
-                    "contains":[
+                    "contains": [
                         "aws dynamodb kms master key id"
                     ]
                 },
@@ -2612,24 +2651,24 @@
                 {
                     "data_path": "action_result.parameter.billing_mode_override",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "PROVISIONED"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb billing mode"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.read_capacity_override",
                     "data_type": "numeric",
-                    "contains":[
+                    "contains": [
                         "aws dynamodb read capacity"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.write_capacity_override",
                     "data_type": "numeric",
-                    "contains":[
+                    "contains": [
                         "aws dynamodb write capacity"
                     ]
                 },
@@ -2642,7 +2681,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.sse_enable_override",
-                    "example_values":[
+                    "example_values": [
                         "True"
                     ],
                     "data_type": "string"
@@ -2650,10 +2689,10 @@
                 {
                     "data_path": "action_result.parameter.kms_master_key_id",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb kms master key id"
                     ]
                 },
@@ -2777,7 +2816,7 @@
                     "example_values": [
                         "ID"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute name"
                     ]
                 },
@@ -2787,7 +2826,7 @@
                     "example_values": [
                         "retorenewtable123"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb table name"
                     ]
                 },
@@ -2818,7 +2857,7 @@
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb backup arn"
                     ]
                 },
@@ -2849,7 +2888,7 @@
                     "example_values": [
                         "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb kms master key id"
                     ]
                 },
@@ -2880,7 +2919,7 @@
                     "example_values": [
                         "newname"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute name"
                     ]
                 },
@@ -2890,7 +2929,7 @@
                     "example_values": [
                         "S"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute datatype"
                     ]
                 },
@@ -2928,7 +2967,7 @@
                     "example_values": [
                         "ID"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute name"
                     ]
                 },
@@ -2952,7 +2991,7 @@
                     "example_values": [
                         4
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb read capacity"
                     ]
                 },
@@ -2962,7 +3001,7 @@
                     "example_values": [
                         4
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb write capacity"
                     ]
                 },
@@ -3007,7 +3046,7 @@
                     "example_values": [
                         "newid"
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb attribute name"
                     ]
                 },
@@ -3023,9 +3062,6 @@
                     "data_type": "string",
                     "example_values": [
                         "num1"
-                    ],
-                    "contains":[
-                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3041,7 +3077,7 @@
                     "example_values": [
                         4
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb read capacity"
                     ]
                 },
@@ -3051,7 +3087,7 @@
                     "example_values": [
                         4
                     ],
-                    "contains":[
+                    "contains": [
                         "aws dynamodb write capacity"
                     ]
                 },
@@ -3065,7 +3101,7 @@
                 {
                     "data_path": "action_result.message",
                     "data_type": "string",
-                    "example_values":[
+                    "example_values": [
                         "Restored table from backup successfully"
                     ]
                 },
@@ -3089,7 +3125,9 @@
                 }
             ],
             "render": {
-                "type": "json"
+                "type": "custom",
+                "title": "Restore Table From Backup",
+                "view": "awsdynamodb_view.display_view"
             },
             "versions": "EQ(*)"
         },
@@ -3452,6 +3490,9 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_AND_OLD_IMAGES"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
@@ -3491,7 +3532,7 @@
             "description": "Create a table in the database",
             "type": "generic",
             "read_only": false,
-            "verbose": "<ul><li> Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key </li><li><p>All the keys(partition & sort) in Dynamodb have only three supported datatype [String,Number,Binary]</p></li><li><div><p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity.This setting can be changed later.</p><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p><ul><li>PROVISIONED: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p></div></li><li><div><p>Secondary Indexes</p><ul><li> For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation above. </li><li> Once created local secondary index cannot be added/updated, but Global Secondary can be created. </li></ul></li></div></li><li><div><p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table. To enable streams for table, check the enable stream checkbox. </p><p>If stream are enabled you need to select stream view type. There are four options you could select from: </p><ul><li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li><li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li><li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li><li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li></ul></div></li><li><div><p>SSE</p><ul><li> Set it to true to use server-side encryption. </li><li> For the KMS master key id provide the KMS key value that should be used for encryption. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object. The JSON object should contain the 'Key' and 'Value' keys. These two keys are required and without these adding tags won't be possible. <pre> { 'Key' : 'key_data', 'Value' : 'value_data' } </pre></li><li> For multiple values in tags, pass a list of JSON object. <pre> [ { 'Key' : 'key_data1', 'Value' : 'value_data1' }, { 'Key' : 'key_data2', 'Value' : 'value_data2' } ] </pre></li></ul></li></ul>.",
+            "verbose": "<ul><li> Each table has a Primary Key to identify items uniquely. The primary in DynamoDB is made up of Partition Key and Sort Key. Sort is Optional, but once the table is created you cannot add/update Sort Key </li><li><p>All the keys(partition & sort) in Dynamodb have only three supported datatype [String,Number,Binary]</p></li><li><div><p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity.This setting can be changed later.</p><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>.</p><ul><li>PROVISIONED: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST: Sets the billing mode to On-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters. The values for read and write capacity units are default set to 5. Also, auto-scaling is disabled. </p></div></li><li><div><p>Secondary Indexes</p><ul><li> For creating Local Secondary Index (LSI) and Global Secondary Index (GSI), please refer the documentation above. </li><li> Once created local secondary index cannot be added/updated, but Global Secondary can be created. </li></ul></li></div></li><li><div><p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table. To enable streams for table, check the enable stream checkbox. </p><p>If stream are enabled you need to select stream view type. There are four options you could select from: </p><ul><li> KEYS ONLY: Only the key attributes of the modified item are written to the stream. </li><li> NEW IMAGE: The entire item, as it appears after it was modified, is written to the stream. </li><li> OLD IMAGE: The entire item, as it appeared before it was modified, is written to the stream. </li><li> NEW AND OLD IMAGES: Both the new and the old item images of the item are written to the stream. </li></ul></div></li><li><div><p>SSE</p><ul><li> Set it to true to use server-side encryption. </li><li> For the KMS master key id provide the KMS key value that should be used for encryption. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption. To specify a key, use its key ID, Amazon Resource Name (ARN), alias name, or alias ARN. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object. The JSON object should contain the 'Key' and 'Value' keys. These two keys are required and without these adding tags won't be possible. <pre> { 'Key' : 'key_data', 'Value' : 'value_data' } </pre></li><li> For multiple values in tags, pass a list of JSON object. <pre> [ { 'Key' : 'key_data1', 'Value' : 'value_data1' }, { 'Key' : 'key_data2', 'Value' : 'value_data2' } ] </pre></li></ul></li></ul>",
             "parameters": {
                 "table_name": {
                     "description": "Name of table to be created",
@@ -3510,6 +3551,10 @@
                     "value_list": [
                         "PROVISIONED",
                         "PAY_PER_REQUEST"
+                    ],
+                    "primary": true,
+                    "contains":[
+                        "aws dynamodb billing mode"
                     ]
                 },
                 "partition_key_name": {
@@ -3518,7 +3563,8 @@
                     "required": true,
                     "order": 2,
                     "contains": [
-                        "aws dynamodb partition key name"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -3538,7 +3584,8 @@
                     "data_type": "string",
                     "order": 4,
                     "contains": [
-                        "aws dynamodb sort key name"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -3555,12 +3602,20 @@
                 "read_capacity_units": {
                     "data_type": "numeric",
                     "description": "Read capacity units for provisioned mode",
-                    "order": 6
+                    "order": 6,
+                    "contains":[
+                        "aws dynamodb read capacity"
+                    ],
+                    "primary": true
                 },
                 "write_capacity_units": {
                     "data_type": "numeric",
                     "description": "Write capacity units for provisioned mode",
-                    "order": 7
+                    "order": 7,
+                    "contains":[
+                        "aws dynamodb write capacity"
+                    ],
+                    "primary": true
                 },
                 "local_secondary_index": {
                     "data_type": "string",
@@ -3586,6 +3641,10 @@
                         "OLD_IMAGE",
                         "NEW_AND_OLD_IMAGES",
                         "KEYS_ONLY"
+                    ],
+                    "primary":true,
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 "sse": {
@@ -3601,10 +3660,14 @@
                 "kms_master_key_id": {
                     "description": "The KMS key that should be used for the KMS encryption",
                     "data_type": "string",
-                    "order": 13
+                    "order": 13,
+                    "primary": true,
+                    "contains":[
+                        "aws dynamodb kms key id"
+                    ]
                 },
                 "tags": {
-                    "description": "List of tags to add to table",
+                    "description": "JSON list of tags to add to table",
                     "data_type": "string",
                     "order": 14
                 },
@@ -3642,6 +3705,9 @@
                     "data_type": "string",
                     "example_values": [
                         "PROVISIONED"
+                    ],
+                    "contains":[
+                        "aws dynamodb billing mode"
                     ]
                 },
                 {
@@ -3651,7 +3717,8 @@
                         "ID"
                     ],
                     "contains": [
-                        "aws dynamodb partition key name"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3661,7 +3728,8 @@
                         "name"
                     ],
                     "contains": [
-                        "aws dynamodb sort key name"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3683,6 +3751,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb read capacity"
                     ]
                 },
                 {
@@ -3690,20 +3761,23 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb write capacity"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.local_secondary_index",
                     "data_type": "string",
                     "example_values": [
-                        "{\"attribute_projection\": \"ALL\",\n    \"sort_key_name\": \"testdatast\",\n    \"sort_key_datatype\":  \"string\"}"
+                        "{\"attribute_projection\": \"ALL\",<br>    \"sort_key_name\": \"testdatast\",<br>    \"sort_key_datatype\":  \"string\"}"
                     ]
                 },
                 {
                     "data_path": "action_result.parameter.global_secondary_index",
                     "data_type": "string",
                     "example_values": [
-                        "{\n    \"attribute_projection\": \"INCLUDE\",\n    \"partition_key_name\": \"newid\",\n    \"partition_key_datatype\": \"string\",\n    \"sort_key_name\":  \"newname\",\n    \"sort_key_datatype\":  \"string\",\n    \"NonKeyAttributes\":  [\"num1\",\"num2\"]\n}"
+                        "{<br>    \"attribute_projection\": \"INCLUDE\",<br>    \"partition_key_name\": \"newid\",<br>    \"partition_key_datatype\": \"string\",<br>    \"sort_key_name\":  \"newname\",<br>    \"sort_key_datatype\":  \"string\",<br>    \"NonKeyAttributes\":  [\"num1\",\"num2\"]<br>}"
                     ]
                 },
                 {
@@ -3718,6 +3792,9 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_IMAGE"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
@@ -3729,14 +3806,17 @@
                 },
                 {
                     "data_path": "action_result.parameter.kms_master_key_id",
-                    "example_values":[
+                    "example_values": [
                         "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
                     ],
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains":[
+                        "aws dynamodb kms master key id"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.tags",
-                    "example_values":[
+                    "example_values": [
                         "events"
                     ],
                     "data_type": "string"
@@ -3860,6 +3940,9 @@
                     "data_type": "string",
                     "example_values": [
                         "ID"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3867,6 +3950,9 @@
                     "data_type": "string",
                     "example_values": [
                         "newtable123"
+                    ],
+                    "contains":[
+                        "aws dynamodb table name"
                     ]
                 },
                 {
@@ -3895,6 +3981,9 @@
                     "data_type": "string",
                     "example_values": [
                         "arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c"
+                    ],
+                    "contains":[
+                        "aws dynamodb kms master key id"
                     ]
                 },
                 {
@@ -3916,6 +4005,9 @@
                     "data_type": "string",
                     "example_values": [
                         "ID"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3958,6 +4050,9 @@
                     "data_type": "string",
                     "example_values": [
                         "ID"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -3965,6 +4060,13 @@
                     "data_type": "string",
                     "example_values": [
                         "ALL"
+                    ]
+                },
+                {
+                    "data_path": "action_result.data.*.TableDescription.LocalSecondaryIndexes.*.Projection.NonKeyAttributes",
+                    "data_type": "string",
+                    "example_values": [
+                        "test_attr"
                     ]
                 },
                 {
@@ -3979,6 +4081,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb read capacity"
                     ]
                 },
                 {
@@ -3986,6 +4091,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb write capacity"
                     ]
                 },
                 {
@@ -4007,6 +4115,9 @@
                     "data_type": "string",
                     "example_values": [
                         "newid-newname-index"
+                    ],
+                    "contains":[
+                        "aws dynamodb index name"
                     ]
                 },
                 {
@@ -4028,6 +4139,9 @@
                     "data_type": "string",
                     "example_values": [
                         "newid"
+                    ],
+                    "contains":[
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -4063,6 +4177,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb read capacity"
                     ]
                 },
                 {
@@ -4070,6 +4187,9 @@
                     "data_type": "numeric",
                     "example_values": [
                         4
+                    ],
+                    "contains":[
+                        "aws dynamodb write capacity"
                     ]
                 },
                 {
@@ -4106,6 +4226,9 @@
                     "data_type": "string",
                     "example_values": [
                         "NEW_AND_OLD_IMAGES"
+                    ],
+                    "contains":[
+                        "aws dynamodb stream view type"
                     ]
                 },
                 {
@@ -4167,7 +4290,8 @@
                     "required": true,
                     "order": 2,
                     "contains": [
-                        "aws dynamodb partition key"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -4176,7 +4300,8 @@
                     "data_type": "string",
                     "order": 3,
                     "contains": [
-                        "aws dynamodb sort key"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -4262,7 +4387,8 @@
                         "firstname"
                     ],
                     "contains": [
-                        "aws dynamodb partition key"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -4279,7 +4405,8 @@
                         "lastname"
                     ],
                     "contains": [
-                        "aws dynamodb sort key"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -4668,7 +4795,8 @@
                     "required": true,
                     "order": 2,
                     "contains": [
-                        "aws dynamodb partition key"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -4677,7 +4805,8 @@
                     "data_type": "string",
                     "order": 3,
                     "contains": [
-                        "aws dynamodb sort key"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -4759,7 +4888,8 @@
                         "testing1"
                     ],
                     "contains": [
-                        "aws dynamodb partition key"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -4773,7 +4903,8 @@
                     "data_path": "action_result.parameter.sort_key_name",
                     "data_type": "string",
                     "contains": [
-                        "aws dynamodb sort key"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -4953,7 +5084,8 @@
                     "required": true,
                     "order": 1,
                     "contains": [
-                        "aws dynamodb partition key name"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -4962,7 +5094,8 @@
                     "data_type": "string",
                     "order": 2,
                     "contains": [
-                        "aws dynamodb sort key name"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ],
                     "primary": true
                 },
@@ -5001,12 +5134,20 @@
                 "attributes_to_get": {
                     "data_type": "string",
                     "description": "To fetch specific attributes from the item",
-                    "order": 7
+                    "order": 7,
+                    "primary":true,
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ]
                 },
                 "reserved_keyword_attributes": {
                     "data_type": "string",
                     "description": "To fetch attributes from items whose names are same as reserved keywords",
-                    "order": 8
+                    "order": 8,
+                    "primary":true,
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ]
                 },
                 "credentials": {
                     "description": "Assumed role credentials",
@@ -5044,7 +5185,8 @@
                         "testing1"
                     ],
                     "contains": [
-                        "aws dynamodb partition key name"
+                        "aws dynamodb partition key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -5058,7 +5200,8 @@
                     "data_path": "action_result.parameter.sort_key_name",
                     "data_type": "string",
                     "contains": [
-                        "aws dynamodb sort key name"
+                        "aws dynamodb sort key name",
+                        "aws dynamodb attribute name"
                     ]
                 },
                 {
@@ -5078,11 +5221,17 @@
                 },
                 {
                     "data_path": "action_result.parameter.attributes_to_get",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.reserved_keyword_attributes",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.credentials",
@@ -5209,7 +5358,7 @@
             "action": "query data",
             "identifier": "query_data",
             "description": "Query data from database",
-            "verbose":"<ul><li>Select Parameter<ul><li>The select parameter defines what attributes are supposed to fetched. There are following options :</li><ul><li><b>ALL_ATTRIBUTES</b> : Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.</li><li><b>ALL_PROJECTED_ATTRIBUTES</b> : Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying ALL_ATTRIBUTES</li><li><b>COUNT</b> : Returns the number of matching items, rather than the matching items themselves</li><li><b>SPECIFIC_ATTRIBUTES</b> : Returns only the attributes listed in ProjectionExpression. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li></ul><li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC_ATTRIBUTES. Any other value for Select will return an error.</li></ul></li><li>Return Consumed Capacity Parameter<ul><li>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. There are following options :</li><ul><li>INDEXES - The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed.</li><li>TOTAL - The response includes only the aggregate ConsumedCapacity for the operation.</li><li>NONE - No ConsumedCapacity details are included in the response.</li></ul></ul></li><li>KeyConditionExpression Parameter<ul><li></li></ul></li></ul>.",
+            "verbose": "<ul><li>Select Parameter<ul><li>The select parameter defines what attributes are supposed to fetched. There are following options :</li><ul><li><b>ALL_ATTRIBUTES</b> : Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.</li><li><b>ALL_PROJECTED_ATTRIBUTES</b> : Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying ALL_ATTRIBUTES</li><li><b>COUNT</b> : Returns the number of matching items, rather than the matching items themselves</li><li><b>SPECIFIC_ATTRIBUTES</b> : Returns only the attributes listed in ProjectionExpression. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li></ul><li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC_ATTRIBUTES. Any other value for Select will return an error.</li></ul></li><li>Return Consumed Capacity Parameter<ul><li>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. There are following options :</li><ul><li>INDEXES - The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed.</li><li>TOTAL - The response includes only the aggregate ConsumedCapacity for the operation.</li><li>NONE - No ConsumedCapacity details are included in the response.</li></ul></ul></li><li>KeyConditionExpression Parameter<ul><li></li></ul></li></ul>",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -5226,7 +5375,11 @@
                 "index_name": {
                     "data_type": "string",
                     "description": "Name of index to be used for the query",
-                    "order": 1
+                    "order": 1,
+                    "primary":true,
+                    "contains":[
+                        "aws dynamodb index name"
+                    ]
                 },
                 "expression_attribute_names": {
                     "data_type": "string",
@@ -5242,7 +5395,7 @@
                     "data_type": "string",
                     "description": "Attribute values json",
                     "order": 4,
-                    "required":true
+                    "required": true
                 },
                 "filter_expression": {
                     "data_type": "string",
@@ -5252,7 +5405,11 @@
                 "projection_expression": {
                     "data_type": "string",
                     "description": "Defines the attributes to be included in the result. If this expression is provided SELECT value is set to SPECIFIC_ATTRIBUTES. The attributes in the expression must be separated by commas.",
-                    "order": 6
+                    "order": 6,
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ],
+                    "primary":true
                 },
                 "select": {
                     "data_type": "string",
@@ -5321,7 +5478,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.index_name",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains":[
+                        "aws dynamodb index name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.expression_attribute_names",
@@ -5350,7 +5510,10 @@
                 },
                 {
                     "data_path": "action_result.parameter.projection_expression",
-                    "data_type": "string"
+                    "data_type": "string",
+                    "contains":[
+                        "aws dynamodb attribute name"
+                    ]
                 },
                 {
                     "data_path": "action_result.parameter.select",
@@ -5379,7 +5542,7 @@
                 },
                 {
                     "data_path": "action_result.parameter.max_items",
-                    "example_values":[
+                    "example_values": [
                         2
                     ],
                     "data_type": "numeric"
