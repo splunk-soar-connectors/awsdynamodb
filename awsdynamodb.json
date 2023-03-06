@@ -19,7 +19,7 @@
     "app_wizard_version": "1.0.0",
     "fips_compliant": true,
     "latest_tested_versions": [
-        "Cloud tested on January 3, 2023"
+        "Cloud tested on March 6, 2023"
     ],
     "configuration": {
         "access_key": {
@@ -3663,7 +3663,7 @@
                     "order": 13,
                     "primary": true,
                     "contains":[
-                        "aws dynamodb kms key id"
+                        "aws dynamodb kms master key id"
                     ]
                 },
                 "tags": {
