@@ -618,6 +618,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Created table successfully")
 
     def _delete_table(self, param):
+        '''
+        delete a table from dynamodb
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -699,6 +702,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of table successfully")
 
     def _describe_table(self, param):
+        '''
+        describe a table details
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -727,6 +733,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Table details fetched successfully")
 
     def _put_item(self, param):
+        '''
+        put an item in a table
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -794,6 +803,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Item inserted successfully")
 
     def _get_item(self, param):
+        '''
+        get an item from table
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -846,6 +858,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched item data successfully")
 
     def _delete_item(self, param):
+        '''
+        delete an item from table
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -990,6 +1005,10 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Updated item successfully")
 
     def _query_data(self, param):
+        '''
+        query data from table
+        '''
+
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1097,6 +1116,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched data successfully")
 
     def _create_backup(self, param):
+        '''
+        Create backup of a table
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1121,6 +1143,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Created backup successfully")
 
     def _delete_backup(self, param):
+        '''
+        delete backup of a table
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1144,6 +1169,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Deleted backup successfully")
 
     def _describe_backup(self, param):
+        '''
+        describe details of a table
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
@@ -1233,6 +1261,9 @@ class AwsDynamodbConnector(BaseConnector):
         return (phantom.APP_SUCCESS, time_stamp)
 
     def _list_backups(self, param):
+        '''
+        list all the available backups
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1304,6 +1335,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched list of backups successfully")
 
     def _restore_table_from_backup(self, param):
+        '''
+        restore a table from backup
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1384,6 +1418,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Restored table from backup successfully")
 
     def _create_global_table(self, param):
+        '''
+        create a global table
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1416,6 +1453,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Created global table successfully")
 
     def _list_global_tables(self, param):
+        '''
+        list global tables in region
+        '''
         action_result = self.add_action_result(ActionResult(dict(param)))
 
         if not self._create_client(action_result, param):
@@ -1457,6 +1497,9 @@ class AwsDynamodbConnector(BaseConnector):
         return action_result.set_status(phantom.APP_SUCCESS, "Fetched global table list successfully")
 
     def _describe_global_table(self, param):
+        '''
+        describe details of a global table
+        '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
 
