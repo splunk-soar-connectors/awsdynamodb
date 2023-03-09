@@ -63,7 +63,6 @@
         "use_role": {
             "description": "Use attached role when running Phantom in EC2",
             "data_type": "boolean",
-            "default": false,
             "visibility": [
                 "onprem"
             ],
@@ -1693,7 +1692,7 @@
                     "contains": [
                         "aws dynamodb backup arn"
                     ],
-                    "column_name": "Backup ARN",
+                    "column_name": "Backup Arn",
                     "column_order": 0
                 },
                 {
@@ -1935,7 +1934,7 @@
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
                     ],
-                    "column_name": "Backup ARN",
+                    "column_name": "Backup Arn",
                     "column_order": 0,
                     "contains": [
                         "aws dynamodb backup arn"
@@ -2364,7 +2363,7 @@
                     "example_values": [
                         "arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de"
                     ],
-                    "column_name": "Backup ARN",
+                    "column_name": "Backup Arn",
                     "column_order": 0,
                     "contains": [
                         "aws dynamodb backup arn"
@@ -2551,6 +2550,7 @@
                     "description": "Billing mode of the restored table",
                     "data_type": "string",
                     "order": 2,
+                    "primary": true,
                     "value_list": [
                         "PROVISIONED",
                         "PAY_PER_REQUEST"
@@ -2563,9 +2563,7 @@
                     "description": "Read capacity override (for PROVISIONED billing mode)",
                     "data_type": "numeric",
                     "order": 3,
-                    "example_values": [
-                        5
-                    ],
+                    "primary": true,
                     "contains": [
                         "aws dynamodb read capacity"
                     ]
@@ -2574,9 +2572,7 @@
                     "description": "Write capacity override (for PROVISIONED billing mode)",
                     "data_type": "numeric",
                     "order": 4,
-                    "example_values": [
-                        5
-                    ],
+                    "primary": true,
                     "contains": [
                         "aws dynamodb write capacity"
                     ]
@@ -2604,6 +2600,7 @@
                 "kms_master_key_id": {
                     "description": "Key to use for the AWS KMS encryption (Used when SSE is enabled)",
                     "data_type": "string",
+                    "primary": true,
                     "order": 7,
                     "contains": [
                         "aws dynamodb kms master key id"
@@ -5452,12 +5449,12 @@
                 },
                 "filter_expression": {
                     "data_type": "string",
-                    "description": "Expression to filter data from table.A FilterExpression does not allow key attributes. You cannot define a filter expression based on a partition key or a sort key.",
+                    "description": "Expression to filter data from table.A FilterExpression does not allow key attributes. You cannot define a filter expression based on a partition key or a sort key",
                     "order": 5
                 },
                 "projection_expression": {
                     "data_type": "string",
-                    "description": "Defines the attributes to be included in the result. If this expression is provided SELECT value is set to SPECIFIC_ATTRIBUTES. The attributes in the expression must be separated by commas.",
+                    "description": "Defines the attributes to be included in the result. If this expression is provided SELECT value is set to SPECIFIC_ATTRIBUTES. The attributes in the expression must be separated by commas",
                     "order": 6,
                     "contains": [
                         "aws dynamodb attribute name"
@@ -5466,7 +5463,7 @@
                 },
                 "select": {
                     "data_type": "string",
-                    "description": "Retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index.",
+                    "description": "Retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index",
                     "value_list": [
                         "COUNT",
                         "ALL_ATTRIBUTES",
@@ -5492,7 +5489,7 @@
                 },
                 "sort_descending": {
                     "data_type": "boolean",
-                    "description": "By default, the sort order for query data is ascending. To reverse the order, set the sort_descending parameter to true.",
+                    "description": "By default, the sort order for query data is ascending. To reverse the order, set the sort_descending parameter to true",
                     "order": 10
                 },
                 "consistent_read": {
