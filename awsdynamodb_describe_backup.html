@@ -12,7 +12,7 @@ background-repeat: no-repeat; background-image: url('/app_resource/{{ title_logo
 
 
 <!-- File: awsdynamodb_describe_backup.html
-  Copyright (c) 2023 Splunk Inc.
+Copyright (c) 2023 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -142,7 +142,7 @@ and limitations under the License.
                                             <td>
                                                 <a href="javascript:;"
                                                     onclick="context_menu(this, [{'contains': ['aws dynamodb backup arn'], 'value': '{{result.data.0.BackupDescription.BackupDetails.BackupArn}}' }], 0, {{ container.id }}, null, false);">
-
+                                                    {{result.data.0.BackupDescription.BackupDetails.BackupArn}}
                                                     &nbsp;
                                                     <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                                 </a>
@@ -162,7 +162,6 @@ and limitations under the License.
                                                     <span class="fa fa-caret-down" style="font-size: smaller;"></span>
                                                 </a>
                                             </td>
-                                            <td>{{result.data.0.BackupDescription.BackupDetails.BackupType}}</td>
                                         </tr>
                                         <tr>
                                             <td class="boldtext">Backup Date and Time</td>

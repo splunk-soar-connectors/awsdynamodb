@@ -18,7 +18,7 @@ and limitations under the License.
   </h3>
 
   <p>
-    AWS DynamoDBuse uses expressions to denote the attributes that you want to read from an item. It also uses
+    AWS DynamoDB uses expressions to denote the attributes that you want to read from an item. It also uses
     expressions
     when writing an item to indicate any conditions that must be met, and to indicate how the attributes are
     to be updated. Expressions are an integral part of using DynamoDB, and they are used in a few different ways:
@@ -29,7 +29,7 @@ and limitations under the License.
         Condition Expressions
       </h4>
       <p>
-        To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item operation.
+        To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item operations.
         For these data manipulation operations, we can specify a condition expression to determine which items should be
         modified. If the condition expression evaluates to true, the operation succeeds; otherwise, the operation fails.
       </p>
@@ -42,7 +42,7 @@ and limitations under the License.
         To update an existing item in an AWS DynamoDB table, we use the Update Item operation. We must provide the key of
         the item that we want to update. We must also provide an update expression, indicating the attributes that you
         want
-        to modify and the values that you want to assign to them. There are 4 operations update expression suppports :
+        to modify and the values that you want to assign to them. There are 4 operations update expression supports :
       </p>
       <ul>
         <li>
@@ -149,7 +149,7 @@ and limitations under the License.
 <h4>Expression attribute names and values</h4>
 <p>
   While using this app certain actions will ask for <strong>expression attribute names</strong> and <strong>expression
-    attributevalues</strong> which would be neccessay while using expressions. This values are neccessay to pass for the
+    attributevalues</strong> which would be necessary while using expressions. This values are necessary to pass for the
   following conditions:
 </p>
 <ul>
@@ -162,7 +162,7 @@ and limitations under the License.
 </ul>
 <br>
 <div>
-  <h4>To write the expression attribute data reffer the code snippets given below</h4>
+  <h4>To write the expression attribute data refer the code snippets given below</h4>
   <div>
     <p><strong>Expression Attribute Names Syntax</strong></p>
     <pre>
@@ -298,11 +298,11 @@ and limitations under the License.
 <div>
   <p><strong>Global Secondary Index</strong></p>
   <p>
-    To create a global secondary index(GSI), partition key becomes necessary. Sort key is optional. the
+    To create a global secondary index(GSI), Partition key becomes necessary. Sort key is optional. the
     parameters for Global Secondary Indexes remain the same as Local Secondary Index, just Partition key
     name and Partition key name datatype are added and they become required parameters. Whereas Sort key
     name and Sort key datatype become optional. The provisional read and write capacity units are the same
-    as the original table.(Can only create 20 GSI at max)
+    as the original table. (Can only create 20 GSI at max)
   </p>
   <ul>
     <li>
@@ -312,7 +312,7 @@ and limitations under the License.
       <p>Input Type: String</p>
     </li>
     <li>
-      <p>Key name: <strong>partiton_key_datatype</strong></p>
+      <p>Key name: <strong>partition_key_datatype</strong></p>
       <p>Description: Datatype for the local secondary sort key (accepts only 3 types of values as valid,
         that are <strong>String, Number or Binary</strong>)</p>
       <p>Required: True</p>

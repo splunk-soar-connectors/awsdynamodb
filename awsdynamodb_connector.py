@@ -16,6 +16,7 @@
 
 import ast
 import json
+import sys
 from datetime import datetime
 
 import phantom.app as phantom
@@ -168,10 +169,8 @@ class AwsDynamodbConnector(BaseConnector):
             key_data : json data from which key values are to be parsed
             original_resp : payload in which key values are to be added
             index_type : type of index key (Local/Global)
-            table_partition_key : Partition key provided for the table. Defaults to "".
+            table_partition_key : Partition key provided for the table
 
-        Returns:
-            _type_: _description_
         """
 
         attribute_definitions = []
@@ -1561,22 +1560,26 @@ class AwsDynamodbConnector(BaseConnector):
         return ret_val
 
 
-def main():
+if __name__ == "__main__":
+
     import argparse
+
+    import pudb
+
+    pudb.set_trace()
 
     argparser = argparse.ArgumentParser()
 
-    argparser.add_argument("input_test_json", help="Input Test JSON file")
-    argparser.add_argument(
-        "-u", "--username", help="username", required=False)
-    argparser.add_argument(
-        "-p", "--password", help="password", required=False)
-
+    argparser.add_argument('input_test_json', help='Input Test JSON file')
+    argparser.add_argument('-u', '--username', help='username', required=False)
+    argparser.add_argument('-p', '--password', help='password', required=False)
+    argparser.add_argument('-v', '--verify', action='store_true', help='verify', required=False, default=False)
     args = argparser.parse_args()
     session_id = None
 
     username = args.username
     password = args.password
+    verify = args.verify
 
     if username is not None and password is None:
         # User specified a username but not a password, so ask
@@ -1588,7 +1591,7 @@ def main():
             login_url = AwsDynamodbConnector._get_phantom_base_url() + "/login"
 
             print("Accessing the Login page")
-            r = requests.get(login_url, verify=False)
+            r = requests.get(login_url, verify=verify)
             csrftoken = r.cookies["csrftoken"]
 
             data = dict()
@@ -1601,7 +1604,7 @@ def main():
             headers["Referer"] = login_url
 
             print("Logging into Platform to get the session id")
-            r2 = requests.post(login_url, verify=False,
+            r2 = requests.post(login_url, verify=verify,
                                data=data, headers=headers)
             session_id = r2.cookies["sessionid"]
         except Exception as e:
@@ -1623,8 +1626,4 @@ def main():
         ret_val = connector._handle_action(json.dumps(in_json), None)
         print(json.dumps(json.loads(ret_val), indent=4))
 
-    exit(0)
-
-
-if __name__ == "__main__":
-    main()
+    sys.exit(0)

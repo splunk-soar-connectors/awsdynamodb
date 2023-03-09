@@ -28,15 +28,15 @@ This app supports CRUD operations in a AWS DynamoDB database
 
 ### Expressions in DynamoDB
 
-AWS DynamoDBuse uses expressions to denote the attributes that you want to read from an item. It
-also uses expressions when writing an item to indicate any conditions that must be met, and to
-indicate how the attributes are to be updated. Expressions are an integral part of using DynamoDB,
-and they are used in a few different ways:
+AWS DynamoDB uses expressions to denote the attributes that you want to read from an item. It also
+uses expressions when writing an item to indicate any conditions that must be met, and to indicate
+how the attributes are to be updated. Expressions are an integral part of using DynamoDB, and they
+are used in a few different ways:
 
 - #### Condition Expressions
 
   To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item
-  operation. For these data manipulation operations, we can specify a condition expression to
+  operations. For these data manipulation operations, we can specify a condition expression to
   determine which items should be modified. If the condition expression evaluates to true, the
   operation succeeds; otherwise, the operation fails.
 
@@ -45,7 +45,7 @@ and they are used in a few different ways:
   To update an existing item in an AWS DynamoDB table, we use the Update Item operation. We must
   provide the key of the item that we want to update. We must also provide an update expression,
   indicating the attributes that you want to modify and the values that you want to assign to them.
-  There are 4 operations update expression suppports :
+  There are 4 operations update expression supports :
 
   - <a
     href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET"
@@ -132,7 +132,7 @@ The following actions uses expressions
 #### Expression attribute names and values
 
 While using this app certain actions will ask for **expression attribute names** and **expression
-attributevalues** which would be neccessay while using expressions. This values are neccessay to
+attributevalues** which would be necessary while using expressions. This values are necessary to
 pass for the following conditions:
 
 - To access an attribute whose name conflicts with a DynamoDB
@@ -145,7 +145,7 @@ pass for the following conditions:
 
 
 
-#### To write the expression attribute data reffer the code snippets given below
+#### To write the expression attribute data refer the code snippets given below
 
 
 
@@ -290,11 +290,11 @@ VALUE EXAMPLE
 
 **Global Secondary Index**
 
-To create a global secondary index(GSI), partition key becomes necessary. Sort key is optional. the
+To create a global secondary index(GSI), Partition key becomes necessary. Sort key is optional. the
 parameters for Global Secondary Indexes remain the same as Local Secondary Index, just Partition key
 name and Partition key name datatype are added and they become required parameters. Whereas Sort key
 name and Sort key datatype become optional. The provisional read and write capacity units are the
-same as the original table.(Can only create 20 GSI at max)
+same as the original table. (Can only create 20 GSI at max)
 
 - Key name: **partition_key_name**
 
@@ -304,7 +304,7 @@ same as the original table.(Can only create 20 GSI at max)
 
   Input Type: String
 
-- Key name: **partiton_key_datatype**
+- Key name: **partition_key_datatype**
 
   Description: Datatype for the local secondary sort key (accepts only 3 types of values as valid,
   that are **String, Number or Binary** )
@@ -477,34 +477,32 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**global\_table\_name** |  required  | Name of Global Table | string | 
+**global\_table\_name** |  required  | Name of Global Table to describe | string |  `aws dynamodb table name` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.global\_table\_name | string |  |   room 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\}  pragma: allowlist secret
-action\_result\.data\.\*\.Table | string |  |  
-action\_result\.data\.\*\.Table\.TableName | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   IVODR6MSFJFABNQ92LLHFE1BVJVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 16 Feb 2023 10\:15\:09 GMT 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   3053811167 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   IVODR6MSFJFABNQ92LLHFE1BVJVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
-action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.global\_table\_name | string |  `aws dynamodb table name`  |   room 
+action\_result\.data\.\*\.GlobalTableDescription\.CreationDateTime | string |  |   2023\-02\-16 10\:15\:08\.116000\+00\:00 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableArn | string |  |   arn\:aws\:dynamodb\:\:157568067690\:global\-table/test\_playbook 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableName | string |  |   test\_playbook 
-action\_result\.data\.\*\.GlobalTableDescription\.CreationDateTime | string |  |   2023\-02\-16 10\:15\:08\.116000\+00\:00 
-action\_result\.data\.\*\.GlobalTableDescription\.ReplicationGroup\.\*\.RegionName | string |  |   us\-east\-1 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableStatus | string |  |   ACTIVE 
-action\_result\.message | string |  |   Created global table successfully 
+action\_result\.data\.\*\.GlobalTableDescription\.ReplicationGroup\.\*\.RegionName | string |  `aws region`  |   us\-east\-1 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 16 Feb 2023 10\:15\:09 GMT 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   3053811167 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   IVODR6MSFJFABNQ92LLHFE1BVJVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   IVODR6MSFJFABNQ92LLHFE1BVJVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Global table details fetched successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -517,61 +515,61 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**backup\_arn** |  required  | Backup ARN string | string |  `aws dynamodb backup arn` 
+**backup\_arn** |  required  | Backup ARN of backup to describe | string |  `aws dynamodb backup arn` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   room 
+action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/backup/01676542512426\-8ea20723 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.Table | string |  |  
-action\_result\.data\.\*\.Table\.TableName | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   M2M76PL4BOD12BK61IEUN1604VVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/backup/01676542512426\-8ea20723 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupCreationDateTime | string |  |   2023\-02\-16 10\:15\:12\.426000\+00\:00 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   test\_playbook\_backup 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |  
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupStatus | string |  |   AVAILABLE 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.BillingMode | string |  `aws dynamodb billing mode`  |   PROVISIONED 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |  
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   test\_part\_key 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   3 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   3 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableCreationDateTime | string |  |   2023\-02\-16 10\:13\:02\.238000\+00\:00 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   291c7a8f\-8c39\-4727\-8ab6\-4a078eca09ce 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableName | string |  `aws dynamodb table name`  |   test\_playbook 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |  
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   gsi\_part1\-gsi\_sort1\-index 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   gsi\_part1 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   3 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   3 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   test\_part\_key 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.KMSMasterKeyArn | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.Status | string |  |   ENABLED 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamEnabled | boolean |  |   True  False 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamViewType | string |  `aws dynamodb stream view type`  |   NEW\_AND\_OLD\_IMAGES 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2043 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 16 Feb 2023 10\:15\:13 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   3983538543 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2043 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   M2M76PL4BOD12BK61IEUN1604VVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/backup/01676542512426\-8ea20723 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   test\_playbook\_backup 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupType | string |  |   USER 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupStatus | string |  |   AVAILABLE 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |  
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupCreationDateTime | string |  |   2023\-02\-16 10\:15\:12\.426000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   291c7a8f\-8c39\-4727\-8ab6\-4a078eca09ce 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |  
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableName | string |  |   test\_playbook 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.BillingMode | string |  |   PROVISIONED 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |  
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableCreationDateTime | string |  |   2023\-02\-16 10\:13\:02\.238000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamEnabled | boolean |  |   True  False 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   gsi\_part1\-gsi\_sort1\-index 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   gsi\_part1 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
-action\_result\.message | string |  |   Created global table successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   M2M76PL4BOD12BK61IEUN1604VVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
+action\_result\.data\.\*\.Table | string |  |  
+action\_result\.data\.\*\.Table\.TableName | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Backup details fetched successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -584,69 +582,68 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**table\_name** |  required  | Name of Table | string |  `aws dynamodb table name` 
+**table\_name** |  required  | Name of the table to describe | string |  `aws dynamodb table name` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   room 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.Table | string |  |  
-action\_result\.data\.\*\.Table\.TableName | string |  |  
-action\_result\.data\.\*\.Table\.TableId | string |  |   44b4bcbc\-b591\-466f\-a05d\-370d7df1561b 
-action\_result\.data\.\*\.Table\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup 
-action\_result\.data\.\*\.Table\.ItemCount | numeric |  |  
-action\_result\.data\.\*\.Table\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.Table\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
-action\_result\.data\.\*\.Table\.TableStatus | string |  |   ACTIVE 
-action\_result\.data\.\*\.Table\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.Table\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.Table\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/mrk\-82136a96ac4241b2afbe568dfe5d11d6 
-action\_result\.data\.\*\.Table\.TableSizeBytes | numeric |  |  
-action\_result\.data\.\*\.Table\.CreationDateTime | string |  |   2023\-02\-16 10\:15\:15\.823000\+00\:00 
-action\_result\.data\.\*\.Table\.AttributeDefinitions\.\*\.AttributeName | string |  |   gsi\_part1 
-action\_result\.data\.\*\.Table\.AttributeDefinitions\.\*\.AttributeType | string |  |   N 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup/index/lsi\_sort1\-index 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |  
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
-action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |  
-action\_result\.data\.\*\.Table\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.Table\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.Table\.ProvisionedThroughput\.LastDecreaseDateTime | string |  |   2023\-02\-16 10\:17\:58\.707000\+00\:00 
-action\_result\.data\.\*\.Table\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   1 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup/index/gsi\_part2\-index 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   gsi\_part2\-index 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |  
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   gsi\_part2 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexStatus | string |  |   ACTIVE 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |  
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.LastDecreaseDateTime | string |  |   2023\-02\-16 10\:18\:06\.128000\+00\:00 
-action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   1 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   IVOH9V6BK0B7Q85I411VMKI4T7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_playbook\_backup 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2813 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 16 Feb 2023 10\:20\:13 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   3323931213 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2813 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   IVOH9V6BK0B7Q85I411VMKI4T7VV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   IVOH9V6BK0B7Q85I411VMKI4T7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
+action\_result\.data\.\*\.Table\.AttributeDefinitions\.\*\.AttributeName | string |  |   gsi\_part1 
+action\_result\.data\.\*\.Table\.AttributeDefinitions\.\*\.AttributeType | string |  |   N 
+action\_result\.data\.\*\.Table\.CreationDateTime | string |  |   2023\-02\-16 10\:15\:15\.823000\+00\:00 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup/index/gsi\_part2\-index 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   gsi\_part2\-index 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |  
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.IndexStatus | string |  |   ACTIVE 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |  
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   gsi\_part2 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.LastDecreaseDateTime | string |  |   2023\-02\-16 10\:18\:06\.128000\+00\:00 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   1 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
+action\_result\.data\.\*\.Table\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
+action\_result\.data\.\*\.Table\.ItemCount | numeric |  |  
+action\_result\.data\.\*\.Table\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
+action\_result\.data\.\*\.Table\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.Table\.LatestStreamArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/stream/2023\-02\-16T10\:13\:02\.238 
 action\_result\.data\.\*\.Table\.LatestStreamLabel | string |  |   2023\-02\-16T10\:13\:02\.238 
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup/index/lsi\_sort1\-index 
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |  
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |  
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.Table\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.Table\.ProvisionedThroughput\.LastDecreaseDateTime | string |  |   2023\-02\-16 10\:17\:58\.707000\+00\:00 
+action\_result\.data\.\*\.Table\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   1 
+action\_result\.data\.\*\.Table\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
+action\_result\.data\.\*\.Table\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
+action\_result\.data\.\*\.Table\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/mrk\-82136a96ac4241b2afbe568dfe5d11d6 
+action\_result\.data\.\*\.Table\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.Table\.SSEDescription\.Status | string |  |   ENABLED 
 action\_result\.data\.\*\.Table\.StreamSpecification\.StreamEnabled | boolean |  |   True  False 
-action\_result\.data\.\*\.Table\.StreamSpecification\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
-action\_result\.message | string |  |   Created global table successfully 
+action\_result\.data\.\*\.Table\.StreamSpecification\.StreamViewType | string |  `aws dynamodb stream view type`  |   NEW\_AND\_OLD\_IMAGES 
+action\_result\.data\.\*\.Table\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook\_backup 
+action\_result\.data\.\*\.Table\.TableId | string |  |   44b4bcbc\-b591\-466f\-a05d\-370d7df1561b 
+action\_result\.data\.\*\.Table\.TableName | string |  |   test\_playbook\_backup 
+action\_result\.data\.\*\.Table\.TableSizeBytes | numeric |  |  
+action\_result\.data\.\*\.Table\.TableStatus | string |  |   ACTIVE 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Table details fetched successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -661,35 +658,35 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**global\_table\_name** |  required  | Name of Table | string |  `aws dynamodb table name` 
-**replication\_group** |  required  | Name of region | string |  `aws region` 
+**global\_table\_name** |  required  | Name of Table to make global | string |  `aws dynamodb table name` 
+**replication\_group** |  required  | Name of region to create global table | string |  `aws region` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.parameter\.global\_table\_name | string |  `aws dynamodb table name`  |   room 
 action\_result\.parameter\.replication\_group | string |  `aws region`  |   us\-east\-1 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.data | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 11\:50\:25 GMT 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   1081780290 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   236 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.GlobalTableDescription\.CreationDateTime | string |  |   2022\-09\-22 11\:50\:25\.594000\+00\:00 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableArn | string |  |   arn\:aws\:dynamodb\:\:157568067690\:global\-table/room 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableName | string |  |   room 
-action\_result\.data\.\*\.GlobalTableDescription\.CreationDateTime | string |  |   2022\-09\-22 11\:50\:25\.594000\+00\:00 
-action\_result\.data\.\*\.GlobalTableDescription\.ReplicationGroup\.\*\.RegionName | string |  |   us\-east\-1 
 action\_result\.data\.\*\.GlobalTableDescription\.GlobalTableStatus | string |  |   CREATING 
-action\_result\.message | string |  |   Created global table successfully 
+action\_result\.data\.\*\.GlobalTableDescription\.ReplicationGroup\.\*\.RegionName | string |  |   us\-east\-1 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   236 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 11\:50\:25 GMT 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   1081780290 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   C0FE292C187QISI6FGDGARBR7FVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Created global table successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -711,25 +708,25 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.exclusive\_start\_global\_table\_name | string |  `aws dynamodb table name`  |   cars\_backup 
-action\_result\.parameter\.region\_name | string |  `aws region`  |   us\-east\-1 
-action\_result\.parameter\.max\_items | numeric |  |   3 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.exclusive\_start\_global\_table\_name | string |  `aws dynamodb table name`  |   cars\_backup 
+action\_result\.parameter\.max\_items | numeric |  |   3 
+action\_result\.parameter\.region\_name | string |  `aws region`  |   us\-east\-1 
 action\_result\.data\.\*\.GlobalTables\.\*\.GlobalTableName | string |  `aws dynamodb table name`  |   cars 
 action\_result\.data\.\*\.GlobalTables\.\*\.ReplicationGroup\.\*\.RegionName | string |  `aws region`  |   us\-east\-2 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.LastEvaluatedGlobalTableName | string |  |   fruits 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   224 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 05\:53\:30 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2321728776 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   224 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.LastEvaluatedGlobalTableName | string |  |   fruits 
-action\_result\.message | string |  |   Fetched global table list successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   RP572T69FGKGL2E8RI23932NPNVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Fetched global table list successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -755,34 +752,34 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.backup\_type | string |  `aws dynamodb backup type`  |   USER 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.end\_date | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
 action\_result\.parameter\.exclusive\_start\_backup\_arn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de 
 action\_result\.parameter\.max\_items | numeric |  |   2 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   cars 
 action\_result\.parameter\.start\_date | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.parameter\.end\_date | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.BackupSummaries\.\*\.TableId | string |  |   c08213e2\-7a1b\-4c44\-abaa\-bf3a52092232 
-action\_result\.data\.\*\.BackupSummaries\.\*\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   cars 
 action\_result\.data\.\*\.BackupSummaries\.\*\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table/backup/01659614741851\-9435638e 
-action\_result\.data\.\*\.BackupSummaries\.\*\.TableName | string |  `aws dynamodb table name`  |   test\_dev\_table 
-action\_result\.data\.\*\.BackupSummaries\.\*\.BackupName | string |  |   newDevTableBackup 
-action\_result\.data\.\*\.BackupSummaries\.\*\.BackupType | string |  `aws dynamodb backup type`  |   USER 
-action\_result\.data\.\*\.BackupSummaries\.\*\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.data\.\*\.BackupSummaries\.\*\.BackupStatus | string |  |   AVAILABLE 
-action\_result\.data\.\*\.BackupSummaries\.\*\.BackupSizeBytes | numeric |  |   182 
 action\_result\.data\.\*\.BackupSummaries\.\*\.BackupCreationDateTime | string |  |   2022\-08\-04 12\:05\:41\.851000\+00\:00 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG  6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.BackupSummaries\.\*\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
+action\_result\.data\.\*\.BackupSummaries\.\*\.BackupName | string |  |   newDevTableBackup 
+action\_result\.data\.\*\.BackupSummaries\.\*\.BackupSizeBytes | numeric |  |   182 
+action\_result\.data\.\*\.BackupSummaries\.\*\.BackupStatus | string |  |   AVAILABLE 
+action\_result\.data\.\*\.BackupSummaries\.\*\.BackupType | string |  `aws dynamodb backup type`  |   USER 
+action\_result\.data\.\*\.BackupSummaries\.\*\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table 
+action\_result\.data\.\*\.BackupSummaries\.\*\.TableId | string |  |   c08213e2\-7a1b\-4c44\-abaa\-bf3a52092232 
+action\_result\.data\.\*\.BackupSummaries\.\*\.TableName | string |  `aws dynamodb table name`  |   test\_dev\_table 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1570 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 14 Sep 2022 12\:24\:04 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   4139981727 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1570 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Fetched list of backups successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   AME57LA4RM4QDPVM614J1QTMI3VV4KQNSO5AEMVJF66Q9ASUAAJG  6Q42SMS0AFKKI1K8PR67FNVU87VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Fetched list of backups successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -804,51 +801,51 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action\_result\.status | string |  |   success  failed 
 action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_dev\_table/backup/01663824550617\-bcee6561 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 14 Sep 2022 12\:29\:44 GMT  Thu, 22 Sep 2022 10\:45\:17 GMT 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   408729803  2968903155 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   769  810 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
 action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   cars\_backup 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupStatus | string |  |   DELETED 
-action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
 action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupCreationDateTime | string |  |   2022\-09\-14 12\:29\:03\.903000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   0fa008bb\-5e6d\-4287\-949e\-9872a952927f 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |   3 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   VID 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableName | string |  `aws dynamodb table name`  |   cars 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupName | string |  |   cars\_backup 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupStatus | string |  |   DELETED 
+action\_result\.data\.\*\.BackupDescription\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.BillingMode | string |  |   PROVISIONED 
-action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |   266 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ItemCount | numeric |  |   3 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   VID 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   1 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   1 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars 
 action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableCreationDateTime | string |  |   2022\-07\-29 12\:44\:24\.597000\+00\:00 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamEnabled | boolean |  |   True 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableId | string |  |   0fa008bb\-5e6d\-4287\-949e\-9872a952927f 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableName | string |  `aws dynamodb table name`  |   cars 
+action\_result\.data\.\*\.BackupDescription\.SourceTableDetails\.TableSizeBytes | numeric |  |   266 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   gsi\_part1\-gsi\_sort1\-index 
-action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   gsi\_part1 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   3 
 action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   3 
-action\_result\.message | string |  |   Deleted backup successfully 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   lsi\_sort1\-index 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   test\_part\_key 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.SSEDescription\.Status | string |  |   ENABLED 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamEnabled | boolean |  |   True 
+action\_result\.data\.\*\.BackupDescription\.SourceTableFeatureDetails\.StreamDescription\.StreamViewType | string |  `aws dynamodb stream view type`  |   NEW\_AND\_OLD\_IMAGES 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   769  810 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 14 Sep 2022 12\:29\:44 GMT  Thu, 22 Sep 2022 10\:45\:17 GMT 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   408729803  2968903155 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   HTKF2F7HA47UIUFP1V5TS6MFJBVV4KQNSO5AEMVJF66Q9ASUAAJG  UNOSU88UQ1G3AOQEJHGVV5IJDBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Deleted backup successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -869,28 +866,28 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   newtable123 
 action\_result\.parameter\.backup\_name | string |  |   newtable123\-backup 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   newtable123 
 action\_result\.data\.\*\.BackupDetails\.BackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/cars/backup/01663158543903\-413ed1de 
-action\_result\.data\.\*\.BackupDetails\.BackupName | string |  |   cars\_backup 
-action\_result\.data\.\*\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
-action\_result\.data\.\*\.BackupDetails\.BackupStatus | string |  |   CREATING 
-action\_result\.data\.\*\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
 action\_result\.data\.\*\.BackupDetails\.BackupCreationDateTime | string |  |   2022\-09\-14 12\:29\:03\.903000\+00\:00 
 action\_result\.data\.\*\.BackupDetails\.BackupExpiryDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.BackupDetails\.BackupName | string |  |   cars\_backup 
+action\_result\.data\.\*\.BackupDetails\.BackupSizeBytes | numeric |  |   266 
+action\_result\.data\.\*\.BackupDetails\.BackupStatus | string |  |   CREATING 
+action\_result\.data\.\*\.BackupDetails\.BackupType | string |  `aws dynamodb backup type`  |   USER 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 14 Sep 2022 12\:29\:03 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   1789868498 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   252 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Created backup successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   K109PP9CK2RGFK6BV1HDE87C5JVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Created backup successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -919,68 +916,68 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   retorenewtable123 
 action\_result\.parameter\.backup\_arn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/backup/01663846203118\-f405802d 
 action\_result\.parameter\.billing\_mode\_override | string |  `aws dynamodb billing mode`  |   PROVISIONED 
-action\_result\.parameter\.read\_capacity\_override | numeric |  `aws dynamodb read capacity`  |  
-action\_result\.parameter\.write\_capacity\_override | numeric |  `aws dynamodb write capacity`  |  
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.kms\_master\_key\_id | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.parameter\.read\_capacity\_override | numeric |  `aws dynamodb read capacity`  |   4 
 action\_result\.parameter\.restore\_secondary\_indexes | string |  |   Restore the entire table 
 action\_result\.parameter\.sse\_enable\_override | string |  |   True 
-action\_result\.parameter\.kms\_master\_key\_id | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   retorenewtable123 
+action\_result\.parameter\.write\_capacity\_override | numeric |  `aws dynamodb write capacity`  |   4 
 action\_result\.data | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1995 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 11\:43\:36 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   4165026467 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1995 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.TableDescription\.TableId | string |  |   67ede490\-028f\-40ca\-b286\-2e320f2295c4 
-action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/retorenewtable123 
-action\_result\.data\.\*\.TableDescription\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
-action\_result\.data\.\*\.TableDescription\.TableName | string |  `aws dynamodb table name`  |   retorenewtable123 
-action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   CREATING 
-action\_result\.data\.\*\.TableDescription\.RestoreSummary\.SourceTableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123 
-action\_result\.data\.\*\.TableDescription\.RestoreSummary\.RestoreDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
-action\_result\.data\.\*\.TableDescription\.RestoreSummary\.SourceBackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/backup/01663846203118\-f405802d 
-action\_result\.data\.\*\.TableDescription\.RestoreSummary\.RestoreInProgress | boolean |  |   True 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.CreationDateTime | string |  |   2022\-09\-22 11\:43\:36\.491000\+00\:00 
-action\_result\.data\.\*\.TableDescription\.BillingModeSummary\.BillingMode | string |  |   PROVISIONED 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   D1PGDOFSG8MPUAOL4TM2NN7TR7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.TableDescription\.AttributeDefinitions\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   newname 
 action\_result\.data\.\*\.TableDescription\.AttributeDefinitions\.\*\.AttributeType | string |  `aws dynamodb attribute datatype`  |   S 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/retorenewtable123/index/testdatast\-index 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   testdatast\-index 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   4 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   4 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.BillingModeSummary\.BillingMode | string |  |   PROVISIONED 
+action\_result\.data\.\*\.TableDescription\.CreationDateTime | string |  |   2022\-09\-22 11\:43\:36\.491000\+00\:00 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/retorenewtable123/index/newid\-newname\-index 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   newid\-newname\-index 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   newid 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.NonKeyAttributes | string |  `aws dynamodb attribute name`  |   num1 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   newid 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.NonKeyAttributes | string |  |   num1 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   4 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   4 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
-action\_result\.message | string |  |   Restored table from backup successfully 
+action\_result\.data\.\*\.TableDescription\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
+action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/retorenewtable123/index/testdatast\-index 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   testdatast\-index 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.RestoreSummary\.RestoreDateTime | string |  |   2022\-09\-22 11\:30\:03\.118000\+00\:00 
+action\_result\.data\.\*\.TableDescription\.RestoreSummary\.RestoreInProgress | boolean |  |   True 
+action\_result\.data\.\*\.TableDescription\.RestoreSummary\.SourceBackupArn | string |  `aws dynamodb backup arn`  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/backup/01663846203118\-f405802d 
+action\_result\.data\.\*\.TableDescription\.RestoreSummary\.SourceTableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
+action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/retorenewtable123 
+action\_result\.data\.\*\.TableDescription\.TableId | string |  |   67ede490\-028f\-40ca\-b286\-2e320f2295c4 
+action\_result\.data\.\*\.TableDescription\.TableName | string |  `aws dynamodb table name`  |   retorenewtable123 
+action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   CREATING 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Restored table from backup successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1001,13 +998,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.max\_items | numeric |  |   5 
-action\_result\.parameter\.exclusive\_start\_table\_name | string |  `aws dynamodb table name`  |   cars2 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
+action\_result\.parameter\.exclusive\_start\_table\_name | string |  `aws dynamodb table name`  |   cars2 
+action\_result\.parameter\.max\_items | numeric |  |   5 
 action\_result\.data | string |  |  
 action\_result\.data\.\*\.TableNames | string |  `aws dynamodb table name`  |   room\_test\_1 
-action\_result\.message | string |  |   Fetched list of table successfully 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Fetched list of table successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1027,37 +1024,37 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   testdata 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   testdata 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   310 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 21 Sep 2022 18\:29\:19 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   3710880937 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   310 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.TableDescription\.TableId | string |  |   78197d82\-7d17\-49ad\-b622\-fb5a619832dd 
-action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/testdata 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   KMO2UQHBJ1L4DL15K1RN4HVGD7VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.TableDescription\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.TableName | string |  |   testdata 
-action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   DELETING 
-action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   5 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   5 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
 action\_result\.data\.\*\.TableDescription\.LatestStreamArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/stream/2023\-02\-16T10\:13\:02\.238 
 action\_result\.data\.\*\.TableDescription\.LatestStreamLabel | string |  |   2023\-02\-16T10\:13\:02\.238 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   5 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   5 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
 action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamEnabled | boolean |  |   True  False 
-action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
-action\_result\.message | string |  |   Deleted Table Successfully 
+action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamViewType | string |  `aws dynamodb stream view type`  |   NEW\_AND\_OLD\_IMAGES 
+action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/testdata 
+action\_result\.data\.\*\.TableDescription\.TableId | string |  |   78197d82\-7d17\-49ad\-b622\-fb5a619832dd 
+action\_result\.data\.\*\.TableDescription\.TableName | string |  |   testdata 
+action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   DELETING 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Deleted Table Successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1073,95 +1070,96 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table\_name** |  required  | Name of table to be created | string |  `aws dynamodb table name` 
-**billing\_mode** |  optional  | Billing mode to be used for table | string | 
-**partition\_key\_name** |  required  | Partition key name for table items | string |  `aws dynamodb partition key name` 
+**billing\_mode** |  optional  | Billing mode to be used for table | string |  `aws dynamodb billing mode` 
+**partition\_key\_name** |  required  | Partition key name for table items | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name` 
 **partition\_key\_datatype** |  required  | Datatype of partition key | string | 
-**sort\_key\_name** |  optional  | Sort key name for table items | string |  `aws dynamodb sort key name` 
+**sort\_key\_name** |  optional  | Sort key name for table items | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name` 
 **sort\_key\_datatype** |  optional  | Datatype for sort key | string | 
-**read\_capacity\_units** |  optional  | Read capacity units for provisioned mode | numeric | 
-**write\_capacity\_units** |  optional  | Write capacity units for provisioned mode | numeric | 
+**read\_capacity\_units** |  optional  | Read capacity units for provisioned mode | numeric |  `aws dynamodb read capacity` 
+**write\_capacity\_units** |  optional  | Write capacity units for provisioned mode | numeric |  `aws dynamodb write capacity` 
 **local\_secondary\_index** |  optional  | JSON input for creating local secondary index | string | 
 **global\_secondary\_index** |  optional  | JSON input for creating global secondary index | string | 
 **enable\_stream** |  optional  | Enable streams for the table | boolean | 
-**stream\_view\_type** |  optional  | View type of dynamodb stream | string | 
+**stream\_view\_type** |  optional  | View type of dynamodb stream | string |  `aws dynamodb stream view type` 
 **sse** |  required  | Settings used to enable server\-side encryption | string | 
-**kms\_master\_key\_id** |  optional  | The KMS key that should be used for the KMS encryption | string | 
-**tags** |  optional  | List of tags to add to table | string | 
+**kms\_master\_key\_id** |  optional  | The KMS key that should be used for the KMS encryption | string |  `aws dynamodb kms master key id` 
+**tags** |  optional  | JSON list of tags to add to table | string | 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   newtable123 
-action\_result\.parameter\.billing\_mode | string |  |   PROVISIONED 
-action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  |   ID 
-action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  |   name 
-action\_result\.parameter\.partition\_key\_datatype | string |  |   Number 
-action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
-action\_result\.parameter\.read\_capacity\_units | numeric |  |   4 
-action\_result\.parameter\.write\_capacity\_units | numeric |  |   4 
-action\_result\.parameter\.local\_secondary\_index | string |  |   \{"attribute\_projection"\: "ALL",<br>    "sort\_key\_name"\: "testdatast",<br>    "sort\_key\_datatype"\:  "string"\} 
-action\_result\.parameter\.global\_secondary\_index | string |  |   \{<br>    "attribute\_projection"\: "INCLUDE",<br>    "partition\_key\_name"\: "newid",<br>    "partition\_key\_datatype"\: "string",<br>    "sort\_key\_name"\:  "newname",<br>    "sort\_key\_datatype"\:  "string",<br>    "NonKeyAttributes"\:  \["num1","num2"\]<br>\} 
-action\_result\.parameter\.enable\_stream | boolean |  |   True 
-action\_result\.parameter\.stream\_view\_type | string |  |   NEW\_IMAGE 
-action\_result\.parameter\.sse | string |  |   False 
-action\_result\.parameter\.kms\_master\_key\_id | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.parameter\.tags | string |  |   events 
+action\_result\.parameter\.billing\_mode | string |  `aws dynamodb billing mode`  |   PROVISIONED 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableDescription | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.enable\_stream | boolean |  |   True 
+action\_result\.parameter\.global\_secondary\_index | string |  |   \{<br>    "attribute\_projection"\: "INCLUDE",<br>    "partition\_key\_name"\: "newid",<br>    "partition\_key\_datatype"\: "string",<br>    "sort\_key\_name"\:  "newname",<br>    "sort\_key\_datatype"\:  "string",<br>    "NonKeyAttributes"\:  \["num1","num2"\]<br>\} 
+action\_result\.parameter\.kms\_master\_key\_id | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.parameter\.local\_secondary\_index | string |  |   \{"attribute\_projection"\: "ALL",<br>    "sort\_key\_name"\: "testdatast",<br>    "sort\_key\_datatype"\:  "string"\} 
+action\_result\.parameter\.partition\_key\_datatype | string |  |   Number 
+action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name`  |   ID 
+action\_result\.parameter\.read\_capacity\_units | numeric |  `aws dynamodb read capacity`  |   4 
+action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
+action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   name 
+action\_result\.parameter\.sse | string |  |   False 
+action\_result\.parameter\.stream\_view\_type | string |  `aws dynamodb stream view type`  |   NEW\_IMAGE 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   newtable123 
+action\_result\.parameter\.tags | string |  |   events 
+action\_result\.parameter\.write\_capacity\_units | numeric |  `aws dynamodb write capacity`  |   4 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1680 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 06\:07\:34 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2160627733 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   1680 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.data\.\*\.TableDescription\.TableId | string |  |   f250b7a4\-20e6\-49cd\-afed\-20de7a883fef 
-action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123 
-action\_result\.data\.\*\.TableDescription\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.AttributeName | string |  |   ID 
-action\_result\.data\.\*\.TableDescription\.TableName | string |  |   newtable123 
-action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   CREATING 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
-action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
-action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.CreationDateTime | string |  |   2022\-09\-22 06\:07\:34\.858000\+00\:00 
-action\_result\.data\.\*\.TableDescription\.AttributeDefinitions\.\*\.AttributeName | string |  |   ID 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   J0GO5QSIRQPP2O7RAMOAHO1MKVVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription | string |  |  
+action\_result\.data\.\*\.TableDescription\.AttributeDefinitions\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
 action\_result\.data\.\*\.TableDescription\.AttributeDefinitions\.\*\.AttributeType | string |  |   N 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/index/testdatast\-index 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   testdatast\-index 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   ID 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
-action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   4 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   4 
-action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.CreationDateTime | string |  |   2022\-09\-22 06\:07\:34\.858000\+00\:00 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/index/newid\-newname\-index 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexName | string |  |   newid\-newname\-index 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  |   newid 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.NonKeyAttributes | string |  |   num1 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexStatus | string |  |   CREATING 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexName | string |  `aws dynamodb index name`  |   newid\-newname\-index 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  |   4 
-action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  |   4 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.IndexStatus | string |  |   CREATING 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   newid 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.NonKeyAttributes | string |  |   num1 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   INCLUDE 
 action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.GlobalSecondaryIndexes\.\*\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
+action\_result\.data\.\*\.TableDescription\.KeySchema\.\*\.KeyType | string |  |   HASH 
 action\_result\.data\.\*\.TableDescription\.LatestStreamArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/test\_playbook/stream/2023\-02\-16T10\:13\:02\.238 
 action\_result\.data\.\*\.TableDescription\.LatestStreamLabel | string |  |   2023\-02\-16T10\:13\:02\.238 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123/index/testdatast\-index 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexName | string |  |   testdatast\-index 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.IndexSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.ItemCount | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.AttributeName | string |  `aws dynamodb attribute name`  |   ID 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.KeySchema\.\*\.KeyType | string |  |   HASH 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.Projection\.NonKeyAttributes | string |  |   test\_attr 
+action\_result\.data\.\*\.TableDescription\.LocalSecondaryIndexes\.\*\.Projection\.ProjectionType | string |  |   ALL 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.NumberOfDecreasesToday | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.ReadCapacityUnits | numeric |  `aws dynamodb read capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.ProvisionedThroughput\.WriteCapacityUnits | numeric |  `aws dynamodb write capacity`  |   4 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.KMSMasterKeyArn | string |  `aws dynamodb kms master key id`  |   arn\:aws\:kms\:us\-east\-1\:157568067690\:key/1651022c\-3833\-4ab4\-a782\-df260339eb0c 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.SSEType | string |  |   KMS 
+action\_result\.data\.\*\.TableDescription\.SSEDescription\.Status | string |  |   ENABLED 
 action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamEnabled | boolean |  |   True  False 
-action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamViewType | string |  |   NEW\_AND\_OLD\_IMAGES 
-action\_result\.message | string |  |   Created Table successfully 
+action\_result\.data\.\*\.TableDescription\.StreamSpecification\.StreamViewType | string |  `aws dynamodb stream view type`  |   NEW\_AND\_OLD\_IMAGES 
+action\_result\.data\.\*\.TableDescription\.TableArn | string |  |   arn\:aws\:dynamodb\:us\-east\-1\:157568067690\:table/newtable123 
+action\_result\.data\.\*\.TableDescription\.TableId | string |  |   f250b7a4\-20e6\-49cd\-afed\-20de7a883fef 
+action\_result\.data\.\*\.TableDescription\.TableName | string |  `aws dynamodb table name`  |   newtable123 
+action\_result\.data\.\*\.TableDescription\.TableSizeBytes | numeric |  |   0 
+action\_result\.data\.\*\.TableDescription\.TableStatus | string |  |   CREATING 
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Created Table successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1176,8 +1174,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table\_name** |  required  | Table name to delete item from | string |  `aws dynamodb table name` 
 **condition\_expression** |  optional  | Condition to be check before delete an item | string | 
-**partition\_key\_name** |  required  | Partition key name | string |  `aws dynamodb partition key` 
-**sort\_key\_name** |  optional  | Sort key name | string |  `aws dynamodb sort key` 
+**partition\_key\_name** |  required  | Partition key name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name` 
+**sort\_key\_name** |  optional  | Sort key name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name` 
 **partition\_key\_value** |  required  | Partition key value | string | 
 **sort\_key\_value** |  optional  | Sort key value | string | 
 **partition\_key\_datatype** |  required  | Partition key datatype | string | 
@@ -1190,30 +1188,30 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_query 
-action\_result\.parameter\.condition\_expression | string |  |  
-action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key`  |   firstname 
-action\_result\.parameter\.partition\_key\_value | string |  |   testdata 
-action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key`  |   lastname 
-action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
-action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
-action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
-action\_result\.parameter\.expression\_attribute\_names | string |  |  
-action\_result\.parameter\.expression\_attribute\_values | string |  |  
+action\_result\.parameter\.condition\_expression | string |  |   \#age <> \:age 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.expression\_attribute\_names | string |  |   \{"\#age"\:"age"\} 
+action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:age"\:\{"N"\:"12"\}\} 
+action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
+action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name`  |   firstname 
+action\_result\.parameter\.partition\_key\_value | string |  |   testdata 
+action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
+action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   lastname 
+action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_query 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Wed, 21 Sep 2022 18\:17\:41 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2745614147 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Item deleted successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   91PHHJD3LHOFKAJ7PNM1UF77UBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Item deleted successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1237,25 +1235,25 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
-action\_result\.parameter\.item\_json | string |  |   \{"testing1"\:\{"S"\:"32"\},"age"\:\{"N"\:"12"\}\} 
 action\_result\.parameter\.condition\_expression | string |  |   \#age <> \:age 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.parameter\.expression\_attribute\_names | string |  |   \{"\#age"\:"age"\} 
 action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:age"\:\{"N"\:"12"\}\} 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.item\_json | string |  |   \{"testing1"\:\{"S"\:"32"\},"age"\:\{"N"\:"12"\}\} 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 10\:24\:42 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2745614147 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Item inserted successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   469DQNHNGBMPVBCFVEUIMJQ5FFVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Item inserted successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1270,8 +1268,8 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table\_name** |  required  | Name of table in which item is to be updated | string |  `aws dynamodb table name` 
 **update\_expression** |  optional  | Expression to update the attribute | string | 
-**partition\_key\_name** |  required  | Partition key name | string |  `aws dynamodb partition key` 
-**sort\_key\_name** |  optional  | Sort key name | string |  `aws dynamodb sort key` 
+**partition\_key\_name** |  required  | Partition key name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name` 
+**sort\_key\_name** |  optional  | Sort key name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name` 
 **partition\_key\_value** |  required  | Partition key value | string | 
 **sort\_key\_value** |  optional  | Sort key value | string | 
 **partition\_key\_datatype** |  required  | Partition key datatype | string | 
@@ -1284,30 +1282,30 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
-action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key`  |   testing1 
-action\_result\.parameter\.partition\_key\_value | string |  |   2 
-action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key`  |  
-action\_result\.parameter\.sort\_key\_value | string |  |  
-action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
-action\_result\.parameter\.sort\_key\_datatype | string |  |  
-action\_result\.parameter\.update\_expression | string |  |   set \#age = \:age 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.parameter\.expression\_attribute\_names | string |  |   \{"\#age" \:  "age"\} 
 action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:age"\:\{"N"\:"24"\}\} 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
+action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name`  |   testing1 
+action\_result\.parameter\.partition\_key\_value | string |  |   2 
+action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
+action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   name 
+action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
+action\_result\.parameter\.update\_expression | string |  |   set \#age = \:age 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 10\:01\:09 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2745614147 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Updated item successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   FE7CQFQDIO70P8CT6LHSH1J8NBVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Updated item successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1323,44 +1321,46 @@ We don't need to pass value in encoded format for the parameters\.
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table\_name** |  required  | Name of table from which you want to fetch item | string |  `aws dynamodb table name` 
-**partition\_key\_name** |  required  | Name of partition key | string |  `aws dynamodb partition key name` 
-**sort\_key\_name** |  optional  | Name of sort key | string |  `aws dynamodb sort key name` 
+**partition\_key\_name** |  required  | Name of partition key | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name` 
+**sort\_key\_name** |  optional  | Name of sort key | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name` 
 **partition\_key\_value** |  required  | Partition key value | string | 
 **sort\_key\_value** |  optional  | Sort key value | string | 
 **partition\_key\_datatype** |  required  | Partition key datatype | string | 
 **sort\_key\_datatype** |  optional  | Sort key datatype | string | 
-**attributes\_to\_get** |  optional  | To fetch specific attributes from the item | string | 
-**reserved\_keyword\_attributes** |  optional  | To fetch attributes from items whose names are same as reserved keywords | string | 
+**attributes\_to\_get** |  optional  | To fetch specific attributes from the item | string |  `aws dynamodb attribute name` 
+**reserved\_keyword\_attributes** |  optional  | To fetch attributes from items whose names are same as reserved keywords | string |  `aws dynamodb attribute name` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
-action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  |   testing1 
-action\_result\.parameter\.partition\_key\_value | string |  |   2 
-action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  |  
-action\_result\.parameter\.sort\_key\_value | string |  |  
-action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
-action\_result\.parameter\.sort\_key\_datatype | string |  |  
-action\_result\.parameter\.attributes\_to\_get | string |  |  
-action\_result\.parameter\.reserved\_keyword\_attributes | string |  |  
+action\_result\.parameter\.attributes\_to\_get | string |  `aws dynamodb attribute name`  |   name 
 action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
+action\_result\.parameter\.partition\_key\_datatype | string |  |   String 
+action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partition key name`  `aws dynamodb attribute name`  |   testing1 
+action\_result\.parameter\.partition\_key\_value | string |  |   2 
+action\_result\.parameter\.reserved\_keyword\_attributes | string |  `aws dynamodb attribute name`  |   ADD,ARRAY 
+action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
+action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   name 
+action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
 action\_result\.data\.\*\.Item | string |  |  
-action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.Item\.primary\.S | string |  |   test done 
+action\_result\.data\.\*\.Item\.secondary\.S | string |  |   testing 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   106 
+action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Thu, 22 Sep 2022 05\:59\:54 GMT 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   4263225874 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
-action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   106 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG 
-action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
-action\_result\.message | string |  |   Fetched Item Data Successfully 
+action\_result\.data\.\*\.ResponseMetadata\.RequestId | string |  |   EITIHSOAI9VTL2VPB08G059K63VV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |   0 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Fetched Item Data Successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
@@ -1376,12 +1376,12 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table\_name** |  required  | Name of Table to perform query on | string |  `aws dynamodb table name` 
-**index\_name** |  optional  | Name of index to be used for the query | string | 
+**index\_name** |  optional  | Name of index to be used for the query | string |  `aws dynamodb index name` 
 **expression\_attribute\_names** |  optional  | Attribute names json | string | 
 **expression\_attribute\_values** |  optional  | Attribute values json | string | 
 **key\_condition\_expression** |  required  | Attribute values json | string | 
 **filter\_expression** |  optional  | Expression to filter data from table\.A FilterExpression does not allow key attributes\. You cannot define a filter expression based on a partition key or a sort key\. | string | 
-**projection\_expression** |  optional  | Defines the attributes to be included in the result\. If this expression is provided SELECT value is set to SPECIFIC\_ATTRIBUTES\. The attributes in the expression must be separated by commas\. | string | 
+**projection\_expression** |  optional  | Defines the attributes to be included in the result\. If this expression is provided SELECT value is set to SPECIFIC\_ATTRIBUTES\. The attributes in the expression must be separated by commas\. | string |  `aws dynamodb attribute name` 
 **select** |  optional  | Retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index\. | string | 
 **return\_consumed\_capacity** |  optional  | Determines the level of detail about either provisioned or on\-demand throughput consumption that is returned in the response | string | 
 **max\_items** |  optional  | Maximum number of items to process | numeric | 
@@ -1393,23 +1393,38 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action\_result\.status | string |  |   success  failed 
-action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_query 
-action\_result\.parameter\.index\_name | string |  |  
+action\_result\.parameter\.consistent\_read | boolean |  |   False 
+action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
 action\_result\.parameter\.expression\_attribute\_names | string |  |   \{ "\#fn" \:  "firstname"\} 
 action\_result\.parameter\.expression\_attribute\_values | string |  |   \{"\:fn" \: \{ "S" \: "testdata"\}\} 
+action\_result\.parameter\.filter\_expression | string |  |   \#v >= \:num 
+action\_result\.parameter\.index\_name | string |  `aws dynamodb index name`  |   primary\_index 
 action\_result\.parameter\.key\_condition\_expression | string |  |   \#fn  =  \:fn 
-action\_result\.parameter\.filter\_expression | string |  |  
-action\_result\.parameter\.projection\_expression | string |  |  
-action\_result\.parameter\.select | string |  |   ALL\_ATTRIBUTES 
-action\_result\.parameter\.consistent\_read | boolean |  |   False 
-action\_result\.parameter\.sort\_descending | boolean |  |   False 
-action\_result\.parameter\.return\_consumed\_capacity | string |  |  
 action\_result\.parameter\.max\_items | numeric |  |   2 
-action\_result\.parameter\.credentials | string |  `aws credentials`  |   \{'AccessKeyId'\: 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration'\: '2021\-06\-07 22\:28\:04', 'SecretAccessKey'\: 'ZZZZZAmvLPictcVBPvjJx0d7MRezOuxiLCMZZZZZ', 'SessionToken'\: 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ\+yY5Qk2QpWctS2BGn4n\+G8cD6zEweCCMj\+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w\+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK\+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS\+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='\} 
-action\_result\.data\.\*\.TableNames | string |  |  
+action\_result\.parameter\.projection\_expression | string |  `aws dynamodb attribute name`  |   name,age 
+action\_result\.parameter\.return\_consumed\_capacity | string |  |   TOTAL 
+action\_result\.parameter\.select | string |  |   ALL\_ATTRIBUTES 
+action\_result\.parameter\.sort\_descending | boolean |  |   False 
+action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_query 
 action\_result\.data\.\*\.QueryData | string |  |  
-action\_result\.message | string |  |   Fetched data successfully 
+action\_result\.data\.\*\.QueryData\.\*\.Count | numeric |  |   1 
+action\_result\.data\.\*\.QueryData\.\*\.Items\.\*\.lsi\_one\.S | string |  |   local\-index\-test 
+action\_result\.data\.\*\.QueryData\.\*\.Items\.\*\.primary\.S | string |  |   test 
+action\_result\.data\.\*\.QueryData\.\*\.Items\.\*\.secondary\.S | string |  |   testing 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   126 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.content\-type | string |  |   application/x\-amz\-json\-1\.0 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.date | string |  |   Tue, 07 Mar 2023 14\:40\:35 GMT 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.server | string |  |   Server 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amz\-crc32 | string |  |   2439917427 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPHeaders\.x\-amzn\-requestid | string |  |   P6IEQOQPJ1H55CTB83O3M2OV9VVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.HTTPStatusCode | numeric |  |   200 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.RequestId | string |  |   P6IEQOQPJ1H55CTB83O3M2OV9VVV4KQNSO5AEMVJF66Q9ASUAAJG 
+action\_result\.data\.\*\.QueryData\.\*\.ResponseMetadata\.RetryAttempts | numeric |  |  
+action\_result\.data\.\*\.QueryData\.\*\.ScannedCount | numeric |  |   1 
+action\_result\.data\.\*\.TableNames | string |  |  
 action\_result\.summary | string |  |  
+action\_result\.message | string |  |   Fetched data successfully 
 summary\.total\_objects | numeric |  |   1 
 summary\.total\_objects\_successful | numeric |  |   1   
 
