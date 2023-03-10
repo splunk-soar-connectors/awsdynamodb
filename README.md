@@ -214,8 +214,8 @@ JSON objects.(Can only create 5 LSI at max)
 
 - Key name: **sort_key_datatype**
 
-  Description: Datatype for the local secondary sort key (accepts only 3 types of values as valid,
-  that are **String, Number or Binary** )
+  Description: Datatype for the local secondary sort key(accepts only 3 types of values as
+  valid,that are **String, Number or Binary** )
 
   Required: True
 
@@ -858,7 +858,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**table\_name** |  required  | Name of the Table to backup | string |  `aws dynamodb table name` 
+**table\_name** |  required  | Name of the table to backup | string |  `aws dynamodb table name` 
 **backup\_name** |  required  | Name of the backup | string | 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
@@ -1315,7 +1315,7 @@ Get an item from the table
 Type: **investigate**  
 Read only: **True**
 
-We don't need to pass value in encoded format for the parameters\.
+The parameter values do not need to be in encoded format\.
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1380,12 +1380,12 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **expression\_attribute\_names** |  optional  | Attribute names json | string | 
 **expression\_attribute\_values** |  optional  | Attribute values json | string | 
 **key\_condition\_expression** |  required  | Attribute values json | string | 
-**filter\_expression** |  optional  | Expression to filter data from table\.A FilterExpression does not allow key attributes\. You cannot define a filter expression based on a partition key or a sort key\. | string | 
-**projection\_expression** |  optional  | Defines the attributes to be included in the result\. If this expression is provided SELECT value is set to SPECIFIC\_ATTRIBUTES\. The attributes in the expression must be separated by commas\. | string |  `aws dynamodb attribute name` 
-**select** |  optional  | Retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index\. | string | 
+**filter\_expression** |  optional  | Expression to filter data from table\.A FilterExpression does not allow key attributes\. You cannot define a filter expression based on a partition key or a sort key | string | 
+**projection\_expression** |  optional  | Defines the attributes to be included in the result\. If this expression is provided SELECT value is set to SPECIFIC\_ATTRIBUTES\. The attributes in the expression must be separated by commas | string |  `aws dynamodb attribute name` 
+**select** |  optional  | Retrieve all item attributes, specific item attributes, the count of matching items, or in the case of an index, some or all of the attributes projected into the index | string | 
 **return\_consumed\_capacity** |  optional  | Determines the level of detail about either provisioned or on\-demand throughput consumption that is returned in the response | string | 
 **max\_items** |  optional  | Maximum number of items to process | numeric | 
-**sort\_descending** |  optional  | By default, the sort order for query data is ascending\. To reverse the order, set the sort\_descending parameter to true\. | boolean | 
+**sort\_descending** |  optional  | By default, the sort order for query data is ascending\. To reverse the order, set the sort\_descending parameter to true | boolean | 
 **consistent\_read** |  optional  | Determines the read consistency model\: If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads | boolean | 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 

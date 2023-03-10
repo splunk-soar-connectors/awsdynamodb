@@ -2296,7 +2296,7 @@
             "read_only": false,
             "parameters": {
                 "table_name": {
-                    "description": "Name of the Table to backup",
+                    "description": "Name of the table to backup",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -5085,7 +5085,7 @@
             "action": "get item",
             "identifier": "get_item",
             "description": "Get an item from the table",
-            "verbose": "We don't need to pass value in encoded format for the parameters.",
+            "verbose": "The parameter values do not need to be in encoded format.",
             "type": "investigate",
             "read_only": true,
             "parameters": {

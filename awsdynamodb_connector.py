@@ -703,7 +703,7 @@ class AwsDynamodbConnector(BaseConnector):
 
     def _describe_table(self, param):
         '''
-        describe a table details
+        Describe a table details
         '''
 
         action_result = self.add_action_result(ActionResult(dict(param)))
