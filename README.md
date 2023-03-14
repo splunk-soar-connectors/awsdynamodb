@@ -24,6 +24,8 @@ This app supports CRUD operations in a AWS DynamoDB database
 [comment]: # "either express or implied. See the License for the specific language governing permissions"
 [comment]: # "and limitations under the License."
 [comment]: # ""
+
+
 <div style="margin-left: 2em">
 
 ### Expressions in DynamoDB
@@ -438,6 +440,8 @@ VALUE EXAMPLE
 
 
 
+
+
 ### Configuration Variables
 The below configuration variables are required for this Connector to operate.  These variables are specified when configuring a AWS DynamoDB asset in SOAR.
 
@@ -453,7 +457,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 [describe backup](#action-describe-backup) - Fetch metadata of a backup  
 [describe table](#action-describe-table) - Fetch metadata of a table  
 [create global table](#action-create-global-table) - Create a global table from an existing table in the specified region  
-[list global tables](#action-list-global-tables) - List all global tables that have a replica in the specified Region  
+[list global tables](#action-list-global-tables) - List the global tables of a specific Region  
 [list backups](#action-list-backups) - List all the backups present in the database  
 [delete backup](#action-delete-backup) - Delete backup of a table  
 [create backup](#action-create-backup) - Create a backup of an existing table  
@@ -659,7 +663,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **global\_table\_name** |  required  | Name of Table to make global | string |  `aws dynamodb table name` 
-**replication\_group** |  required  | Name of region to create global table | string |  `aws region` 
+**replication\_group** |  required  | Name of region to create global table\(accepts comma separated regions\) | string |  `aws region` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
@@ -691,7 +695,7 @@ summary\.total\_objects | numeric |  |   1
 summary\.total\_objects\_successful | numeric |  |   1   
 
 ## action: 'list global tables'
-List all global tables that have a replica in the specified Region
+List the global tables of a specific Region
 
 Type: **investigate**  
 Read only: **True**
@@ -739,11 +743,11 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**backup\_type** |  optional  | Backup type | string |  `aws dynamodb backup type` 
+**backup\_type** |  optional  | Type of backup to list \(Allowed values\: ALL, USER, SYSTEM\) | string |  `aws dynamodb backup type` 
 **exclusive\_start\_backup\_arn** |  optional  | List backups after specific given backup arn | string |  `aws dynamodb backup arn` 
 **max\_items** |  optional  | Maximum number of backups to fetch | numeric | 
 **table\_name** |  optional  | List backups of specific table | string |  `aws dynamodb table name` 
-**start\_date** |  optional  | List backups created after provided date\.\(Valid date format allowed\: YYYY/MM/DD | string | 
+**start\_date** |  optional  | List backups created after provided date\.\(Valid date format allowed\: YYYY/MM/DD\) | string | 
 **end\_date** |  optional  | List backups created before provided data\.\(Valid date format allowed\: YYYY/MM/DD\) | string | 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
@@ -792,7 +796,7 @@ Read only: **False**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**backup\_arn** |  required  | ARN associated with the backup | string |  `aws dynamodb backup arn` 
+**backup\_arn** |  required  | ARN associated with the backup to delete | string |  `aws dynamodb backup arn` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
@@ -897,7 +901,7 @@ Create a new table from an existing backup
 Type: **generic**  
 Read only: **False**
 
-<p>NOTE</p><p>Restore Secondary Indexes parameter is used to restore the define the secondary indexes of the new restored table\. There are following two options for the parameter\:<ul><li><b>Restore the entire table</b><p>Restore table with original indexes as they are in the backup</p></li><li><b>Restore the table without secondary indexes</b> \(Selected by Default\)<p>Restore table without any indexes\. There will be no Local and GLobal Secondary Index\. Incase you want to add indexes, you can only create Global Secondary Indexes\. Local Secondary Indexes cannot be created once the table is create\.Hence there will be no Local Secondary Index is this option is selected\.</p></li></ul></p>
+<p> <strong>Restore Secondary Indexes</strong> <p> Restore Secondary Indexes parameter is used to restore the define the secondary indexes of the new restored table\. There are following two options for the parameter\: <ul> <li><strong>Restore the entire table</strong> <p>Restore table with original indexes as they are in the backup</p> </li> <li> <strong> Restore the table without secondary indexes </strong> \(Selected by Default\) <p> It Restores table without any indexes\. There will be no Local and Global Secondary Index\. Incase you want to add indexes, you can only create Global Secondary Indexes\. Local Secondary Indexes cannot be created once the table is created\. </p> </li> </ul> </p> </p> <p> <strong>NOTE</strong> <p> If while restoring table <strong>Restore the table without secondary indexes</strong> option is selected then there will be no Local Secondary Index\. </p> </p>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1064,7 +1068,7 @@ Create a table in the database
 Type: **generic**  
 Read only: **False**
 
-<ul><li> Each table has a Primary Key to identify items uniquely\. The primary in DynamoDB is made up of Partition Key and Sort Key\. Sort is Optional, but once the table is created you cannot add/update Sort Key </li><li><p>All the keys\(partition & sort\) in Dynamodb have only three supported datatype \[String,Number,Binary\]</p></li><li><div><p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity\.This setting can be changed later\.</p><p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>\.</p><ul><li>PROVISIONED\: Sets the billing mode to Provisioned Mode</li><li>PAY PER REQUEST\: Sets the billing mode to On\-Demand Mode</li></ul><p> When the billing mode is Provisioned, read and write capacity becomes required parameters\. The values for read and write capacity units are default set to 5\. Also, auto\-scaling is disabled\. </p></div></li><li><div><p>Secondary Indexes</p><ul><li> For creating Local Secondary Index \(LSI\) and Global Secondary Index \(GSI\), please refer the documentation above\. </li><li> Once created local secondary index cannot be added/updated, but Global Secondary can be created\. </li></ul></li></div></li><li><div><p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\. To enable streams for table, check the enable stream checkbox\. </p><p>If stream are enabled you need to select stream view type\. There are four options you could select from\: </p><ul><li> KEYS ONLY\: Only the key attributes of the modified item are written to the stream\. </li><li> NEW IMAGE\: The entire item, as it appears after it was modified, is written to the stream\. </li><li> OLD IMAGE\: The entire item, as it appeared before it was modified, is written to the stream\. </li><li> NEW AND OLD IMAGES\: Both the new and the old item images of the item are written to the stream\. </li></ul></div></li><li><div><p>SSE</p><ul><li> Set it to true to use server\-side encryption\. </li><li> For the KMS master key id provide the KMS key value that should be used for encryption\. </li></ul></div></li><li><p> The KMS key that should be used for the KMS encryption\. To specify a key, use its key ID, Amazon Resource Name \(ARN\), alias name, or alias ARN\. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p></li><li> To learn the way of taking input for local and global secondary index, please refer the documentation provided above for Local and Global Secondary Index\. </li><li> To add tags to you table, follow the step given below <ul><li> For a single values for tags, pass a JSON object\. The JSON object should contain the 'Key' and 'Value' keys\. These two keys are required and without these adding tags won't be possible\. <pre> \{ 'Key' \: 'key\_data', 'Value' \: 'value\_data' \} </pre></li><li> For multiple values in tags, pass a list of JSON object\. <pre> \[ \{ 'Key' \: 'key\_data1', 'Value' \: 'value\_data1' \}, \{ 'Key' \: 'key\_data2', 'Value' \: 'value\_data2' \} \] </pre></li></ul></li></ul>
+<ul> <li> <strong> Partition and Sort Key </strong> <div> <p> Each table has a Primary Key to identify items uniquely\. The primary in DynamoDB is made up of Partition Key and Sort Key\. Sort is Optional, but once the table is created you cannot add/update Sort Key </p> <p> All the keys\(partition & sort\) in Dynamodb have only three supported datatype \[String,Number,Binary\] </p> </div> </li> <li> <strong> Billing Mode </strong> <div> <p>The Billing mode defines how you going to be charged for read and write throughput and how you manage capacity\.This setting can be changed later\.</p> <p>Billing Mode has two values, by default it will be set to <strong>PROVISIONED</strong>\.</p> <ul> <li>PROVISIONED\: Sets the billing mode to Provisioned Mode</li> <li>PAY PER REQUEST\: Sets the billing mode to On\-Demand Mode</li> </ul> <p> When the billing mode is Provisioned, read and write capacity becomes required parameters\. The values for read and write capacity units are default set to 5\. Also, auto\-scaling is disabled\. </p> </div> </li> <li> <strong> Secondary Indexes </strong> <div> <p> For creating Local Secondary Index \(LSI\) and Global Secondary Index \(GSI\), please refer the documentation above\. </p> <p> Once table is created local secondary index cannot be added/updated, but Global Secondary can be created\. </p> </div> </li> <li> <strong> Enable Stream </strong> <div> <p> A DynamoDB stream is an ordered flow of information about changes to items in a DynamoDB table\. When you enable a stream on a table, DynamoDB captures information about every modification to data items in the table\. To enable streams for table, set the enable\_stream to true\. </p> <p>If stream are enabled you need to select stream view type\. There are four options you could select from\: </p> <ul> <li> KEYS ONLY\: Only the key attributes of the modified item are written to the stream\. </li> <li> NEW IMAGE\: The entire item, as it appears after it was modified, is written to the stream\. </li> <li> OLD IMAGE\: The entire item, as it appeared before it was modified, is written to the stream\. </li> <li> NEW AND OLD IMAGES\: Both the new and the old item images of the item are written to the stream\. </li> </ul> </div> </li> <li> <strong>SSE</strong> <div> <p> To use the SSE set the SSE to true\. </p> <p> For the KMS master key id provide the KMS key value that should be used for encryption\. </p> </div> </li> <li> <strong>KMS Master Key</strong> <p> The KMS key that should be used for the KMS encryption\. To specify a key, use its key ID, Amazon Resource Name \(ARN\), alias name, or alias ARN\. Note that you should only provide this parameter if the key is different from the default DynamoDB key alias/aws/dynamodb </p> </li> <li> <strong>Tags</strong> <div> <p> To add tags to you table, follow the step given below </p> <ul> <li> For a single values for tags, pass a JSON object\. The JSON object should contain the "Key" and "Value" keys\. These two keys are required and without these adding tags won't be possible\. <p> \{ "Key" \: "key\_data", "Value" \: "value\_data" \} </p> </li> <li> For multiple values in tags, pass a list of JSON object\. <p> \[ \{ "Key" \: "key\_data1", "Value" \: "value\_data1" \}, \{ "Key" \: "key\_data2", "Value" \: "value\_data2" \} \] </p> </li> </ul> </div> </li> </ul>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1169,6 +1173,8 @@ Delete an item from the table
 Type: **generic**  
 Read only: **False**
 
+Please refer app documentation to use the expression parameter
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1197,7 +1203,7 @@ action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partit
 action\_result\.parameter\.partition\_key\_value | string |  |   testdata 
 action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
 action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   lastname 
-action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.sort\_key\_value | string |  |   sort\_key\_test 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_query 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.content\-length | string |  |   2 
@@ -1220,6 +1226,8 @@ Add an item to the table
 
 Type: **generic**  
 Read only: **False**
+
+Please refer app documentation to use the expression parameter
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
@@ -1263,6 +1271,8 @@ Update an item in the table
 Type: **generic**  
 Read only: **False**
 
+Please refer app documentation to use the expression parameter
+
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
@@ -1290,7 +1300,7 @@ action\_result\.parameter\.partition\_key\_name | string |  `aws dynamodb partit
 action\_result\.parameter\.partition\_key\_value | string |  |   2 
 action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
 action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   name 
-action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.sort\_key\_value | string |  |   sort\_key\_test 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
 action\_result\.parameter\.update\_expression | string |  |   set \#age = \:age 
 action\_result\.data\.\*\.ResponseMetadata\.HTTPHeaders\.connection | string |  |   keep\-alive 
@@ -1343,7 +1353,7 @@ action\_result\.parameter\.partition\_key\_value | string |  |   2
 action\_result\.parameter\.reserved\_keyword\_attributes | string |  `aws dynamodb attribute name`  |   ADD,ARRAY 
 action\_result\.parameter\.sort\_key\_datatype | string |  |   String 
 action\_result\.parameter\.sort\_key\_name | string |  `aws dynamodb sort key name`  `aws dynamodb attribute name`  |   name 
-action\_result\.parameter\.sort\_key\_value | string |  |   Kamani 
+action\_result\.parameter\.sort\_key\_value | string |  |   sort\_key\_test 
 action\_result\.parameter\.table\_name | string |  `aws dynamodb table name`  |   test\_dev\_table 
 action\_result\.data\.\*\.Item | string |  |  
 action\_result\.data\.\*\.Item\.primary\.S | string |  |   test done 
@@ -1370,7 +1380,7 @@ Query data from database
 Type: **investigate**  
 Read only: **True**
 
-<ul><li>Select Parameter<ul><li>The select parameter defines what attributes are supposed to fetched\. There are following options \:</li><ul><li><b>ALL\_ATTRIBUTES</b> \: Returns all of the item attributes from the specified table or index\. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table\. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required\.</li><li><b>ALL\_PROJECTED\_ATTRIBUTES</b> \: Allowed only when querying an index\. Retrieves all attributes that have been projected into the index\. If the index is configured to project all attributes, this return value is equivalent to specifying ALL\_ATTRIBUTES</li><li><b>COUNT</b> \: Returns the number of matching items, rather than the matching items themselves</li><li><b>SPECIFIC\_ATTRIBUTES</b> \: Returns only the attributes listed in ProjectionExpression\. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li></ul><li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC\_ATTRIBUTES\. Any other value for Select will return an error\.</li></ul></li><li>Return Consumed Capacity Parameter<ul><li>Determines the level of detail about either provisioned or on\-demand throughput consumption that is returned in the response\. There are following options \:</li><ul><li>INDEXES \- The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed\.</li><li>TOTAL \- The response includes only the aggregate ConsumedCapacity for the operation\.</li><li>NONE \- No ConsumedCapacity details are included in the response\.</li></ul></ul></li><li>KeyConditionExpression Parameter<ul><li></li></ul></li></ul>
+<ul> <li>Select Parameter<ul> <li>The select parameter defines what attributes are supposed to fetched\. There are following options \:</li> <ul> <li><b>ALL\_ATTRIBUTES</b> \: Returns all of the item attributes from the specified table or index\. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table\. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required\.</li> <li><b>ALL\_PROJECTED\_ATTRIBUTES</b> \: Allowed only when querying an index\. Retrieves all attributes that have been projected into the index\. If the index is configured to project all attributes, this return value is equivalent to specifying ALL\_ATTRIBUTES</li> <li><b>COUNT</b> \: Returns the number of matching items, rather than the matching items themselves</li> <li><b>SPECIFIC\_ATTRIBUTES</b> \: Returns only the attributes listed in ProjectionExpression\. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li> </ul> <li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC\_ATTRIBUTES\. Any other value for Select will return an error\.</li> </ul> </li> <li>Return Consumed Capacity Parameter<ul> <li>Determines the level of detail about either provisioned or on\-demand throughput consumption that is returned in the response\. There are following options \:</li> <ul> <li>INDEXES \- The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed\.</li> <li>TOTAL \- The response includes only the aggregate ConsumedCapacity for the operation\.</li> <li>NONE \- No ConsumedCapacity details are included in the response\.</li> </ul> </ul> </li> <li>KeyConditionExpression Parameter <ul> <li> To specify the search criteria, we use a key condition expression which is a string that determines the items to be read from the table or index\. </li> <li> You must specify the partition key name and value as an equality condition\. You cannot use a non\-key attribute in a Key Condition Expression\. </li> <li> You can optionally provide a second condition for the sort key \(if present\)\. The sort key condition must use one of the following comparison operators\: <ul> <li> a = b — true if the attribute a is equal to the value b </li> <li> a < b — true if a is less than b </li> <li> a <= b — true if a is less than or equal to b </li> <li> a > b — true if a is greater than b </li> <li> a >= b — true if a is greater than or equal to b </li> <li> a BETWEEN b AND c — true if a is greater than or equal to b, and less than or equal to c\.</li></ul></li></ul></li><li>FilterExpression Parameter<ul><li>If you need to further refine the Query results, you can optionally provide a filter expression\. A filter expression determines which items within the Query results should be returned to you\. All of the other results are discarded\.</li><li>A filter expression cannot contain partition key or sort key attributes\. You need to specify those attributes in the key condition expression, not the filter expression\.</li><li>The syntax for a filter expression is similar to that of a key condition expression\. Filter expressions can use the same comparators, functions, and logical operators as a key condition expression\. In addition, filter expressions can use the not\-equals operator \(<>\), the OR operator, the CONTAINS operator, the IN operator, the BEGINS\_WITH operator, the BETWEEN operator, the EXISTS operator, and the SIZE operator\.</li></ul></li><li>ProjectionExpression Parameter<ul><li>A projection expression is a string that identifies the attributes that you want\. To retrieve a single attribute, specify its name\. For multiple attributes, the names must be comma\-separated\.</li></ul></li></ul>
 
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
