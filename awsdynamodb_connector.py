@@ -800,7 +800,7 @@ class AwsDynamodbConnector(BaseConnector):
             return action_result.get_status()
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Item inserted successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Inserted item successfully")
 
     def _get_item(self, param):
         '''
@@ -1197,7 +1197,7 @@ class AwsDynamodbConnector(BaseConnector):
         resp = self._convert_date_time_to_str(resp)
 
         action_result.add_data(resp)
-        return action_result.set_status(phantom.APP_SUCCESS, "Backups table details fetched successfully")
+        return action_result.set_status(phantom.APP_SUCCESS, "Backup details fetched successfully")
 
     def check_for_future_datetime(self, datetime_obj):
         """

@@ -1118,7 +1118,7 @@
         {
             "action": "create global table",
             "identifier": "create_global_table",
-            "description": "Create a global table from an existing table in the specified region",
+            "description": "Create a global table from an existing table in the specified regions",
             "verbose": "<ul><li><p>Conditions to create a global table : </p><ul><li>The table must have the same name as all of the other replicas</li><li>The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item.</li></ul></li><li><p>If you want to add a new replica table to a global table, each of the following conditions must be true:</p><ul><li>The table must have the same primary key as all of the other replicas.</li><li>The table must have the same name as all of the other replicas.</li><li>The table must have DynamoDB Streams enabled, with the stream containing both the new and the old images of the item.</li><li>None of the replica tables in the global table can contain any data.</li></ul></li><li><p>If global secondary indexes are specified, then the following conditions must also be met:</p><ul><li>The global secondary indexes must have the same name.</li><li>The global secondary indexes must have the same hash key and sort key (if present).</li></ul></li><li><p>If local secondary indexes are specified, then the following conditions must also be met:</p><ul><li>The local secondary indexes must have the same name.</li><li>The local secondary indexes must have the same hash key and sort key (if present).</li></ul></li></ul>",
             "type": "generic",
             "read_only": false,
@@ -4758,7 +4758,7 @@
                     "data_path": "action_result.message",
                     "data_type": "string",
                     "example_values": [
-                        "Item inserted successfully"
+                        "Inserted item successfully"
                     ]
                 },
                 {
@@ -5446,7 +5446,7 @@
                 },
                 "key_condition_expression": {
                     "data_type": "string",
-                    "description": "Attribute values json",
+                    "description": "Expression to apply conditions on partition key and sort key to fetch data accordingly from the table or index",
                     "order": 4,
                     "required": true
                 },
