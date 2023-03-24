@@ -4269,7 +4269,7 @@
             "action": "delete item",
             "identifier": "delete_item",
             "description": "Delete an item from the table",
-            "verbose": "Please refer app documentation to use the expression parameter",
+            "verbose": "Please refer app documentation to use the expression parameter.",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -4572,7 +4572,7 @@
             "action": "put item",
             "identifier": "put_item",
             "description": "Add an item to the table",
-            "verbose": "Please refer app documentation to use the expression parameter",
+            "verbose": "Please refer app documentation to use the expression parameter.",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -4785,7 +4785,7 @@
             "action": "update item",
             "identifier": "update_item",
             "description": "Update an item in the table",
-            "verbose": "Please refer app documentation to use the expression parameter",
+            "verbose": "Please refer app documentation to use the expression parameter.",
             "type": "generic",
             "read_only": false,
             "parameters": {
@@ -5411,7 +5411,7 @@
             "action": "query data",
             "identifier": "query_data",
             "description": "Query data from database",
-            "verbose": "<ul> <li>Select Parameter<ul> <li>The select parameter defines what attributes are supposed to fetched. There are following options :</li> <ul> <li><b>ALL_ATTRIBUTES</b> : Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.</li> <li><b>ALL_PROJECTED_ATTRIBUTES</b> : Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying ALL_ATTRIBUTES</li> <li><b>COUNT</b> : Returns the number of matching items, rather than the matching items themselves</li> <li><b>SPECIFIC_ATTRIBUTES</b> : Returns only the attributes listed in ProjectionExpression. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li> </ul> <li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC_ATTRIBUTES. Any other value for Select will return an error.</li> </ul> </li> <li>Return Consumed Capacity Parameter<ul> <li>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. There are following options :</li> <ul> <li>INDEXES - The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed.</li> <li>TOTAL - The response includes only the aggregate ConsumedCapacity for the operation.</li> <li>NONE - No ConsumedCapacity details are included in the response.</li> </ul> </ul> </li> <li>KeyConditionExpression Parameter <ul> <li> To specify the search criteria, we use a key condition expression which is a string that determines the items to be read from the table or index. </li> <li> You must specify the partition key name and value as an equality condition. You cannot use a non-key attribute in a Key Condition Expression. </li> <li> You can optionally provide a second condition for the sort key (if present). The sort key condition must use one of the following comparison operators: <ul> <li> a = b — true if the attribute a is equal to the value b </li> <li> a < b — true if a is less than b </li> <li> a <= b — true if a is less than or equal to b </li> <li> a > b — true if a is greater than b </li> <li> a >= b — true if a is greater than or equal to b </li> <li> a BETWEEN b AND c — true if a is greater than or equal to b, and less than or equal to c.</li></ul></li></ul></li><li>FilterExpression Parameter<ul><li>If you need to further refine the Query results, you can optionally provide a filter expression. A filter expression determines which items within the Query results should be returned to you. All of the other results are discarded.</li><li>A filter expression cannot contain partition key or sort key attributes. You need to specify those attributes in the key condition expression, not the filter expression.</li><li>The syntax for a filter expression is similar to that of a key condition expression. Filter expressions can use the same comparators, functions, and logical operators as a key condition expression. In addition, filter expressions can use the not-equals operator (<>), the OR operator, the CONTAINS operator, the IN operator, the BEGINS_WITH operator, the BETWEEN operator, the EXISTS operator, and the SIZE operator.</li></ul></li><li>ProjectionExpression Parameter<ul><li>A projection expression is a string that identifies the attributes that you want. To retrieve a single attribute, specify its name. For multiple attributes, the names must be comma-separated.</li></ul></li></ul>",
+            "verbose": "<ul> <li>Select Parameter<ul> <li>The select parameter defines what attributes are supposed to fetched. There are following options :</li> <ul> <li><b>ALL_ATTRIBUTES</b> : Returns all of the item attributes from the specified table or index. If you query a local secondary index, then for each matching item in the index, DynamoDB fetches the entire item from the parent table. If the index is configured to project all item attributes, then all of the data can be obtained from the local secondary index, and no fetching is required.</li> <li><b>ALL_PROJECTED_ATTRIBUTES</b> : Allowed only when querying an index. Retrieves all attributes that have been projected into the index. If the index is configured to project all attributes, this return value is equivalent to specifying ALL_ATTRIBUTES</li> <li><b>COUNT</b> : Returns the number of matching items, rather than the matching items themselves</li> <li><b>SPECIFIC_ATTRIBUTES</b> : Returns only the attributes listed in ProjectionExpression. This return value is equivalent to specifying ProjectionExpression without specifying any value for Select</li> </ul> <li>If you use the <b>ProjectionExpression</b> parameter, then the value for Select can only be SPECIFIC_ATTRIBUTES. Any other value for Select will return an error.</li> </ul> </li> <li>Return Consumed Capacity Parameter<ul> <li>Determines the level of detail about either provisioned or on-demand throughput consumption that is returned in the response. There are following options :</li> <ul> <li>INDEXES - The response includes the aggregate ConsumedCapacity for the operation, together withConsumedCapacity for each table and secondary index that was accessed.</li> <li>TOTAL - The response includes only the aggregate ConsumedCapacity for the operation.</li> <li>NONE - No ConsumedCapacity details are included in the response.</li> </ul> </ul> </li> <li>KeyConditionExpression Parameter <ul> <li> To specify the search criteria, we use a key condition expression which is a string that determines the items to be read from the table or index. </li> <li> You must specify the partition key name and value as an equality condition. You cannot use a non-key attribute in a Key Condition Expression. </li> <li> You can optionally provide a second condition for the sort key (if present). The sort key condition must use one of the following comparison operators: <ul> <li> a = b \u2014 true if the attribute a is equal to the value b </li> <li> a < b \u2014 true if a is less than b </li> <li> a <= b \u2014 true if a is less than or equal to b </li> <li> a > b \u2014 true if a is greater than b </li> <li> a >= b \u2014 true if a is greater than or equal to b </li> <li> a BETWEEN b AND c \u2014 true if a is greater than or equal to b, and less than or equal to c.</li></ul></li></ul></li><li>FilterExpression Parameter<ul><li>If you need to further refine the Query results, you can optionally provide a filter expression. A filter expression determines which items within the Query results should be returned to you. All of the other results are discarded.</li><li>A filter expression cannot contain partition key or sort key attributes. You need to specify those attributes in the key condition expression, not the filter expression.</li><li>The syntax for a filter expression is similar to that of a key condition expression. Filter expressions can use the same comparators, functions, and logical operators as a key condition expression. In addition, filter expressions can use the not-equals operator (<>), the OR operator, the CONTAINS operator, the IN operator, the BEGINS_WITH operator, the BETWEEN operator, the EXISTS operator, and the SIZE operator.</li></ul></li><li>ProjectionExpression Parameter<ul><li>A projection expression is a string that identifies the attributes that you want. To retrieve a single attribute, specify its name. For multiple attributes, the names must be comma-separated.</li></ul></li></ul>",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -5785,11 +5785,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.26.87-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.26.98-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.87-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.98-py3-none-any.whl"
             },
             {
                 "module": "certifi",
@@ -5825,7 +5825,7 @@
             },
             {
                 "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.14-py2.py3-none-any.whl"
+                "input_file": "wheels/shared/urllib3-1.26.15-py2.py3-none-any.whl"
             }
         ]
     }
