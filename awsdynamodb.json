@@ -1124,7 +1124,7 @@
             "read_only": false,
             "parameters": {
                 "global_table_name": {
-                    "description": "Name of Table to make global",
+                    "description": "Name of table to make global",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -1339,7 +1339,7 @@
         {
             "action": "list global tables",
             "identifier": "list_global_tables",
-            "description": "List the global tables of a specific Region",
+            "description": "List the global tables of a specific region",
             "type": "investigate",
             "read_only": true,
             "parameters": {
@@ -1353,7 +1353,7 @@
                     "primary": true
                 },
                 "region_name": {
-                    "description": "List the global tables in a specific Region",
+                    "description": "List the global tables of a given region",
                     "data_type": "string",
                     "order": 1,
                     "contains": [
@@ -3258,7 +3258,7 @@
             "read_only": false,
             "parameters": {
                 "table_name": {
-                    "description": "Name of Table to delete",
+                    "description": "Name of table to delete",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -3561,7 +3561,7 @@
                     ]
                 },
                 "partition_key_name": {
-                    "description": "Partition key name for table items",
+                    "description": "Name of partition key of table",
                     "data_type": "string",
                     "required": true,
                     "order": 2,
@@ -3572,7 +3572,7 @@
                     "primary": true
                 },
                 "partition_key_datatype": {
-                    "description": "Datatype of partition key",
+                    "description": "Datatype of partition key of table",
                     "required": true,
                     "data_type": "string",
                     "order": 3,
@@ -3583,7 +3583,7 @@
                     ]
                 },
                 "sort_key_name": {
-                    "description": "Sort key name for table items",
+                    "description": "Name of sort key of table",
                     "data_type": "string",
                     "order": 4,
                     "contains": [
@@ -3594,7 +3594,7 @@
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
-                    "description": "Datatype for sort key",
+                    "description": "Datatype of sort key of table",
                     "order": 5,
                     "value_list": [
                         "String",
@@ -3632,12 +3632,12 @@
                 },
                 "enable_stream": {
                     "data_type": "boolean",
-                    "description": "Enable streams for the table",
+                    "description": "Enable DynamoDB streams for the table",
                     "order": 10
                 },
                 "stream_view_type": {
                     "data_type": "string",
-                    "description": "View type of dynamodb stream",
+                    "description": "View type of DynamoDB streams",
                     "order": 11,
                     "value_list": [
                         "NEW_IMAGE",
@@ -4284,12 +4284,12 @@
                     "primary": true
                 },
                 "condition_expression": {
-                    "description": "Condition to be check before delete an item",
+                    "description": "Condition to be checked before deleting an item",
                     "data_type": "string",
                     "order": 1
                 },
                 "partition_key_name": {
-                    "description": "Partition key name",
+                    "description": "Name of partition key of table",
                     "data_type": "string",
                     "required": true,
                     "order": 2,
@@ -4300,7 +4300,7 @@
                     "primary": true
                 },
                 "sort_key_name": {
-                    "description": "Sort key name",
+                    "description": "Name of sort key of table",
                     "data_type": "string",
                     "order": 3,
                     "contains": [
@@ -4310,18 +4310,18 @@
                     "primary": true
                 },
                 "partition_key_value": {
-                    "description": "Partition key value",
+                    "description": "Partition key value of item to delete",
                     "data_type": "string",
                     "required": true,
                     "order": 4
                 },
                 "sort_key_value": {
-                    "description": "Sort key value",
+                    "description": "Sort key value of item to delete",
                     "data_type": "string",
                     "order": 5
                 },
                 "partition_key_datatype": {
-                    "description": "Partition key datatype",
+                    "description": "Datatype of partition key of table",
                     "required": true,
                     "data_type": "string",
                     "order": 6,
@@ -4333,7 +4333,7 @@
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
-                    "description": "Sort key datatype",
+                    "description": "Datatype of sort key of table",
                     "order": 7,
                     "value_list": [
                         "String",
@@ -4577,7 +4577,7 @@
             "read_only": false,
             "parameters": {
                 "table_name": {
-                    "description": "Name of table in which you want to add the item",
+                    "description": "Table name to add item in",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -4587,7 +4587,7 @@
                     "primary": true
                 },
                 "item_json": {
-                    "description": "Item that is to be added in the table",
+                    "description": "JSON of item to be added in the table",
                     "required": true,
                     "data_type": "string",
                     "order": 1
@@ -4790,7 +4790,7 @@
             "read_only": false,
             "parameters": {
                 "table_name": {
-                    "description": "Name of table in which item is to be updated",
+                    "description": "Table name to update item in",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -4800,12 +4800,12 @@
                     "primary": true
                 },
                 "update_expression": {
-                    "description": "Expression to update the attribute",
+                    "description": "Expression to update the item",
                     "data_type": "string",
                     "order": 1
                 },
                 "partition_key_name": {
-                    "description": "Partition key name",
+                    "description": "Name of partition key of table",
                     "data_type": "string",
                     "required": true,
                     "order": 2,
@@ -4816,7 +4816,7 @@
                     "primary": true
                 },
                 "sort_key_name": {
-                    "description": "Sort key name",
+                    "description": "Name of sort key of table",
                     "data_type": "string",
                     "order": 3,
                     "contains": [
@@ -4826,18 +4826,18 @@
                     "primary": true
                 },
                 "partition_key_value": {
-                    "description": "Partition key value",
+                    "description": "Partition key value of item to update",
                     "data_type": "string",
                     "required": true,
                     "order": 4
                 },
                 "sort_key_value": {
-                    "description": "Sort key value",
+                    "description": "Sort key value of item to update",
                     "data_type": "string",
                     "order": 5
                 },
                 "partition_key_datatype": {
-                    "description": "Partition key datatype",
+                    "description": "Datatype of partition key of table",
                     "required": true,
                     "data_type": "string",
                     "order": 6,
@@ -4849,7 +4849,7 @@
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
-                    "description": "Sort key datatype",
+                    "description": "Datatype of sort key of table",
                     "order": 7,
                     "value_list": [
                         "String",
@@ -5088,12 +5088,12 @@
             "action": "get item",
             "identifier": "get_item",
             "description": "Get an item from the table",
-            "verbose": "The parameter values do not need to be in encoded format.",
+            "verbose": "The parameter values do not need to be in Binary encoded format, if the key datatype is Binary.",
             "type": "investigate",
             "read_only": true,
             "parameters": {
                 "table_name": {
-                    "description": "Name of table from which you want to fetch item",
+                    "description": "Table name to fetch the item from",
                     "required": true,
                     "data_type": "string",
                     "order": 0,
@@ -5103,7 +5103,7 @@
                     "primary": true
                 },
                 "partition_key_name": {
-                    "description": "Name of partition key",
+                    "description": "Name of partition key of table",
                     "data_type": "string",
                     "required": true,
                     "order": 1,
@@ -5114,7 +5114,7 @@
                     "primary": true
                 },
                 "sort_key_name": {
-                    "description": "Name of sort key",
+                    "description": "Name of sort key of table",
                     "data_type": "string",
                     "order": 2,
                     "contains": [
@@ -5124,18 +5124,18 @@
                     "primary": true
                 },
                 "partition_key_value": {
-                    "description": "Partition key value",
+                    "description": "Partition key value of item to fetch",
                     "data_type": "string",
                     "required": true,
                     "order": 3
                 },
                 "sort_key_value": {
-                    "description": "Sort key value",
+                    "description": "Sort key value of item to fetch",
                     "data_type": "string",
                     "order": 4
                 },
                 "partition_key_datatype": {
-                    "description": "Partition key datatype",
+                    "description": "Datatype of partition key of table",
                     "required": true,
                     "data_type": "string",
                     "order": 5,
@@ -5147,7 +5147,7 @@
                 },
                 "sort_key_datatype": {
                     "data_type": "string",
-                    "description": "Sort key datatype",
+                    "description": "Datatype of sort key of table",
                     "order": 6,
                     "value_list": [
                         "String",
@@ -5157,7 +5157,7 @@
                 },
                 "attributes_to_get": {
                     "data_type": "string",
-                    "description": "To fetch specific attributes from the item",
+                    "description": "To fetch specific attributes from the item(accepts comma seperated attributes)",
                     "order": 7,
                     "primary": true,
                     "contains": [
@@ -5166,7 +5166,7 @@
                 },
                 "reserved_keyword_attributes": {
                     "data_type": "string",
-                    "description": "To fetch attributes from items whose names are same as reserved keywords",
+                    "description": "To fetch attributes from items whose names are same as reserved keywords(accepts comma seperated attributes)",
                     "order": 8,
                     "primary": true,
                     "contains": [
@@ -5369,12 +5369,6 @@
                     "example_values": [
                         0
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.TableNames",
-                    "data_type": "string",
-                    "column_name": "Tables",
-                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.summary",
@@ -5727,12 +5721,6 @@
                     "example_values": [
                         1
                     ]
-                },
-                {
-                    "data_path": "action_result.data.*.TableNames",
-                    "data_type": "string",
-                    "column_name": "Tables",
-                    "column_order": 0
                 },
                 {
                     "data_path": "action_result.summary",
