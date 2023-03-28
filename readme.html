@@ -46,7 +46,7 @@ and limitations under the License.
           of
           the item that we want to update. We must also provide an update expression, indicating the attributes that you
           want
-          to modify and the values that you want to assign to them. There are 4 operations update expression supports :
+          to modify and the values that you want to assign to them. There are 4 operations update expression supports:
         </p>
         <ul>
           <li>
@@ -154,7 +154,7 @@ and limitations under the License.
   <h4>Expression attribute names and values</h4>
   <p>
     While using this app certain actions will ask for <strong>expression attribute names</strong> and <strong>expression
-      attributevalues</strong> which would be necessary while using expressions. This values are necessary to pass for
+      attribute values</strong> which would be necessary while using expressions. This values are necessary to pass for
     the
     following conditions:
   </p>
@@ -179,7 +179,7 @@ and limitations under the License.
       <p><strong>Expression Attribute Names Example</strong></p>
       <pre>
         {
-          "#name":"name"
+          "#name":"name",
           "#age" : "age"
         }
     </pre>
@@ -211,7 +211,7 @@ and limitations under the License.
     <p><strong>Local Secondary Index</strong></p>
     <p>
       To create a local secondary index(LSI), sort key becomes necessary. The partition key remains the same
-      as that of the table If you want to make single local secondary index takes, just pass a JSON object
+      as that of the table. If you want to make single local secondary index takes, just pass a JSON object
       with the attributes given below and for multiple local secondary indexes pass an array of JSON
       objects.(Can only create 5 LSI at max)
     </p>
@@ -240,7 +240,7 @@ and limitations under the License.
           </li>
           <li>
             INCLUDE: Only the specified table attributes are projected into the index. The list of
-            projected attributes is in NonKeyAttributes .
+            projected attributes is in NonKeyAttributes.
 
           </li>
           <li>
@@ -295,7 +295,7 @@ and limitations under the License.
               {
                   "sort_key_name": "lsi_two",
                   "sort_key_datatype": "String",
-                  "attribute_projection": "ALL",
+                  "attribute_projection": "ALL"
               }
             ]
         </pre>
@@ -306,7 +306,7 @@ and limitations under the License.
   <div>
     <p><strong>Global Secondary Index</strong></p>
     <p>
-      To create a global secondary index(GSI), Partition key becomes necessary. Sort key is optional. the
+      To create a global secondary index(GSI), Partition key becomes necessary. Sort key is optional. The
       parameters for Global Secondary Indexes remain the same as Local Secondary Index, just Partition key
       name and Partition key name datatype are added and they become required parameters. Whereas Sort key
       name and Sort key datatype become optional. The provisional read and write capacity units are the same
@@ -348,7 +348,7 @@ and limitations under the License.
           </li>
           <li>
             INCLUDE: Only the specified table attributes are projected into the index. The list of
-            projected attributes is in NonKeyAttributes .
+            projected attributes is in NonKeyAttributes.
 
           </li>
           <li>
@@ -408,7 +408,7 @@ and limitations under the License.
               {
                   "partition_key_name": "gsi_name",
                   "partition_key_datatype": "String",
-                  "attribute_projection": "ALL",
+                  "attribute_projection": "ALL"
               }
             ]
         </pre>
