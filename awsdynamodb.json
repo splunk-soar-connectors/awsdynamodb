@@ -61,7 +61,7 @@
             "order": 2
         },
         "use_role": {
-            "description": "Use attached role when running Phantom in EC2",
+            "description": "Use attached role when running Splunk SOAR in EC2",
             "data_type": "boolean",
             "visibility": [
                 "onprem"
@@ -5777,7 +5777,7 @@
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.98-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.106-py3-none-any.whl"
             },
             {
                 "module": "certifi",
