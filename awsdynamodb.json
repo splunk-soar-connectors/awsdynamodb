@@ -11,7 +11,7 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2023 Splunk Inc.",
-    "app_version": "1.0.0",
+    "app_version": "1.0.1",
     "utctime_updated": "2022-08-22T10:16:54.377941Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
@@ -63,7 +63,7 @@
                 "Europe (Zurich)",
                 "Middle East (Bahrain)",
                 "Middle East (UAE)",
-                "South America (São Paulo)",
+                "South America (S\u00e3o Paulo)",
                 "AWS GovCloud (US-East)",
                 "AWS GovCloud (US-West)"
             ],

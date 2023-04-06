@@ -2,7 +2,7 @@
 # AWS DynamoDB
 
 Publisher: Splunk  
-Connector Version: 1.0.0  
+Connector Version: 1.0.1  
 Product Vendor: AWS  
 Product Name: AWS DynamoDB  
 Product Version Supported (regex): ".\*"  
@@ -35,45 +35,41 @@ uses expressions when writing an item to indicate any conditions that must be me
 how the attributes are to be updated. Expressions are an integral part of using DynamoDB, and they
 are used in a few different ways:
 
-- #### Condition Expressions
+-   #### Condition Expressions
 
-  To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item
-  operations. For these data manipulation operations, we can specify a condition expression to
-  determine which items should be modified. If the condition expression evaluates to true, the
-  operation succeeds; otherwise, the operation fails.
+    To manipulate data in an AWS DynamoDB table, we use the Put Item, Update Item, and Delete Item
+    operations. For these data manipulation operations, we can specify a condition expression to
+    determine which items should be modified. If the condition expression evaluates to true, the
+    operation succeeds; otherwise, the operation fails.
 
-- #### Update Expressions
+-   #### Update Expressions
 
-  To update an existing item in an AWS DynamoDB table, we use the Update Item operation. We must
-  provide the key of the item that we want to update. We must also provide an update expression,
-  indicating the attributes that you want to modify and the values that you want to assign to them.
-  There are 4 operations update expression supports:
+    To update an existing item in an AWS DynamoDB table, we use the Update Item operation. We must
+    provide the key of the item that we want to update. We must also provide an update expression,
+    indicating the attributes that you want to modify and the values that you want to assign to
+    them. There are 4 operations update expression supports:
 
-  - <a
-    href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET"
-    target="_blank">SET</a> —modifying or adding item attributes
-  - <a
-    href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.REMOVE"
-    target="_blank">REMOVE</a> —deleting attributes from an item
-  - <a
-    href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.ADD"
-    target="_blank">ADD</a> —updating numbers and sets
-  - <a
-    href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.DELETE"
-    target="_blank">DELETE</a> —removing elements from a set
+    -   [SET](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.SET)
+        —modifying or adding item attributes
+    -   [REMOVE](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.REMOVE)
+        —deleting attributes from an item
+    -   [ADD](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.ADD)
+        —updating numbers and sets
+    -   [DELETE](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/Expressions.UpdateExpressions.html#Expressions.UpdateExpressions.DELETE)
+        —removing elements from a set
 
-- #### Key Condition Expressions
+-   #### Key Condition Expressions
 
-  They are used when querying a table with a composite primary key to limit the items selected.
+    They are used when querying a table with a composite primary key to limit the items selected.
 
-- #### Filter Expressions
+-   #### Filter Expressions
 
-  They allow you to filter the results of queries and scans to allow for more efficient responses.
+    They allow you to filter the results of queries and scans to allow for more efficient responses.
 
-- #### Projection Expressions
+-   #### Projection Expressions
 
-  They are used to specify a subset of attributes you want to receive when reading Items. We used
-  these in our GetItem calls in the previous lesson.
+    They are used to specify a subset of attributes you want to receive when reading Items. We used
+    these in our GetItem calls in the previous lesson.
 
 
 
@@ -137,11 +133,10 @@ While using this app certain actions will ask for **expression attribute names**
 attribute values** which would be necessary while using expressions. This values are necessary to
 pass for the following conditions:
 
-- To access an attribute whose name conflicts with a DynamoDB
-  <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html"
-  target="_blank">reserved words</a> .
-- To create a placeholder for repeating occurrences of an attribute name in an expression.
-- To prevent special characters in an attribute name from being misinterpreted in an expression.
+-   To access an attribute whose name conflicts with a DynamoDB [reserved
+    words](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/ReservedWords.html) .
+-   To create a placeholder for repeating occurrences of an attribute name in an expression.
+-   To prevent special characters in an attribute name from being misinterpreted in an expression.
 
   
 
@@ -206,83 +201,83 @@ same as that of the table. If you want to make single local secondary index take
 object with the attributes given below and for multiple local secondary indexes pass an array of
 JSON objects.(Can only create 5 LSI at max)
 
-- Key name: **sort_key_name**
+-   Key name: **sort_key_name**
 
-  Description: Name of the local secondary sort key
+    Description: Name of the local secondary sort key
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **sort_key_datatype**
+-   Key name: **sort_key_datatype**
 
-  Description: Datatype for the local secondary sort key(accepts only 3 types of values as
-  valid,that are **String, Number or Binary** )
+    Description: Datatype for the local secondary sort key(accepts only 3 types of values as
+    valid,that are **String, Number or Binary** )
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **attribute_projection**
+-   Key name: **attribute_projection**
 
-  Description: Type of attribute projection. There are the following types of projections
+    Description: Type of attribute projection. There are the following types of projections
 
-  - KEYS_ONLY: Only the index and primary keys are projected into the index.
-  - INCLUDE: Only the specified table attributes are projected into the index. The list of projected
-    attributes is in NonKeyAttributes.
-  - ALL: All of the table attributes are projected into the index.
+    -   KEYS_ONLY: Only the index and primary keys are projected into the index.
+    -   INCLUDE: Only the specified table attributes are projected into the index. The list of
+        projected attributes is in NonKeyAttributes.
+    -   ALL: All of the table attributes are projected into the index.
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **non_key_attributes**
+-   Key name: **non_key_attributes**
 
-  Description: A list of one or more non-key attribute names that are projected into the secondary
-  index. (Required only when the projection mode is set to INCLUDE)
+    Description: A list of one or more non-key attribute names that are projected into the secondary
+    index. (Required only when the projection mode is set to INCLUDE)
 
-  Required: False
+    Required: False
 
-  Input Type: Array of string values
+    Input Type: Array of string values
 
 
 
 VALUE EXAMPLE
 
-- Single JSON object for LSI
+-   Single JSON object for LSI
 
-                  {
-                    "sort_key_name": "lsi_one",
-                    "sort_key_datatype": "String",
-                    "attribute_projection": "INCLUDE",
-                    "non_key_attributes": [
-                        "one",
-                        "two",
-                        "three"
-                    ]
-                  }
-              
-
-- Multiple JSON object for LSI
-
-                  [
                     {
-                        "sort_key_name": "lsi_one",
-                        "sort_key_datatype": "String",
-                        "attribute_projection": "INCLUDE",
-                        "non_key_attributes": [
-                            "one",
-                            "two",
-                            "three"
-                        ]
-                    },
-                    {
-                        "sort_key_name": "lsi_two",
-                        "sort_key_datatype": "String",
-                        "attribute_projection": "ALL"
+                      "sort_key_name": "lsi_one",
+                      "sort_key_datatype": "String",
+                      "attribute_projection": "INCLUDE",
+                      "non_key_attributes": [
+                          "one",
+                          "two",
+                          "three"
+                      ]
                     }
-                  ]
-              
+                
+
+-   Multiple JSON object for LSI
+
+                    [
+                      {
+                          "sort_key_name": "lsi_one",
+                          "sort_key_datatype": "String",
+                          "attribute_projection": "INCLUDE",
+                          "non_key_attributes": [
+                              "one",
+                              "two",
+                              "three"
+                          ]
+                      },
+                      {
+                          "sort_key_name": "lsi_two",
+                          "sort_key_datatype": "String",
+                          "attribute_projection": "ALL"
+                      }
+                    ]
+                
 
 
 
@@ -298,104 +293,104 @@ name and Partition key name datatype are added and they become required paramete
 name and Sort key datatype become optional. The provisional read and write capacity units are the
 same as the original table. (Can only create 20 GSI at max)
 
-- Key name: **partition_key_name**
+-   Key name: **partition_key_name**
 
-  Description: Name of the local secondary sort key
+    Description: Name of the local secondary sort key
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **partition_key_datatype**
+-   Key name: **partition_key_datatype**
 
-  Description: Datatype for the local secondary sort key (accepts only 3 types of values as valid,
-  that are **String, Number or Binary** )
+    Description: Datatype for the local secondary sort key (accepts only 3 types of values as valid,
+    that are **String, Number or Binary** )
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **sort_key_name**
+-   Key name: **sort_key_name**
 
-  Description: Name of the global secondary sort key (required parameter)
+    Description: Name of the global secondary sort key (required parameter)
 
-  Required: False
+    Required: False
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **sort_key_datatype**
+-   Key name: **sort_key_datatype**
 
-  Description: Datatype for the global secondary sort key (accepts only 3 types of values as valid,
-  that are **String, Number or Binary** )
+    Description: Datatype for the global secondary sort key (accepts only 3 types of values as
+    valid, that are **String, Number or Binary** )
 
-  Required: False
+    Required: False
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **attribute_projection**
+-   Key name: **attribute_projection**
 
-  Description: Type of attribute projection. There are the following types of projections
+    Description: Type of attribute projection. There are the following types of projections
 
-  - KEYS_ONLY: Only the index and primary keys are projected into the index.
-  - INCLUDE: Only the specified table attributes are projected into the index. The list of projected
-    attributes is in NonKeyAttributes.
-  - ALL: All of the table attributes are projected into the index.
+    -   KEYS_ONLY: Only the index and primary keys are projected into the index.
+    -   INCLUDE: Only the specified table attributes are projected into the index. The list of
+        projected attributes is in NonKeyAttributes.
+    -   ALL: All of the table attributes are projected into the index.
 
-  Required: True
+    Required: True
 
-  Input Type: String
+    Input Type: String
 
-- Key name: **non_key_attributes**
+-   Key name: **non_key_attributes**
 
-  Description: A list of one or more non-key attribute names that are projected into the secondary
-  index. (Required only when the projection mode is set to INCLUDE)
+    Description: A list of one or more non-key attribute names that are projected into the secondary
+    index. (Required only when the projection mode is set to INCLUDE)
 
-  Required: False
+    Required: False
 
-  Input Type: Array of string values
+    Input Type: Array of string values
 
 
 
 VALUE EXAMPLE
 
-- Single JSON object for GSI
+-   Single JSON object for GSI
 
-                  {
-                    "partition_key_name": "gsi_id",
-                    "partition_key_datatype": "Number",
-                    "sort_key_name": "gsi_one",
-                    "sort_key_datatype": "String",
-                    "attribute_projection": "INCLUDE",
-                    "non_key_attributes": [
-                        "one",
-                        "two",
-                        "three"
-                    ]
-                  }
-              
-
-- Multiple JSON object for GSI
-
-                  [
                     {
-                        "partition_key_name": "gsi_id",
-                        "partition_key_datatype": "Number",
-                        "sort_key_name": "gsi_one",
-                        "sort_key_datatype": "String",
-                        "attribute_projection": "INCLUDE",
-                        "non_key_attributes": [
-                            "one",
-                            "two",
-                            "three"
-                        ]
-                    },
-                    {
-                        "partition_key_name": "gsi_name",
-                        "partition_key_datatype": "String",
-                        "attribute_projection": "ALL"
+                      "partition_key_name": "gsi_id",
+                      "partition_key_datatype": "Number",
+                      "sort_key_name": "gsi_one",
+                      "sort_key_datatype": "String",
+                      "attribute_projection": "INCLUDE",
+                      "non_key_attributes": [
+                          "one",
+                          "two",
+                          "three"
+                      ]
                     }
-                  ]
-              
+                
+
+-   Multiple JSON object for GSI
+
+                    [
+                      {
+                          "partition_key_name": "gsi_id",
+                          "partition_key_datatype": "Number",
+                          "sort_key_name": "gsi_one",
+                          "sort_key_datatype": "String",
+                          "attribute_projection": "INCLUDE",
+                          "non_key_attributes": [
+                              "one",
+                              "two",
+                              "three"
+                          ]
+                      },
+                      {
+                          "partition_key_name": "gsi_name",
+                          "partition_key_datatype": "String",
+                          "attribute_projection": "ALL"
+                      }
+                    ]
+                
 
 
 
@@ -450,7 +445,7 @@ VARIABLE | REQUIRED | TYPE | DESCRIPTION
 **access_key** |  optional  | password | Access Key
 **secret_key** |  optional  | password | Secret Key
 **region** |  required  | string | Region
-**use_role** |  optional  | boolean | Use attached role when running Phantom in EC2
+**use_role** |  optional  | boolean | Use attached role when running Splunk SOAR in EC2
 
 ### Supported Actions  
 [describe global table](#action-describe-global-table) - Fetch metadata of a global table  
