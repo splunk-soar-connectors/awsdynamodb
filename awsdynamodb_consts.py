@@ -33,7 +33,7 @@ AWS_DYNAMODB_REGIONS = {
     "Asia Pacific (Seoul)": "ap-northeast-2",
     "Asia Pacific (Singapore)": "ap-southeast-1",
     "Asia Pacific (Sydney)": "ap-southeast-2",
-    "Asia Pacific (Tokyo)": "UnboundLocalErrorap-northeast-1",
+    "Asia Pacific (Tokyo)": "ap-northeast-1",
     "Canada (Central)": "ca-central-1",
     "Europe (Frankfurt)": "eu-central-1",
     "Europe (Ireland)": "eu-west-1",
