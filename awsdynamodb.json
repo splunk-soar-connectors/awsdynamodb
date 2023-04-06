@@ -41,22 +41,31 @@
                 "US East (N. Virginia)",
                 "US West (N. California)",
                 "US West (Oregon)",
+                "Africa (Cape Town)",
+                "Asia Pacific (Hong Kong)",
+                "Asia Pacific (Hyderabad)",
+                "Asia Pacific (Jakarta)",
+                "Asia Pacific (Melbourne)",
                 "Asia Pacific (Mumbai)",
+                "Asia Pacific (Osaka)",
                 "Asia Pacific (Seoul)",
                 "Asia Pacific (Singapore)",
                 "Asia Pacific (Sydney)",
                 "Asia Pacific (Tokyo)",
                 "Canada (Central)",
-                "China (Beijing)",
-                "China (Ningxia)",
-                "EU (Frankfurt)",
-                "EU (Ireland)",
-                "EU (London)",
-                "EU (Paris)",
-                "EU (Stockholm)",
-                "South America (Sao Paulo)",
+                "Europe (Frankfurt)",
+                "Europe (Ireland)",
+                "Europe (London)",
+                "Europe (Milan)",
+                "Europe (Paris)",
+                "Europe (Spain)",
+                "Europe (Stockholm)",
+                "Europe (Zurich)",
+                "Middle East (Bahrain)",
+                "Middle East (UAE)",
+                "South America (São Paulo)",
                 "AWS GovCloud (US-East)",
-                "AWS GovCloud (US)"
+                "AWS GovCloud (US-West)"
             ],
             "order": 2
         },
@@ -5818,4 +5827,3 @@
         ]
     }
 }
-
