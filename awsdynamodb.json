@@ -1143,7 +1143,7 @@
                     "primary": true
                 },
                 "replication_group": {
-                    "description": "Name of region to create global table(accepts comma separated regions)",
+                    "description": "Name of region to create global table (accepts comma separated regions)",
                     "required": true,
                     "data_type": "string",
                     "order": 1,
@@ -1571,9 +1571,14 @@
             "read_only": true,
             "parameters": {
                 "backup_type": {
-                    "description": "Type of backup to list (Allowed values: ALL, USER, SYSTEM)",
+                    "description": "Type of backup to list",
                     "data_type": "string",
                     "order": 0,
+                    "value_list" :[
+                        "ALL",
+                        "USER",
+                        "SYSTEM"
+                    ],
                     "contains": [
                         "aws dynamodb backup type"
                     ],
