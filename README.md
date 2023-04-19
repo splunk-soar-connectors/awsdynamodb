@@ -658,7 +658,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **global_table_name** |  required  | Name of table to make global | string |  `aws dynamodb table name` 
-**replication_group** |  required  | Name of region to create global table(accepts comma separated regions) | string |  `aws region` 
+**replication_group** |  required  | Name of region to create global table (accepts comma separated regions) | string |  `aws region` 
 **credentials** |  optional  | Assumed role credentials | string |  `aws credentials` 
 
 #### Action Output
@@ -738,7 +738,7 @@ Read only: **True**
 #### Action Parameters
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
-**backup_type** |  optional  | Type of backup to list (Allowed values: ALL, USER, SYSTEM) | string |  `aws dynamodb backup type` 
+**backup_type** |  optional  | Type of backup to list | string |  `aws dynamodb backup type` 
 **exclusive_start_backup_arn** |  optional  | List backups after specific given backup arn | string |  `aws dynamodb backup arn` 
 **max_items** |  optional  | Maximum number of backups to fetch | numeric | 
 **table_name** |  optional  | List backups of specific table | string |  `aws dynamodb table name` 
