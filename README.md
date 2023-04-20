@@ -287,11 +287,11 @@ VALUE EXAMPLE
 
 **Global Secondary Index**
 
-A partition key is required to create a global secondary index(GSI) while a sort key is optional.All
-other parameters for Global Secondary Indexes remain the same as those for Local Secondary Indexes;
-however partition key name and partition key name datatype are additional required parameters.
-Whereas sort key name and sort key datatype are optional parameters. The provisional read and write
-capacity units are the same as the original table (can only create 20 GSI at max).
+A partition key is required to create a global secondary index(GSI) while a sort key is optional.
+All other parameters for Global Secondary Indexes remain the same as those for Local Secondary
+Indexes; however partition key name and partition key name datatype are additional required
+parameters. Whereas sort key name and sort key datatype are optional parameters. The provisional
+read and write capacity units are the same as the original table (can only create 20 GSI at max).
 
 -   Key name: **partition_key_name**
 
