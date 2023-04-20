@@ -154,7 +154,7 @@ and limitations under the License.
   <h4>Expression attribute names and values</h4>
   <p>
     While using this app certain actions will ask for <strong>expression attribute names</strong> and <strong>expression
-      attribute values</strong> which would be necessary while using expressions. This values are necessary to pass for
+      attribute values</strong> which would be necessary while using expressions. These values are necessary to pass for
     the
     following conditions:
   </p>
@@ -306,11 +306,7 @@ and limitations under the License.
   <div>
     <p><strong>Global Secondary Index</strong></p>
     <p>
-      To create a global secondary index(GSI), Partition key becomes necessary. Sort key is optional. The
-      parameters for Global Secondary Indexes remain the same as Local Secondary Index, just Partition key
-      name and Partition key name datatype are added and they become required parameters. Whereas Sort key
-      name and Sort key datatype become optional. The provisional read and write capacity units are the same
-      as the original table. (Can only create 20 GSI at max)
+      A partition key is required to create a global secondary index(GSI) while a sort key is optional.All other parameters for Global Secondary Indexes remain the same as those for Local Secondary Indexes; however partition key name and partition key name datatype are additional required parameters. Whereas sort key name and sort key datatype are optional parameters. The provisional read and write capacity units are the same as the original table (can only create 20 GSI at max).
     </p>
     <ul>
       <li>
