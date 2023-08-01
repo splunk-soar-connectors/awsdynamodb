@@ -2,7 +2,7 @@
 # AWS DynamoDB
 
 Publisher: Splunk  
-Connector Version: 1.0.1  
+Connector Version: 1.0.2  
 Product Vendor: AWS  
 Product Name: AWS DynamoDB  
 Product Version Supported (regex): ".\*"  
