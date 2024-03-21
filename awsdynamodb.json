@@ -11,7 +11,7 @@
     "product_version_regex": ".*",
     "publisher": "Splunk",
     "license": "Copyright (c) 2023-2024 Splunk Inc.",
-    "app_version": "1.0.4",
+    "app_version": "1.0.3",
     "utctime_updated": "2023-05-11T20:38:25.000000Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
