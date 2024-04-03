@@ -10,9 +10,9 @@
     "python_version": "3",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2023 Splunk Inc.",
-    "app_version": "1.0.1",
-    "utctime_updated": "2022-08-22T10:16:54.377941Z",
+    "license": "Copyright (c) 2023-2024 Splunk Inc.",
+    "app_version": "1.0.3",
+    "utctime_updated": "2023-05-11T20:38:25.000000Z",
     "package_name": "phantom_awsdynamodb",
     "main_module": "awsdynamodb_connector.py",
     "min_phantom_version": "5.5.0",
@@ -5791,19 +5791,7 @@
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.116-py3-none-any.whl"
-            },
-            {
-                "module": "certifi",
-                "input_file": "wheels/py3/certifi-2022.12.7-py3-none-any.whl"
-            },
-            {
-                "module": "charset_normalizer",
-                "input_file": "wheels/py39/charset_normalizer-3.1.0-cp39-cp39-manylinux_2_17_x86_64.manylinux2014_x86_64.whl"
-            },
-            {
-                "module": "idna",
-                "input_file": "wheels/py3/idna-3.4-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.29.165-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
@@ -5811,23 +5799,15 @@
             },
             {
                 "module": "python_dateutil",
-                "input_file": "wheels/shared/python_dateutil-2.8.2-py2.py3-none-any.whl"
-            },
-            {
-                "module": "requests",
-                "input_file": "wheels/py3/requests-2.28.2-py3-none-any.whl"
+                "input_file": "wheels/shared/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
             },
             {
                 "module": "s3transfer",
-                "input_file": "wheels/py3/s3transfer-0.6.0-py3-none-any.whl"
+                "input_file": "wheels/py3/s3transfer-0.6.2-py3-none-any.whl"
             },
             {
                 "module": "six",
                 "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
-            },
-            {
-                "module": "urllib3",
-                "input_file": "wheels/shared/urllib3-1.26.15-py2.py3-none-any.whl"
             }
         ]
     }

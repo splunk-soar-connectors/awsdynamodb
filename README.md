@@ -2,7 +2,7 @@
 # AWS DynamoDB
 
 Publisher: Splunk  
-Connector Version: 1.0.1  
+Connector Version: 1.0.3  
 Product Vendor: AWS  
 Product Name: AWS DynamoDB  
 Product Version Supported (regex): ".\*"  
@@ -11,7 +11,7 @@ Minimum Product Version: 5.5.0
 This app supports CRUD operations in a AWS DynamoDB database
 
 [comment]: # " File: README.md"
-[comment]: # "  Copyright (c) 2023 Splunk Inc."
+[comment]: # "  Copyright (c) 2023-2024 Splunk Inc."
 [comment]: # ""
 [comment]: # "Licensed under the Apache License, Version 2.0 (the 'License');"
 [comment]: # "you may not use this file except in compliance with the License."
