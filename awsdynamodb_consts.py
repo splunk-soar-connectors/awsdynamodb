@@ -1,6 +1,6 @@
 # File: awsdynamodb_consts.py
 #
-# Copyright (c) 2023-2024 Splunk Inc.
+# Copyright (c) 2023-2025 Splunk Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -47,37 +47,13 @@ AWS_DYNAMODB_REGIONS = {
     "Middle East (UAE)": "me-central-1",
     "South America (São Paulo)": "sa-east-1",
     "AWS GovCloud (US-East)": "us-gov-east-1",
-    "AWS GovCloud (US-West)": "us-gov-west-1"
+    "AWS GovCloud (US-West)": "us-gov-west-1",
 }
-AWS_DYNAMODB_DATATYPES = {
-    "string": "S",
-    "number": "N",
-    "binary": "B"
-}
-AWS_DYNAMODB_KEYTYPE = {
-    "sort": "RANGE",
-    "partition": 'HASH'
-}
-CONSUMED_CAPACITY_TYPES = [
-    "INDEXES",
-    "TOTAL",
-    "NONE",
-    ""
-]
-SELECT_VALUES = [
-    "COUNT",
-    "ALL_ATTRIBUTES",
-    "ALL_PROJECTED_ATTRIBUTES",
-    "SPECIFIC_ATTRIBUTES",
-    ""
-]
-STREAM_VIEW_TYPES = [
-    "NEW_IMAGE",
-    "OLD_IMAGE",
-    "NEW_AND_OLD_IMAGES",
-    "KEYS_ONLY",
-    ""
-]
+AWS_DYNAMODB_DATATYPES = {"string": "S", "number": "N", "binary": "B"}
+AWS_DYNAMODB_KEYTYPE = {"sort": "RANGE", "partition": "HASH"}
+CONSUMED_CAPACITY_TYPES = ["INDEXES", "TOTAL", "NONE", ""]
+SELECT_VALUES = ["COUNT", "ALL_ATTRIBUTES", "ALL_PROJECTED_ATTRIBUTES", "SPECIFIC_ATTRIBUTES", ""]
+STREAM_VIEW_TYPES = ["NEW_IMAGE", "OLD_IMAGE", "NEW_AND_OLD_IMAGES", "KEYS_ONLY", ""]
 AWS_DYNAMODB_READ_CAPACITY_UNITS = 5
 AWS_DYNAMODB_WRITE_CAPACITY_UNITS = 5
 EC2_ROLE_CREDENTIALS_FAILURE_MESSAGE = "Failed to get EC2 role credentials"

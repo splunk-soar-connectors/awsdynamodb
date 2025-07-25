@@ -10,7 +10,7 @@
     "python_version": "3",
     "product_version_regex": ".*",
     "publisher": "Splunk",
-    "license": "Copyright (c) 2023-2024 Splunk Inc.",
+    "license": "Copyright (c) 2023-2025 Splunk Inc.",
     "app_version": "1.0.3",
     "utctime_updated": "2023-05-11T20:38:25.000000Z",
     "package_name": "phantom_awsdynamodb",
@@ -5778,36 +5778,23 @@
             "versions": "EQ(*)"
         }
     ],
-    "directory": "awsdynamodb_6f58c338-7829-4dfa-ae3e-0d44cf2427f9",
-    "version": 1,
-    "appname": "-",
-    "executable": "spawn3",
-    "disabled": false,
     "pip39_dependencies": {
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.26.98-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.28.77-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.29.165-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.31.85-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
                 "input_file": "wheels/py3/jmespath-1.0.1-py3-none-any.whl"
             },
             {
-                "module": "python_dateutil",
-                "input_file": "wheels/shared/python_dateutil-2.9.0.post0-py2.py3-none-any.whl"
-            },
-            {
                 "module": "s3transfer",
-                "input_file": "wheels/py3/s3transfer-0.6.2-py3-none-any.whl"
-            },
-            {
-                "module": "six",
-                "input_file": "wheels/shared/six-1.16.0-py2.py3-none-any.whl"
+                "input_file": "wheels/py3/s3transfer-0.7.0-py3-none-any.whl"
             }
         ]
     }
