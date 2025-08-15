@@ -5782,11 +5782,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.40.8-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.40.9-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.40.9-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.40.11-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
@@ -5802,11 +5802,11 @@
         "wheel": [
             {
                 "module": "boto3",
-                "input_file": "wheels/py3/boto3-1.40.8-py3-none-any.whl"
+                "input_file": "wheels/py3/boto3-1.40.9-py3-none-any.whl"
             },
             {
                 "module": "botocore",
-                "input_file": "wheels/py3/botocore-1.40.9-py3-none-any.whl"
+                "input_file": "wheels/py3/botocore-1.40.11-py3-none-any.whl"
             },
             {
                 "module": "jmespath",
