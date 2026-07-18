@@ -1,3 +1,3 @@
 **Unreleased**
 
-* - Fixed JavaScript injection in the describe backup action widget.
+* Fixed JavaScript injection in the describe backup action widget.
