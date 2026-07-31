@@ -11,7 +11,7 @@
 {% block custom_tools %}{% endblock %}
 {% block widget_content %}
   <!-- File: awsdynamodb_describe_backup.html
-Copyright (c) 2023-2025 Splunk Inc.
+Copyright (c) 2023-2026 Splunk Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
@@ -141,7 +141,7 @@ and limitations under the License.
                             <td class="boldtext">Backup ARN</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb backup arn'], 'value': '{{ result.data.0.BackupDescription.BackupDetails.BackupArn }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb backup arn'], 'value': '{{ result.data.0.BackupDescription.BackupDetails.BackupArn|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.BackupDetails.BackupArn }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -156,7 +156,7 @@ and limitations under the License.
                             <td class="boldtext">Backup Type</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb backup type'], 'value': '{{ result.data.0.BackupDescription.BackupDetails.BackupType }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb backup type'], 'value': '{{ result.data.0.BackupDescription.BackupDetails.BackupType|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.BackupDetails.BackupType }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -178,7 +178,7 @@ and limitations under the License.
                             <td class="boldtext">Source Table Name</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.TableName }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb table name'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.TableName|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.SourceTableDetails.TableName }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -189,7 +189,7 @@ and limitations under the License.
                             <td class="boldtext">Source Table Billing Mode</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb billing mode'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.BillingMode }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb billing mode'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.BillingMode|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.SourceTableDetails.BillingMode }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -200,7 +200,7 @@ and limitations under the License.
                             <td class="boldtext">Partition Key Name</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb partition key'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.0.AttributeName }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb partition key'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.0.AttributeName|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.0.AttributeName }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -212,7 +212,7 @@ and limitations under the License.
                               <td class="boldtext">Sort Key Name</td>
                               <td>
                                 <a href="javascript:;"
-                                   onclick="context_menu(this, [{'contains': ['aws dynamodb sort key'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.1.AttributeName }}' }], 0, {{ container.id }}, null, false);">
+                                   onclick="context_menu(this, [{'contains': ['aws dynamodb sort key'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.1.AttributeName|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                   {{ result.data.0.BackupDescription.SourceTableDetails.KeySchema.1.AttributeName }}
                                   &nbsp;
                                   <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -224,7 +224,7 @@ and limitations under the License.
                             <td class="boldtext">Read Capacity Units</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb read capacity'], 'value': ' {{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.ReadCapacityUnits }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb read capacity'], 'value': ' {{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.ReadCapacityUnits|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.ReadCapacityUnits }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
@@ -235,7 +235,7 @@ and limitations under the License.
                             <td class="boldtext">Write Capacity Units</td>
                             <td>
                               <a href="javascript:;"
-                                 onclick="context_menu(this, [{'contains': ['aws dynamodb write capacity'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.WriteCapacityUnits }}' }], 0, {{ container.id }}, null, false);">
+                                 onclick="context_menu(this, [{'contains': ['aws dynamodb write capacity'], 'value': '{{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.WriteCapacityUnits|escapejs }}' }], 0, {{ container.id }}, null, false);">
                                 {{ result.data.0.BackupDescription.SourceTableDetails.ProvisionedThroughput.WriteCapacityUnits }}
                                 &nbsp;
                                 <span class="fa fa-caret-down" style="font-size: smaller;"></span>
