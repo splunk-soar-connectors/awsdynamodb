@@ -274,7 +274,7 @@ class AwsDynamodbConnector(BaseConnector):
         temp_credentials = dict()
         if param and "credentials" in param:
             try:
-                temp_credentials = ast.literal_eval(param["credentials"])
+                temp_credentials = ast.literal_eval(param.get("credentials", ""))
                 self._access_key = temp_credentials.get("AccessKeyId", "")
                 self._secret_key = temp_credentials.get("SecretAccessKey", "")
                 self._session_token = temp_credentials.get("SessionToken", "")

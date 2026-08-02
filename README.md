@@ -451,6 +451,7 @@ action_result.summary | string | | |
 action_result.message | string | | Global table details fetched successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'describe backup'
 
@@ -520,6 +521,7 @@ action_result.summary | string | | |
 action_result.message | string | | Backup details fetched successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'describe table'
 
@@ -596,6 +598,7 @@ action_result.summary | string | | |
 action_result.message | string | | Table details fetched successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'create global table'
 
@@ -641,6 +644,7 @@ action_result.summary | string | | |
 action_result.message | string | | Created global table successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'list global tables'
 
@@ -683,6 +687,7 @@ action_result.summary | string | | |
 action_result.message | string | | Fetched global table list successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'list backups'
 
@@ -738,6 +743,7 @@ action_result.summary | string | | |
 action_result.message | string | | Fetched list of backups successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'delete backup'
 
@@ -806,6 +812,7 @@ action_result.summary | string | | |
 action_result.message | string | | Deleted backup successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'create backup'
 
@@ -850,6 +857,7 @@ action_result.summary | string | | |
 action_result.message | string | | Created backup successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'restore backup table'
 
@@ -942,6 +950,7 @@ action_result.summary | string | | |
 action_result.message | string | | Restored table from backup successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'list tables'
 
@@ -971,6 +980,7 @@ action_result.summary | string | | |
 action_result.message | string | | Fetched list of table successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'delete table'
 
@@ -1023,6 +1033,7 @@ action_result.summary | string | | |
 action_result.message | string | | Deleted Table Successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'create table'
 
@@ -1130,6 +1141,7 @@ action_result.summary | string | | |
 action_result.message | string | | Created Table successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'delete item'
 
@@ -1186,6 +1198,7 @@ action_result.summary | string | | |
 action_result.message | string | | Item deleted successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'put item'
 
@@ -1232,6 +1245,7 @@ action_result.summary | string | | |
 action_result.message | string | | Inserted item successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'update item'
 
@@ -1288,6 +1302,7 @@ action_result.summary | string | | |
 action_result.message | string | | Updated item successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'get item'
 
@@ -1344,6 +1359,7 @@ action_result.summary | string | | |
 action_result.message | string | | Fetched Item Data Successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'query data'
 
@@ -1409,6 +1425,7 @@ action_result.summary | string | | |
 action_result.message | string | | Fetched data successfully |
 summary.total_objects | numeric | | 1 |
 summary.total_objects_successful | numeric | | 1 |
+action_result.parameter.credentials | password | `aws credentials` | |
 
 ## action: 'test connectivity'
 
