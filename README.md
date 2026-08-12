@@ -424,14 +424,13 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **global_table_name** | required | Name of Global Table to describe | string | `aws dynamodb table name` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.global_table_name | string | `aws dynamodb table name` | room |
 action_result.data.\*.GlobalTableDescription.CreationDateTime | string | | 2023-02-16 10:15:08.116000+00:00 |
 action_result.data.\*.GlobalTableDescription.GlobalTableArn | string | | arn:aws:dynamodb::157568067690:global-table/test_playbook |
@@ -465,7 +464,7 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **backup_arn** | required | Backup ARN of backup to describe | string | `aws dynamodb backup arn` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -473,7 +472,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.backup_arn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/test_playbook/backup/01676542512426-8ea20723 |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.data.\*.BackupDescription.BackupDetails.BackupArn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/test_playbook/backup/01676542512426-8ea20723 |
 action_result.data.\*.BackupDescription.BackupDetails.BackupCreationDateTime | string | | 2023-02-16 10:15:12.426000+00:00 |
 action_result.data.\*.BackupDescription.BackupDetails.BackupName | string | | test_playbook_backup |
@@ -535,14 +533,13 @@ Read only: **True**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table_name** | required | Name of the table to describe | string | `aws dynamodb table name` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.table_name | string | `aws dynamodb table name` | test_playbook_backup |
 action_result.data.\*.ResponseMetadata.HTTPHeaders.connection | string | | keep-alive |
 action_result.data.\*.ResponseMetadata.HTTPHeaders.content-length | string | | 2813 |
@@ -615,14 +612,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **global_table_name** | required | Name of table to make global | string | `aws dynamodb table name` |
 **replication_group** | required | Name of region to create global table (accepts comma separated regions) | string | `aws region` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.global_table_name | string | `aws dynamodb table name` | room |
 action_result.parameter.replication_group | string | `aws region` | us-east-1 |
 action_result.data | string | | |
@@ -660,14 +656,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **exclusive_start_global_table_name** | optional | List global tables after specific given global table name | string | `aws dynamodb table name` |
 **region_name** | optional | List the global tables of a given region | string | `aws region` |
 **max_items** | optional | Maximum number of tables to fetch | numeric | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.exclusive_start_global_table_name | string | `aws dynamodb table name` | cars_backup |
 action_result.parameter.max_items | numeric | | 3 |
 action_result.parameter.region_name | string | `aws region` | us-east-1 |
@@ -706,7 +701,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **table_name** | optional | List backups of specific table | string | `aws dynamodb table name` |
 **start_date** | optional | List backups created after provided date.(Valid date format allowed: YYYY/MM/DD) | string | |
 **end_date** | optional | List backups created before provided data.(Valid date format allowed: YYYY/MM/DD) | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -714,7 +709,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.backup_type | string | `aws dynamodb backup type` | USER |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.end_date | string | | 2022-09-22 11:30:03.118000+00:00 |
 action_result.parameter.exclusive_start_backup_arn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de |
 action_result.parameter.max_items | numeric | | 2 |
@@ -757,7 +751,7 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **backup_arn** | required | ARN associated with the backup to delete | string | `aws dynamodb backup arn` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -765,7 +759,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.backup_arn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/test_dev_table/backup/01663824550617-bcee6561 |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.data.\*.BackupDescription.BackupDetails.BackupArn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de |
 action_result.data.\*.BackupDescription.BackupDetails.BackupCreationDateTime | string | | 2022-09-14 12:29:03.903000+00:00 |
 action_result.data.\*.BackupDescription.BackupDetails.BackupExpiryDateTime | string | | 2022-09-22 11:30:03.118000+00:00 |
@@ -827,7 +820,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table_name** | required | Name of the table to backup | string | `aws dynamodb table name` |
 **backup_name** | required | Name of the backup | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -835,7 +828,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.backup_name | string | | newtable123-backup |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.table_name | string | `aws dynamodb table name` | newtable123 |
 action_result.data.\*.BackupDetails.BackupArn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/cars/backup/01663158543903-413ed1de |
 action_result.data.\*.BackupDetails.BackupCreationDateTime | string | | 2022-09-14 12:29:03.903000+00:00 |
@@ -880,7 +872,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **restore_secondary_indexes** | required | Restore secondary indexes | string | |
 **sse_enable_override** | optional | Server-side encryption(SSE) setting | string | |
 **kms_master_key_id** | optional | Key to use for the AWS KMS encryption (Used when SSE is enabled) | string | `aws dynamodb kms master key id` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -889,7 +881,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 action_result.status | string | | success failed |
 action_result.parameter.backup_arn | string | `aws dynamodb backup arn` | arn:aws:dynamodb:us-east-1:157568067690:table/newtable123/backup/01663846203118-f405802d |
 action_result.parameter.billing_mode_override | string | `aws dynamodb billing mode` | PROVISIONED |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.kms_master_key_id | string | `aws dynamodb kms master key id` | arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c |
 action_result.parameter.read_capacity_override | numeric | `aws dynamodb read capacity` | 4 |
 action_result.parameter.restore_secondary_indexes | string | | Restore the entire table |
@@ -965,14 +956,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **max_items** | optional | Maximum number of tables to fetch | numeric | |
 **exclusive_start_table_name** | optional | List table after specific given table name | string | `aws dynamodb table name` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.exclusive_start_table_name | string | `aws dynamodb table name` | cars2 |
 action_result.parameter.max_items | numeric | | 5 |
 action_result.data | string | | |
@@ -994,14 +984,13 @@ Read only: **False**
 PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 --------- | -------- | ----------- | ---- | --------
 **table_name** | required | Name of table to delete | string | `aws dynamodb table name` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.table_name | string | `aws dynamodb table name` | testdata |
 action_result.data.\*.ResponseMetadata.HTTPHeaders.connection | string | | keep-alive |
 action_result.data.\*.ResponseMetadata.HTTPHeaders.content-length | string | | 310 |
@@ -1063,7 +1052,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **sse** | required | Settings used to enable server-side encryption | string | |
 **kms_master_key_id** | optional | The KMS key that should be used for the KMS encryption | string | `aws dynamodb kms master key id` |
 **tags** | optional | JSON list of tags to add to table | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -1071,7 +1060,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.billing_mode | string | `aws dynamodb billing mode` | PROVISIONED |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.enable_stream | boolean | | True |
 action_result.parameter.global_secondary_index | string | | {<br> "attribute_projection": "INCLUDE",<br> "partition_key_name": "newid",<br> "partition_key_datatype": "string",<br> "sort_key_name": "newname",<br> "sort_key_datatype": "string",<br> "NonKeyAttributes": ["num1","num2"]<br>} |
 action_result.parameter.kms_master_key_id | string | `aws dynamodb kms master key id` | arn:aws:kms:us-east-1:157568067690:key/1651022c-3833-4ab4-a782-df260339eb0c |
@@ -1166,7 +1154,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **sort_key_datatype** | optional | Datatype of sort key of table | string | |
 **expression_attribute_names** | optional | Attribute names json | string | |
 **expression_attribute_values** | optional | Attribute values json | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -1174,7 +1162,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.condition_expression | string | | #age \<> :age |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.expression_attribute_names | string | | {"#age":"age"} |
 action_result.parameter.expression_attribute_values | string | | {":age":{"N":"12"}} |
 action_result.parameter.partition_key_datatype | string | | String |
@@ -1218,7 +1205,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **condition_expression** | optional | Condition to be checked before inserting an item | string | |
 **expression_attribute_names** | optional | Attribute names json | string | |
 **expression_attribute_values** | optional | Attribute values json | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -1226,7 +1213,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.condition_expression | string | | #age \<> :age |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.expression_attribute_names | string | | {"#age":"age"} |
 action_result.parameter.expression_attribute_values | string | | {":age":{"N":"12"}} |
 action_result.parameter.item_json | string | | {"testing1":{"S":"32"},"age":{"N":"12"}} |
@@ -1270,14 +1256,13 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **sort_key_datatype** | optional | Datatype of sort key of table | string | |
 **expression_attribute_names** | optional | Attribute names json | string | |
 **expression_attribute_values** | optional | Attribute values json | string | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
 DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.expression_attribute_names | string | | {"#age" : "age"} |
 action_result.parameter.expression_attribute_values | string | | {":age":{"N":"24"}} |
 action_result.parameter.partition_key_datatype | string | | String |
@@ -1326,7 +1311,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **sort_key_datatype** | optional | Datatype of sort key of table | string | |
 **attributes_to_get** | optional | To fetch specific attributes from the item(accepts comma seperated attributes) | string | `aws dynamodb attribute name` |
 **reserved_keyword_attributes** | optional | To fetch attributes from items whose names are same as reserved keywords(accepts comma seperated attributes) | string | `aws dynamodb attribute name` |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -1334,7 +1319,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.attributes_to_get | string | `aws dynamodb attribute name` | name |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.partition_key_datatype | string | | String |
 action_result.parameter.partition_key_name | string | `aws dynamodb partition key name` `aws dynamodb attribute name` | testing1 |
 action_result.parameter.partition_key_value | string | | 2 |
@@ -1386,7 +1370,7 @@ PARAMETER | REQUIRED | DESCRIPTION | TYPE | CONTAINS
 **max_items** | optional | Maximum number of items to process | numeric | |
 **sort_descending** | optional | By default, the sort order for query data is ascending. To reverse the order, set the sort_descending parameter to true | boolean | |
 **consistent_read** | optional | Determines the read consistency model: If set to true, then the operation uses strongly consistent reads; otherwise, the operation uses eventually consistent reads | boolean | |
-**credentials** | optional | Assumed role credentials | string | `aws credentials` |
+**credentials** | optional | Assumed role credentials | password | `aws credentials` |
 
 #### Action Output
 
@@ -1394,7 +1378,6 @@ DATA PATH | TYPE | CONTAINS | EXAMPLE VALUES
 --------- | ---- | -------- | --------------
 action_result.status | string | | success failed |
 action_result.parameter.consistent_read | boolean | | False |
-action_result.parameter.credentials | string | `aws credentials` | {'AccessKeyId': 'ASIASJL6ZZZZZ3M7QC2J', 'Expiration': '2021-06-07 22:28:04', 'SecretAccessKey': '<secret-access-key>', 'SessionToken': 'ZZZZZXIvYXdzEN///////////wEaDFRU0s4AVrw0k0oYICK4ATAzOqzAkg9bHY29lYmP59UvVOHjLufOy4s7SnAzOxGqGIXnukLis4TWNhrJl5R5nYyimrm6K/9d0Cw2SW9gO0ZRjEJHWJ+yY5Qk2QpWctS2BGn4n+G8cD6zEweCCMj+ScI5p8n7YI4wOdvXvOsVMmjV6F09Ujqr1w+NwoKXlglznXGs/7Q1kNZOMiioEhGUyoiHbQb37GCKslDK+oqe0KNaUKQ96YCepaLgMbMquDgdAM8I0TTxUO0o5ILF/gUyLT04R7QlOfktkdh6Qt0atTS+xeKi1hirKRizpJ8jjnxGQIikPRToL2v3ZZZZZZ=='} |
 action_result.parameter.expression_attribute_names | string | | { "#fn" : "firstname"} |
 action_result.parameter.expression_attribute_values | string | | {":fn" : { "S" : "testdata"}} |
 action_result.parameter.filter_expression | string | | #v >= :num |
