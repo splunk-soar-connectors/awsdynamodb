@@ -47,6 +47,10 @@ class AwsDynamodbConnector(BaseConnector):
         self._session_token = None
         self._proxy = None
 
+    @staticmethod
+    def _sanitize_action_parameters(param):
+        return {key: value for key, value in param.items() if key != "credentials"}
+
     def initialize(self):
         self._state = self.load_state()
 
@@ -270,7 +274,7 @@ class AwsDynamodbConnector(BaseConnector):
         temp_credentials = dict()
         if param and "credentials" in param:
             try:
-                temp_credentials = ast.literal_eval(param["credentials"])
+                temp_credentials = ast.literal_eval(param.get("credentials", ""))
                 self._access_key = temp_credentials.get("AccessKeyId", "")
                 self._secret_key = temp_credentials.get("SecretAccessKey", "")
                 self._session_token = temp_credentials.get("SessionToken", "")
@@ -333,7 +337,7 @@ class AwsDynamodbConnector(BaseConnector):
         Create a table in the DynamoDB database
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
         if not self._create_client(action_result, param):
             return action_result.get_status()
 
@@ -526,7 +530,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         delete a table from dynamodb
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -557,7 +561,7 @@ class AwsDynamodbConnector(BaseConnector):
         List all the available tables in the DynamoDB database
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -605,7 +609,7 @@ class AwsDynamodbConnector(BaseConnector):
         Describe a table details
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -630,7 +634,7 @@ class AwsDynamodbConnector(BaseConnector):
         put an item in a table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -687,7 +691,7 @@ class AwsDynamodbConnector(BaseConnector):
         get an item from table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -735,7 +739,7 @@ class AwsDynamodbConnector(BaseConnector):
         delete an item from table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -792,7 +796,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         Update an item in the table
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
         self.save_progress("Querying AWS to validate credentials")
 
         if not self._create_client(action_result, param):
@@ -865,7 +869,7 @@ class AwsDynamodbConnector(BaseConnector):
         query data from table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -965,7 +969,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         Create backup of a table
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -990,7 +994,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         delete backup of a table
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1015,7 +1019,7 @@ class AwsDynamodbConnector(BaseConnector):
         describe details of a table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1093,7 +1097,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         list all the available backups
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1161,7 +1165,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         restore a table from backup
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1231,7 +1235,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         create a global table
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1256,7 +1260,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
         list global tables in region
         """
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1295,7 +1299,7 @@ class AwsDynamodbConnector(BaseConnector):
         describe details of a global table
         """
 
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
 
         if not self._create_client(action_result, param):
             return action_result.get_status()
@@ -1321,7 +1325,7 @@ class AwsDynamodbConnector(BaseConnector):
         """
 
         # Add an action result object to self (BaseConnector) to represent the action for this param
-        action_result = self.add_action_result(ActionResult(dict(param)))
+        action_result = self.add_action_result(ActionResult(self._sanitize_action_parameters(param)))
         self.save_progress("Querying AWS to validate credentials")
 
         if not self._create_client(action_result, param):
