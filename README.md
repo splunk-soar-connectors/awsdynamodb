@@ -1,7 +1,7 @@
 # AWS DynamoDB
 
 Publisher: Splunk <br>
-Connector Version: 1.0.5 <br>
+Connector Version: 1.0.6 <br>
 Product Vendor: AWS <br>
 Product Name: AWS DynamoDB <br>
 Minimum Product Version: 5.5.0
